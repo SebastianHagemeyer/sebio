@@ -6,6 +6,7 @@ Built as a static site (HTML / CSS / vanilla JS), with one module index linking 
 ## Modules
 
 **Body Systems**
+
 - **Excretory System** (`/excretory`) — function of ADH in the kidney.
 - **Islets of Langerhans** (`/islet`) — alpha and beta cells in the pancreas.
 - **Blood Glucose Regulation** (`/bloodglucose`) — how insulin and glucagon maintain blood sugar.
@@ -13,10 +14,12 @@ Built as a static site (HTML / CSS / vanilla JS), with one module index linking 
 - **SRMER** (`/SRMER`) — stimulus–response model scenarios.
 
 **Agriculture**
+
 - **Plant Parts** (`/plantparts`) — macro outline of plant parts and their function.
 - **Photosynthesis** (`/photosynthesis`) — how plants adapt photosynthesis (C3 / C4 / CAM) to their environment.
 
 **Miscellaneous**
+
 - **Other** (`/other`) — non-biology simulations (e.g. `displacement`, `can`, `cellpassport`).
 
 ## Running locally

@@ -1,24 +1,24 @@
-const canvas = document.getElementById('c3Canvas');
-const ctx = canvas.getContext('2d');
-const toggleGasCheckbox = document.getElementById('toggleGas');
+const canvas = document.getElementById("c3Canvas");
+const ctx = canvas.getContext("2d");
+const toggleGasCheckbox = document.getElementById("toggleGas");
 
 // Colors
-const backgroundColor = '#e0f7fa';
-const chloroplastColor = '#4caf50';
-const co2Color = '#f44336';
-const o2Color = '#2196f3';
-const pgaColor = '#03a9f4';
-const phosphoglycolateColor = '#8e44ad';
-const glucoseColor = '#ff9800';
-const h2oColor = '#3498db';
-const rubiscoColor = '#9c27b0';
-const rubpColor = '#ff5722';
+const backgroundColor = "#e0f7fa";
+const chloroplastColor = "#4caf50";
+const co2Color = "#f44336";
+const o2Color = "#2196f3";
+const pgaColor = "#03a9f4";
+const phosphoglycolateColor = "#8e44ad";
+const glucoseColor = "#ff9800";
+const h2oColor = "#3498db";
+const rubiscoColor = "#9c27b0";
+const rubpColor = "#ff5722";
 
 // Chloroplast position and size
 const chloroplast = {
   x: canvas.width / 2,
   y: canvas.height / 2,
-  radius: 100
+  radius: 100,
 };
 
 // Initial positions
@@ -53,7 +53,7 @@ function drawMolecule(position, color, label, visible) {
   ctx.fillStyle = color;
   ctx.fill();
   ctx.stroke();
-  ctx.fillStyle = '#000';
+  ctx.fillStyle = "#000";
   ctx.fillText(label, position.x - 10, position.y - 15);
 }
 
@@ -76,7 +76,7 @@ function produceGlucose() {
     x: productPosition.x,
     y: productPosition.y,
     targetX: chloroplast.x + chloroplast.radius + 200 + offsetX,
-    targetY: chloroplast.y + offsetY
+    targetY: chloroplast.y + offsetY,
   });
   setTimeout(resetGas, 1000); // Reset gas position after 1 second
 }
@@ -86,13 +86,13 @@ function produceCo2AndH2o() {
     x: productPosition.x,
     y: productPosition.y,
     targetX: productPosition.x + Math.random() * 400 - 100,
-    targetY: productPosition.y + Math.random() * 400 - 100
+    targetY: productPosition.y + Math.random() * 400 - 100,
   });
   h2oOutPositions.push({
     x: productPosition.x,
     y: productPosition.y,
     targetX: productPosition.x + Math.random() * 400 - 100,
-    targetY: productPosition.y + Math.random() * 400 - 100
+    targetY: productPosition.y + Math.random() * 400 - 100,
   });
   setTimeout(resetGas, 2500); // Reset gas position after 1 second
 }
@@ -100,8 +100,8 @@ function produceCo2AndH2o() {
 function animate() {
   const isUsingO2 = toggleGasCheckbox.checked;
   const gasColor = isUsingO2 ? o2Color : co2Color;
-  const gasLabel = isUsingO2 ? 'O2' : 'CO2';
-  const productLabel = isUsingO2 ? '2-PG' : '3-PGA';
+  const gasLabel = isUsingO2 ? "O2" : "CO2";
+  const productLabel = isUsingO2 ? "2-PG" : "3-PGA";
   const productColor = isUsingO2 ? phosphoglycolateColor : pgaColor;
 
   ctx.fillStyle = backgroundColor;
@@ -109,8 +109,8 @@ function animate() {
 
   drawChloroplast();
   drawMolecule(gasPosition, gasColor, gasLabel, gasVisible);
-  drawMolecule(rubpPosition, rubpColor, 'RuBP', rubpVisible);
-  drawMolecule(rubiscoPosition, rubiscoColor, 'RuBisCO', true);
+  drawMolecule(rubpPosition, rubpColor, "RuBP", rubpVisible);
+  drawMolecule(rubiscoPosition, rubiscoColor, "RuBisCO", true);
 
   if (!gasReached) {
     if (gasPosition.x < rubpPosition.x - 20) {
@@ -127,12 +127,12 @@ function animate() {
       rubiscoPosition.y -= speed;
     } else {
       rubiscoReached = true;
-      
+
       productPosition = { x: rubpPosition.x, y: rubpPosition.y };
       setTimeout(() => {
         gasVisible = false;
         rubpVisible = false;
-		productProduced = true;
+        productProduced = true;
       }, 500); // Hide gas and RuBP after 0.5 seconds
 
       if (isUsingO2) {
@@ -161,7 +161,7 @@ function animate() {
       pos.y += moveY;
     }
 
-    drawMolecule(pos, glucoseColor, 'Glucose', true);
+    drawMolecule(pos, glucoseColor, "Glucose", true);
   });
 
   co2OutPositions.forEach((pos) => {
@@ -176,7 +176,7 @@ function animate() {
       pos.y += moveY;
     }
 
-    drawMolecule(pos, co2Color, 'CO2', true);
+    drawMolecule(pos, co2Color, "CO2", true);
   });
 
   h2oOutPositions.forEach((pos) => {
@@ -191,7 +191,7 @@ function animate() {
       pos.y += moveY;
     }
 
-    drawMolecule(pos, h2oColor, 'H2O', true);
+    drawMolecule(pos, h2oColor, "H2O", true);
   });
 
   requestAnimationFrame(animate);

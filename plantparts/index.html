@@ -1,150 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Parts of a Plant</title>
-  <link rel="stylesheet" href="/globalstyle.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #eaf4ea;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    h1 {
-      margin-bottom: 1em;
-    }
-
-    .main-container {
-      display: flex;
-      gap: 2em;
-      align-items: flex-start;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .plant-container {
-      position: relative;
-      max-width: 400px;
-      width: 100%;
-    }
-
-    .plant-container img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .part {
-      position: absolute;
-      cursor: pointer;
-      border: 2px solid transparent;
-    }
-
-    .part:hover {
-      border: 2px dashed #4caf50;
-    }
-
-    #info-box {
-      flex: 1;
-      padding: 1em;
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 300px;
-      min-width: 250px;
-      font-size: 1rem;
-    }
-  </style>
-</head>
-
-<body>
-
-  
-  <header>
-    <h1>Click a part of plant</h1>
-    <a href="/">Home</a>
-  </header>
-
-
-  <p>You reap what you sow!</p>
-  <div class="main-container">
-    <div class="plant-container">
-      <img src="/plantparts/plant.png" alt="Plant Diagram">
-
-      <div class="part" style="top: 5%; left: 34%; width: 11%; height: 8%;" onclick="showInfo('Flower')"></div>
-      <div class="part" style="top: 20%; left: 28%; width: 44%; height: 15%;" onclick="showInfo('Leaf')"></div>
-      <div class="part" style="top: 35%; left: 46.5%; width: 6%; height: 30%;" onclick="showInfo('Stem')"></div>
-      <div class="part" style="top: 55%; left: 32%; width: 14%; height: 10%;" onclick="showInfo('Fruit')"></div>
-      <div class="part" style="top: 70%; left: 35%; width: 30%; height: 25%;" onclick="showInfo('Roots')"></div>
-    </div>
-
-    <div id="info-box">
-      <strong>Click a plant part to learn more.</strong>
-    </div>
-
-    <!-- Modal Viewer -->
-    <div id="modal" class="modal" onclick="closeModal()">
-      <span class="close">&times;</span>
-      <img class="modal-content" id="modalImg">
-    </div>
-
-    <div class="image-row">
-      <div class="img-box">
-        <img src="/plantparts/flowertofruit.jpg" alt="Flower to Fruit" onclick="openModal(this)">
-        <p>Flower to Fruit</p>
-      </div>
-      <div class="img-box">
-        <img src="/plantparts/petal.png" alt="Petal" onclick="openModal(this)">
-        <p>Petal</p>
-      </div>
-      <div class="img-box">
-        <img src="/plantparts/anther.png" alt="Anther" onclick="openModal(this)">
-        <p>Anther</p>
-      </div>
-    </div>
-
-
-  </div>
-
-  <script>
-    const infoData = {
-      Flower: {
-        title: "Flower",
-        desc: "The flower helps in reproduction by attracting pollinators and producing seeds."
-      },
-      Leaf: {
-        title: "Leaf",
-        desc: "The leaf is where photosynthesis happens, converting sunlight into energy for the plant."
-      },
-      Stem: {
-        title: "Stem",
-        desc: "The stem supports the plant and transports water, nutrients, and food between roots and leaves."
-      },
-      Fruit: {
-        title: "Fruit",
-        desc: "The fruit protects the seeds and helps in their dispersal."
-      },
-      Roots: {
-        title: "Roots",
-        desc: "Roots anchor the plant in the ground and absorb water and nutrients from the soil."
+  <head>
+    <meta charset="UTF-8" />
+    <title>Parts of a Plant</title>
+    <link rel="stylesheet" href="/globalstyle.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #eaf4ea;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
-    };
 
-    function showInfo(part) {
-      const info = infoData[part];
-      document.getElementById('info-box').innerHTML = `<h3>${info.title}</h3><p>${info.desc}</p>`;
-    }
-  </script>
+      h1 {
+        margin-bottom: 1em;
+      }
 
-  <script src="/scripts/modal.js">
-    
-  </script>
+      .main-container {
+        display: flex;
+        gap: 2em;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
 
-</body>
+      .plant-container {
+        position: relative;
+        max-width: 400px;
+        width: 100%;
+      }
 
+      .plant-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .part {
+        position: absolute;
+        cursor: pointer;
+        border: 2px solid transparent;
+      }
+
+      .part:hover {
+        border: 2px dashed #4caf50;
+      }
+
+      #info-box {
+        flex: 1;
+        padding: 1em;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 300px;
+        min-width: 250px;
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Click a part of plant</h1>
+      <a href="/">Home</a>
+    </header>
+
+    <p>You reap what you sow!</p>
+    <div class="main-container">
+      <div class="plant-container">
+        <img src="/plantparts/plant.png" alt="Plant Diagram" />
+
+        <div
+          class="part"
+          style="top: 5%; left: 34%; width: 11%; height: 8%"
+          onclick="showInfo('Flower')"
+        ></div>
+        <div
+          class="part"
+          style="top: 20%; left: 28%; width: 44%; height: 15%"
+          onclick="showInfo('Leaf')"
+        ></div>
+        <div
+          class="part"
+          style="top: 35%; left: 46.5%; width: 6%; height: 30%"
+          onclick="showInfo('Stem')"
+        ></div>
+        <div
+          class="part"
+          style="top: 55%; left: 32%; width: 14%; height: 10%"
+          onclick="showInfo('Fruit')"
+        ></div>
+        <div
+          class="part"
+          style="top: 70%; left: 35%; width: 30%; height: 25%"
+          onclick="showInfo('Roots')"
+        ></div>
+      </div>
+
+      <div id="info-box">
+        <strong>Click a plant part to learn more.</strong>
+      </div>
+
+      <!-- Modal Viewer -->
+      <div id="modal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg" />
+      </div>
+
+      <div class="image-row">
+        <div class="img-box">
+          <img
+            src="/plantparts/flowertofruit.jpg"
+            alt="Flower to Fruit"
+            onclick="openModal(this)"
+          />
+          <p>Flower to Fruit</p>
+        </div>
+        <div class="img-box">
+          <img src="/plantparts/petal.png" alt="Petal" onclick="openModal(this)" />
+          <p>Petal</p>
+        </div>
+        <div class="img-box">
+          <img src="/plantparts/anther.png" alt="Anther" onclick="openModal(this)" />
+          <p>Anther</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const infoData = {
+        Flower: {
+          title: "Flower",
+          desc: "The flower helps in reproduction by attracting pollinators and producing seeds.",
+        },
+        Leaf: {
+          title: "Leaf",
+          desc: "The leaf is where photosynthesis happens, converting sunlight into energy for the plant.",
+        },
+        Stem: {
+          title: "Stem",
+          desc: "The stem supports the plant and transports water, nutrients, and food between roots and leaves.",
+        },
+        Fruit: {
+          title: "Fruit",
+          desc: "The fruit protects the seeds and helps in their dispersal.",
+        },
+        Roots: {
+          title: "Roots",
+          desc: "Roots anchor the plant in the ground and absorb water and nutrients from the soil.",
+        },
+      };
+
+      function showInfo(part) {
+        const info = infoData[part];
+        document.getElementById("info-box").innerHTML = `<h3>${info.title}</h3><p>${info.desc}</p>`;
+      }
+    </script>
+
+    <script src="/scripts/modal.js"></script>
+  </body>
 </html>

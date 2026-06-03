@@ -1,191 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>SRMER Negative Feedback Match</title>
-    <link rel="stylesheet" href="/globalstyle.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #eef6f9;
-      text-align: center;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <title>SRMER Negative Feedback Match</title>
+    <link rel="stylesheet" href="/globalstyle.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #eef6f9;
+        text-align: center;
+      }
 
-    h1 {
-      color: white;
-    }
-    header{
+      h1 {
+        color: white;
+      }
+      header {
         background-color: gray;
         margin-bottom: 1em;
-    }
+      }
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-    }
+      .container {
+        max-width: 800px;
+        margin: auto;
+      }
 
-    .labels, .dropzones {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      margin-bottom: 1em;
-    }
-
-    .label {
-      font-weight: bold;
-      background: #cce8ef;
-      padding: 0.5em;
-      border-radius: 8px;
-      margin: 0.3em;
-    }
-
-    .drop {
-      min-height: 60px;
-      background: white;
-      border: 2px dashed #bbb;
-      padding: 0.5em;
-      margin: 0.3em;
-      border-radius: 8px;
-      transition: background 0.3s ease;
-    }
-
-    .drop:hover {
-      background: #f0faff;
-    }
-
-    .draggables {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1em;
-      margin-bottom: 1em;
-    }
-
-    .drag {
-      background: #ffffff;
-      border: 2px solid #00bcd4;
-      padding: 0.5em 1em;
-      border-radius: 8px;
-      cursor: grab;
-      transition: background 0.3s ease;
-    }
-
-    .drag:active {
-      cursor: grabbing;
-    }
-
-    button {
-      padding: 0.6em 1.2em;
-      font-size: 1em;
-      background: #00bcd4;
-      border: none;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    #feedback {
-      margin-top: 1em;
-      font-weight: bold;
-    }
-
-    #scenario{
+      .labels,
+      .dropzones {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
         margin-bottom: 1em;
-    }
+      }
 
-    .modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  justify-content: center;
-  align-items: center;
-}
+      .label {
+        font-weight: bold;
+        background: #cce8ef;
+        padding: 0.5em;
+        border-radius: 8px;
+        margin: 0.3em;
+      }
 
-.modal-content {
-  background-color: white;
-  padding: 2em;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 2em;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  animation: popFade 0.4s ease;
-}
+      .drop {
+        min-height: 60px;
+        background: white;
+        border: 2px dashed #bbb;
+        padding: 0.5em;
+        margin: 0.3em;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
 
-.tick {
-  font-size: 3em;
-  color: green;
-  display: block;
-  margin-bottom: 0.5em;
-}
+      .drop:hover {
+        background: #f0faff;
+      }
 
-@keyframes popFade {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
+      .draggables {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1em;
+        margin-bottom: 1em;
+      }
 
-  </style>
-</head>
-<body>
-     <header>
-    <h1>SRMER: Negative Feedback Matching</h1>
-    <p>Drag each example into the correct part of the feedback loop.</p>
+      .drag {
+        background: #ffffff;
+        border: 2px solid #00bcd4;
+        padding: 0.5em 1em;
+        border-radius: 8px;
+        cursor: grab;
+        transition: background 0.3s ease;
+      }
 
-    <a href="/">Home</a>
-  </header>
-  <div class="container">
-     
+      .drag:active {
+        cursor: grabbing;
+      }
 
-<div id="correctModal" class="modal">
-  <div class="modal-content">
-    <span class="tick">✔</span>
-    <p>Correct!</p>
-  </div>
-</div>
+      button {
+        padding: 0.6em 1.2em;
+        font-size: 1em;
+        background: #00bcd4;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+      }
 
-    <label for="scenario">Choose a scenario:</label>
-    <select id="scenario" onchange="loadScenario()">
-      <option value="highGlucose">High Blood Glucose</option>
-      <option value="lowGlucose">Low Blood Glucose</option>
-      <option value="highTemp">High Temperature</option>
-      <option value="lowTemp">Low Temperature</option>
-      <option value="childbirth">Childbirth (Positive Feedback)</option>
-      <option value="adhResponse">ADH, increased osmolarity</option>
-    </select>
+      #feedback {
+        margin-top: 1em;
+        font-weight: bold;
+      }
 
+      #scenario {
+        margin-bottom: 1em;
+      }
 
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        justify-content: center;
+        align-items: center;
+      }
 
+      .modal-content {
+        background-color: white;
+        padding: 2em;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 2em;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        animation: popFade 0.4s ease;
+      }
 
-    <div class="labels">
-      <div class="label">Stimulus</div>
-      <div class="label">Receptor</div>
-      <div class="label">Modulator</div>
-      <div class="label">Effector</div>
-      <div class="label">Response</div>
+      .tick {
+        font-size: 3em;
+        color: green;
+        display: block;
+        margin-bottom: 0.5em;
+      }
+
+      @keyframes popFade {
+        0% {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>SRMER: Negative Feedback Matching</h1>
+      <p>Drag each example into the correct part of the feedback loop.</p>
+
+      <a href="/">Home</a>
+    </header>
+    <div class="container">
+      <div id="correctModal" class="modal">
+        <div class="modal-content">
+          <span class="tick">✔</span>
+          <p>Correct!</p>
+        </div>
+      </div>
+
+      <label for="scenario">Choose a scenario:</label>
+      <select id="scenario" onchange="loadScenario()">
+        <option value="highGlucose">High Blood Glucose</option>
+        <option value="lowGlucose">Low Blood Glucose</option>
+        <option value="highTemp">High Temperature</option>
+        <option value="lowTemp">Low Temperature</option>
+        <option value="childbirth">Childbirth (Positive Feedback)</option>
+        <option value="adhResponse">ADH, increased osmolarity</option>
+      </select>
+
+      <div class="labels">
+        <div class="label">Stimulus</div>
+        <div class="label">Receptor</div>
+        <div class="label">Modulator</div>
+        <div class="label">Effector</div>
+        <div class="label">Response</div>
+      </div>
+
+      <div class="dropzones">
+        <div class="drop" data-type="Stimulus"></div>
+        <div class="drop" data-type="Receptor"></div>
+        <div class="drop" data-type="Modulator"></div>
+        <div class="drop" data-type="Effector"></div>
+        <div class="drop" data-type="Response"></div>
+      </div>
+
+      <div class="draggables" id="draggables"></div>
+
+      <button onclick="checkAnswers()">Check Answers</button>
+      <div id="feedback"></div>
+      <div id="happyBladderCounter" style="font-size: 2em; margin-top: 1em"></div>
     </div>
 
-    <div class="dropzones">
-      <div class="drop" data-type="Stimulus"></div>
-      <div class="drop" data-type="Receptor"></div>
-      <div class="drop" data-type="Modulator"></div>
-      <div class="drop" data-type="Effector"></div>
-      <div class="drop" data-type="Response"></div>
-    </div>
-
-    
-
-     <div class="draggables" id="draggables"></div>
-
-    <button onclick="checkAnswers()">Check Answers</button>
-    <div id="feedback"></div>
-    <div id="happyBladderCounter" style="font-size: 2em; margin-top: 1em;"></div>
-
-  </div>
-
-  <script src = "/SRMER/script.js">
-     </script>
-</body>
+    <script src="/SRMER/script.js"></script>
+  </body>
 </html>

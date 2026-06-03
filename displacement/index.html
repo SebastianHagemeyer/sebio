@@ -1,312 +1,300 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Sharp Mouse Tracker</title>
-    <link rel="stylesheet" href="/globalstyle.css">
+    <link rel="stylesheet" href="/globalstyle.css" />
     <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background: black;
-            color: white;
-            font-family: sans-serif;
-        }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: black;
+        color: white;
+        font-family: sans-serif;
+      }
 
-        canvas {
-            display: block;
-        }
+      canvas {
+        display: block;
+      }
 
-        #hud {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 16px;
-            line-height: 1.5em;
-            z-index: 10;
-        }
+      #hud {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 10px;
+        border-radius: 8px;
+        font-size: 16px;
+        line-height: 1.5em;
+        z-index: 10;
+      }
 
-        #home {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+      #home {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <canvas id="canvas"></canvas>
     <div id="hud">
+      <a id="home" href="/">Home</a>
 
-        <a id="home" href="/">Home</a>
+      <details>
+        <summary><strong>Controls</strong></summary>
+        <div style="margin-top: 8px">
+          <div>Total Distance: <span id="dist">0</span> px</div>
+          <div>Displacement: <span id="disp">0</span> px</div>
+          <div>Average Speed: <span id="avgSpeed">0</span> px/s</div>
+          <div>Current Velocity: <span id="velocity">0</span> px/s</div>
 
-        <details>
-            <summary><strong>Controls</strong></summary>
-            <div style="margin-top: 8px;">
-                <div>Total Distance: <span id="dist">0</span> px</div>
-                <div>Displacement: <span id="disp">0</span> px</div>
-                <div>Average Speed: <span id="avgSpeed">0</span> px/s</div>
-                <div>Current Velocity: <span id="velocity">0</span> px/s</div>
-
-                <div><label><input type="checkbox" id="showTriangle"> Show Displacement Triangle</label></div>
-                <div><label><input type="checkbox" id="showVelocity"> Show Velocity Vector</label></div>
-                <button id="saveBtn">Save as PNG</button>
-            </div>
-        </details>
-
+          <div>
+            <label><input type="checkbox" id="showTriangle" /> Show Displacement Triangle</label>
+          </div>
+          <div>
+            <label><input type="checkbox" id="showVelocity" /> Show Velocity Vector</label>
+          </div>
+          <button id="saveBtn">Save as PNG</button>
+        </div>
+      </details>
     </div>
 
     <script>
-        document.addEventListener("click", (e) => {
-            if (e.target.closest("#hud")) return;
-            setTimeout(() => {
-                resetSimulation(e.clientX, e.clientY);
-            }, 200);
-        });
+      document.addEventListener("click", (e) => {
+        if (e.target.closest("#hud")) return;
+        setTimeout(() => {
+          resetSimulation(e.clientX, e.clientY);
+        }, 200);
+      });
 
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
+      let width = canvas.width;
+      let height = canvas.height;
 
+      let startX = Math.random() * width;
+      let startY = Math.random() * height;
 
+      let mouseX = startX;
+      let mouseY = startY;
 
-        const canvas = document.getElementById("canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+      const ball = {
+        x: startX,
+        y: startY,
+        vx: 0,
+        vy: 0,
+        ax: 0,
+        ay: 0,
+      };
 
-        let width = canvas.width;
-        let height = canvas.height;
+      const trail = [];
+      let totalDistance = 0;
+      let startTime = performance.now();
 
-        let startX = Math.random() * width;
-        let startY = Math.random() * height;
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
 
-        let mouseX = startX;
-        let mouseY = startY;
+      function updatePhysics(dt) {
+        const dx = mouseX - ball.x;
+        const dy = mouseY - ball.y;
+        const distanceToMouse = Math.sqrt(dx * dx + dy * dy) || 0.0001;
 
-        const ball = {
-            x: startX,
-            y: startY,
-            vx: 0,
-            vy: 0,
-            ax: 0,
-            ay: 0
-        };
+        const accelMag = Math.min(distanceToMouse * 0.05, 10); // More aggressive response
+        const normX = dx / distanceToMouse;
+        const normY = dy / distanceToMouse;
 
-        const trail = [];
-        let totalDistance = 0;
-        let startTime = performance.now();
+        // Apply force toward mouse
+        ball.ax = normX * accelMag;
+        ball.ay = normY * accelMag;
 
-        document.addEventListener("mousemove", (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+        // Apply velocity damping (sharper response)
+        const damping = 0.85;
+        ball.vx = (ball.vx + ball.ax * dt * 60) * damping;
+        ball.vy = (ball.vy + ball.ay * dt * 60) * damping;
 
-        function updatePhysics(dt) {
-            const dx = mouseX - ball.x;
-            const dy = mouseY - ball.y;
-            const distanceToMouse = Math.sqrt(dx * dx + dy * dy) || 0.0001;
+        // Integrate position
+        const prevX = ball.x;
+        const prevY = ball.y;
+        ball.x += ball.vx * dt * 60;
+        ball.y += ball.vy * dt * 60;
 
-            const accelMag = Math.min(distanceToMouse * 0.05, 10); // More aggressive response
-            const normX = dx / distanceToMouse;
-            const normY = dy / distanceToMouse;
+        // Track distance travelled
+        const moved = Math.hypot(ball.x - prevX, ball.y - prevY);
+        totalDistance += moved;
 
-            // Apply force toward mouse
-            ball.ax = normX * accelMag;
-            ball.ay = normY * accelMag;
+        trail.push({ x: ball.x, y: ball.y });
+      }
 
-            // Apply velocity damping (sharper response)
-            const damping = 0.85;
-            ball.vx = (ball.vx + ball.ax * dt * 60) * damping;
-            ball.vy = (ball.vy + ball.ay * dt * 60) * damping;
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
 
-            // Integrate position
-            const prevX = ball.x;
-            const prevY = ball.y;
-            ball.x += ball.vx * dt * 60;
-            ball.y += ball.vy * dt * 60;
+        // Trail
+        ctx.beginPath();
+        for (let i = 1; i < trail.length; i++) {
+          ctx.moveTo(trail[i - 1].x, trail[i - 1].y);
+          ctx.lineTo(trail[i].x, trail[i].y);
+        }
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 1;
+        ctx.stroke();
 
-            // Track distance travelled
-            const moved = Math.hypot(ball.x - prevX, ball.y - prevY);
-            totalDistance += moved;
+        // Start point
+        ctx.beginPath();
+        ctx.arc(startX, startY, 8, 0, Math.PI * 2);
+        ctx.fillStyle = "red";
+        ctx.fill();
 
-            trail.push({ x: ball.x, y: ball.y });
+        // Ball
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, 6, 0, Math.PI * 2);
+        ctx.fillStyle = "lime";
+        ctx.fill();
+
+        // Velocity arrow
+        function drawVelocityArrow(x, y, vx, vy) {
+          const ctxScale = 5; // Adjusts arrow length scale
+          const arrowLength = Math.sqrt(vx * vx + vy * vy) * ctxScale;
+          const angle = Math.atan2(vy, vx);
+
+          const endX = x + Math.cos(angle) * arrowLength;
+          const endY = y + Math.sin(angle) * arrowLength;
+
+          // Line
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(endX, endY);
+          ctx.strokeStyle = "red";
+          ctx.lineWidth = 4;
+          ctx.stroke();
+
+          // Arrowhead
+          const headLength = 15;
+          ctx.beginPath();
+          ctx.moveTo(endX, endY);
+          ctx.lineTo(
+            endX - headLength * Math.cos(angle - Math.PI / 6),
+            endY - headLength * Math.sin(angle - Math.PI / 6)
+          );
+          ctx.lineTo(
+            endX - headLength * Math.cos(angle + Math.PI / 6),
+            endY - headLength * Math.sin(angle + Math.PI / 6)
+          );
+          ctx.lineTo(endX, endY);
+          ctx.fillStyle = "red";
+          ctx.fill();
+        }
+        const showVel = document.getElementById("showVelocity").checked;
+        if (showVel && Math.abs(ball.vx) + Math.abs(ball.vy) > 1) {
+          // Call it after the ball is drawn
+          drawVelocityArrow(ball.x, ball.y, ball.vx, ball.vy);
         }
 
-        function draw() {
-            ctx.clearRect(0, 0, width, height);
+        const showTriangle = document.getElementById("showTriangle").checked;
 
-            // Trail
-            ctx.beginPath();
-            for (let i = 1; i < trail.length; i++) {
-                ctx.moveTo(trail[i - 1].x, trail[i - 1].y);
-                ctx.lineTo(trail[i].x, trail[i].y);
-            }
-            ctx.strokeStyle = 'white';
-            ctx.lineWidth = 1;
-            ctx.stroke();
+        if (showTriangle) {
+          // Displacement triangle (Pythagoras)
+          ctx.beginPath();
+          ctx.moveTo(startX, startY); // Start point
+          ctx.lineTo(ball.x, startY); // Horizontal leg
+          ctx.lineTo(ball.x, ball.y); // Vertical leg
+          ctx.moveTo(startX, startY);
+          ctx.lineTo(ball.x, ball.y); // Hypotenuse
+          ctx.strokeStyle = "cyan";
+          ctx.setLineDash([5, 5]);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.setLineDash([]);
 
-            // Start point
-            ctx.beginPath();
-            ctx.arc(startX, startY, 8, 0, Math.PI * 2);
-            ctx.fillStyle = "red";
-            ctx.fill();
-
-            // Ball
-            ctx.beginPath();
-            ctx.arc(ball.x, ball.y, 6, 0, Math.PI * 2);
-            ctx.fillStyle = "lime";
-            ctx.fill();
-
-            // Velocity arrow
-            function drawVelocityArrow(x, y, vx, vy) {
-                const ctxScale = 5; // Adjusts arrow length scale
-                const arrowLength = Math.sqrt(vx * vx + vy * vy) * ctxScale;
-                const angle = Math.atan2(vy, vx);
-
-                const endX = x + Math.cos(angle) * arrowLength;
-                const endY = y + Math.sin(angle) * arrowLength;
-
-                // Line
-                ctx.beginPath();
-                ctx.moveTo(x, y);
-                ctx.lineTo(endX, endY);
-                ctx.strokeStyle = "red";
-                ctx.lineWidth = 4;
-                ctx.stroke();
-
-                // Arrowhead
-                const headLength = 15;
-                ctx.beginPath();
-                ctx.moveTo(endX, endY);
-                ctx.lineTo(
-                    endX - headLength * Math.cos(angle - Math.PI / 6),
-                    endY - headLength * Math.sin(angle - Math.PI / 6)
-                );
-                ctx.lineTo(
-                    endX - headLength * Math.cos(angle + Math.PI / 6),
-                    endY - headLength * Math.sin(angle + Math.PI / 6)
-                );
-                ctx.lineTo(endX, endY);
-                ctx.fillStyle = "red";
-                ctx.fill();
-            }
-            const showVel = document.getElementById("showVelocity").checked;
-            if (showVel && ((Math.abs(ball.vx) +  Math.abs(ball.vy)) > 1)){
-                // Call it after the ball is drawn
-                drawVelocityArrow(ball.x, ball.y, ball.vx, ball.vy);
-            }
-            
-
-
-
-            const showTriangle = document.getElementById("showTriangle").checked;
-            
-            if (showTriangle) {
-                // Displacement triangle (Pythagoras)
-                ctx.beginPath();
-                ctx.moveTo(startX, startY);       // Start point
-                ctx.lineTo(ball.x, startY);       // Horizontal leg
-                ctx.lineTo(ball.x, ball.y);       // Vertical leg
-                ctx.moveTo(startX, startY);
-                ctx.lineTo(ball.x, ball.y);       // Hypotenuse
-                ctx.strokeStyle = "cyan";
-                ctx.setLineDash([5, 5]);
-                ctx.lineWidth = 1;
-                ctx.stroke();
-                ctx.setLineDash([]);
-
-                // Optional: Label dx/dy
-                ctx.fillStyle = "cyan";
-                ctx.font = "12px sans-serif";
-                const horiz = Math.abs(ball.x - startX).toFixed(0);
-                const vert = Math.abs(ball.y - startY).toFixed(0);
-                ctx.fillText(`dx: ${horiz}`, (ball.x + startX) / 2, startY - 5);
-                ctx.fillText(`dy: ${vert}`, ball.x + 5, (ball.y + startY) / 2);
-            }
-
-            // Update HUD
-            const dx = ball.x - startX;
-            const dy = ball.y - startY;
-            const displacement = Math.sqrt(dx * dx + dy * dy);
-            const now = performance.now();
-            const timeElapsed = (now - startTime) / 1000;
-            const avgSpeed = totalDistance / timeElapsed;
-            const velocity = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy) * 60;
-
-            document.getElementById("dist").textContent = round5(totalDistance);
-            document.getElementById("disp").textContent = round5(displacement);
-            document.getElementById("avgSpeed").textContent = round5(avgSpeed);
-            document.getElementById("velocity").textContent = round5(velocity);
-
+          // Optional: Label dx/dy
+          ctx.fillStyle = "cyan";
+          ctx.font = "12px sans-serif";
+          const horiz = Math.abs(ball.x - startX).toFixed(0);
+          const vert = Math.abs(ball.y - startY).toFixed(0);
+          ctx.fillText(`dx: ${horiz}`, (ball.x + startX) / 2, startY - 5);
+          ctx.fillText(`dy: ${vert}`, ball.x + 5, (ball.y + startY) / 2);
         }
 
-        let lastTime = performance.now();
+        // Update HUD
+        const dx = ball.x - startX;
+        const dy = ball.y - startY;
+        const displacement = Math.sqrt(dx * dx + dy * dy);
+        const now = performance.now();
+        const timeElapsed = (now - startTime) / 1000;
+        const avgSpeed = totalDistance / timeElapsed;
+        const velocity = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy) * 60;
 
-        function animate() {
-            const now = performance.now();
-            const dt = (now - lastTime) / 1000;
-            lastTime = now;
+        document.getElementById("dist").textContent = round5(totalDistance);
+        document.getElementById("disp").textContent = round5(displacement);
+        document.getElementById("avgSpeed").textContent = round5(avgSpeed);
+        document.getElementById("velocity").textContent = round5(velocity);
+      }
 
-            updatePhysics(dt);
-            const radius = 6;
-            ball.x = Math.max(radius, Math.min(width - radius, ball.x));
-            ball.y = Math.max(radius, Math.min(height - radius, ball.y));
-            draw();
+      let lastTime = performance.now();
 
-            requestAnimationFrame(animate);
-        }
+      function animate() {
+        const now = performance.now();
+        const dt = (now - lastTime) / 1000;
+        lastTime = now;
 
-        window.addEventListener("resize", () => {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-        });
+        updatePhysics(dt);
+        const radius = 6;
+        ball.x = Math.max(radius, Math.min(width - radius, ball.x));
+        ball.y = Math.max(radius, Math.min(height - radius, ball.y));
+        draw();
 
-        animate();
+        requestAnimationFrame(animate);
+      }
 
-        function round5(val) {
-            return Math.round(val / 5) * 5;
-        }
+      window.addEventListener("resize", () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+      });
 
-        function resetSimulation(clickX, clickY) {
-            startX = clickX;
-            startY = clickY;
+      animate();
 
-            ball.x = clickX;
-            ball.y = clickY;
-            ball.vx = 0;
-            ball.vy = 0;
-            ball.ax = 0;
-            ball.ay = 0;
+      function round5(val) {
+        return Math.round(val / 5) * 5;
+      }
 
-            mouseX = clickX;
-            mouseY = clickY;
+      function resetSimulation(clickX, clickY) {
+        startX = clickX;
+        startY = clickY;
 
-            trail.length = 0;
-            totalDistance = 0;
-            startTime = performance.now();
-        }
+        ball.x = clickX;
+        ball.y = clickY;
+        ball.vx = 0;
+        ball.vy = 0;
+        ball.ax = 0;
+        ball.ay = 0;
 
-        document.getElementById("saveBtn").addEventListener("click", function () {
-            const canvas = document.querySelector("canvas"); // adjust if needed
-            const image = canvas.toDataURL("image/png");
+        mouseX = clickX;
+        mouseY = clickY;
 
-            const link = document.createElement("a");
-            link.download = "mouse-tracker.png";
-            link.href = image;
-            link.click();
-        });
+        trail.length = 0;
+        totalDistance = 0;
+        startTime = performance.now();
+      }
 
+      document.getElementById("saveBtn").addEventListener("click", function () {
+        const canvas = document.querySelector("canvas"); // adjust if needed
+        const image = canvas.toDataURL("image/png");
 
+        const link = document.createElement("a");
+        link.download = "mouse-tracker.png";
+        link.href = image;
+        link.click();
+      });
     </script>
-
-</body>
-
+  </body>
 </html>
