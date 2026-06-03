@@ -1,0 +1,11 @@
+# Normalize line endings to LF for all text files (matches Prettier endOfLine: lf
+# and keeps Windows checkouts consistent with the Ubuntu CI runner).
+* text=auto eol=lf
+
+# Binary assets — never touch.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.mp3 binary
+*.ico binary
