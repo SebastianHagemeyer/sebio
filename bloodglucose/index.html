@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blood Sugar Simulation</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/globalstyle.css">
+
+  <style>
+    
+
+    #islet-container {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      margin: 20px auto 10px auto;
+
+      cursor: pointer;
+
+    }
+
+    #islet {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      border-radius: 50%;
+      background-color: #fce4ec;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .cell {
+      position: absolute;
+      border-radius: 50%;
+      transform-origin: center;
+      transition: all 0.5s ease;
+    }
+
+    .alpha {
+      background-color: #ef5350;
+    }
+
+    .beta {
+      background-color: rgb(32, 142, 189);
+    }
+
+    .dead {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+
+    .islet-layout {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2em;
+      flex-wrap: wrap;
+      /* allows responsive stacking */
+      margin-top: 1em;
+
+
+
+
+      padding: 0.5em 1em;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      min-width: 200px;
+
+    }
+
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+    <h1>Blood Sugar Simulation</h1>
+    <a href="/">Home</a>
+  </header>
+
+
+  <div id="glucoseModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <h2 id="glucoseConditionTitle">Condition</h2>
+    <p id="glucoseConditionText">Description and effects will go here.</p>
+  </div>
+</div>
+
+
+
+  <main class="main-wrapper">
+
+    <!-- Sidebar with controls -->
+    <section class="sidebar">
+      <div class="controls">
+        <div class="slider-group" id="insulinGroup">
+          <label for="insulinSlider">Insulin Production:</label>
+          <input type="range" min="0" max="100" value="50" id="insulinSlider">
+          <span id="insulinOutput">50</span>
+        </div>
+        <div class="slider-group">
+          <label for="glucagonSlider">Glucagon Production:</label>
+          <input type="range" min="0" max="100" value="50" id="glucagonSlider">
+          <span id="glucagonOutput">50</span>
+        </div>
+
+        <div class="islet-layout">
+          <div class="slider-groupnon">
+            <label for="insulinCSlider">Insulin Production Capability:</label>
+            <input type="range" min="0" max="100" value="100" id="insulinCSlider">
+            <span id="insulinCOutput">100</span>
+
+            <div style="display: none;">
+              Beta Cells: <span id="betaCount">40</span> |
+              Alpha Cells: <span id="alphaCount">20</span>
+              <span id="percent" style="display: none;">100</span>
+            </div>
+          </div>
+
+          <div id="islet-container">
+            <div id="islet"></div>
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <label for="diabeticSlider">Insulin Resistance:</label>
+          <input type="range" min="0" max="100" value="0" id="diabeticSlider">
+          <span id="diabeticOutput">0</span>
+        </div>
+      </div>
+
+      <div class="indicator-container">
+        <button id="autopilotStatus" onclick="toggleAutopilot()">Autopilot <br>(Homeostasis): Off</button>
+        <button id="mealStatus" onclick="toggleMeals()">Meals: On</button>
+        <button id="historyStatus" onclick="toggleHistory()">Chart History: On</button>
+        <button id="eatbutton" onclick="eat()">Eat!</button>
+      </div>
+
+      <div class="indicator-container">
+        <button style="background-color: green;"onclick="setType0()">Healthy individual</button>
+        <button style="background-color: orange;" onclick="setType1()">Simulate Type 1 Diabetes</button>
+        <button style="background-color: orange;" onclick="setType2()">Simulate Type 2 Diabetes</button>
+      </div>
+
+
+
+      <!--div class="indicator-container">
+        <p>Glucose intake from food</p>
+        <div class="indicator" id="sugarIndicator"></div>
+      </div-->
+    </section>
+
+    <!-- Main visual content -->
+    <section class="content">
+
+      <div class="glucose-time-row">
+
+        <div class="visual-box">
+          <p id="clock"></p>
+          <svg id="timeLine"></svg>
+          <p><strong>Meal Times:</strong> <span id="mealTimes">8:00, 12:00, 18:00</span></p>
+        </div>
+
+        <div class="visual-box">
+          <p><strong>Blood glucose level</strong></p>
+          <svg id="glucoseLevelLine"></svg>
+        </div>
+        <div class="visual-box" style="max-width: 100px; min-width: 100px; max-height: 200px; min-height: 200px;">
+          <div id="pancreas">
+            <p style="height: 80px !important;"><strong>Body Status:</strong> <span id="pancreasStatus">Normal</span>
+            </p>
+            <!--p>Glucose intake from food</p-->
+            <div class="indicator" id="sugarIndicator"></div>
+            <div style="display: none;">
+
+              <p>Blood Glucose Level: <span id="glucoseLevel">40</span></p>
+              <p>Blood Insulin Level: <span id="insulinLevel">50</span></p>
+              <p>Cell Insulin Level: <span id="insulinLevelC">50</span></p>
+              <p>Blood Glucagon Level: <span id="glucagonLevel">50</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+      <div class="chart-container">
+        <canvas id="glucoseChart"></canvas>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="game.js"></script>
+  <script src="/islet/isletscript.js"></script>
+
+  <script>
+
+
+    setSize(50);
+    updateCells(100);
+
+    document.getElementById("islet-container").addEventListener("click", function () {
+      window.location.href = "/islet";
+    });
+
+
+  </script>
+
+</body>
+
+
+</html>

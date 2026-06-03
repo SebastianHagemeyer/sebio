@@ -1,0 +1,109 @@
+#drop-zone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* so it doesn't interfere with face or interaction */
+  z-index: 1;
+}
+
+.drop {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: url('/peepanic/drop.png') no-repeat center;
+  background-size: contain;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards; /* <--- THIS is the key */
+  z-index: 1;
+}
+
+@keyframes fall {
+  from {
+    top: -30px;
+  }
+  to {
+    top: 174px; /* Hits the bottom of 150px tall bladder */
+  }
+}
+
+@keyframes shrinkPop {
+  0% { transform: scaleY(1); }
+  50% { transform: scaleY(0.5); }
+  100% { transform: scaleY(1); }
+}
+
+
+.floating-score {
+  position: absolute;
+  font-size: 1.5em;
+  color: #ffeb3b;
+  font-weight: bold;
+  pointer-events: none;
+  animation: floatUp 1s ease-out forwards;
+  z-index: 10;
+   text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -100px) scale(1.3);
+  }
+}
+
+
+.animate-shake {
+  animation: shake 1s ease-in-out;
+}
+
+
+@keyframes shake {
+   0%   { transform: translateX(0); }
+  10%  { transform: translateX(-4px); }
+  20%  { transform: translateX(4px); }
+  30%  { transform: translateX(-4px); }
+  40%  { transform: translateX(4px); }
+  50%  { transform: translateX(-4px); }
+  60%  { transform: translateX(4px); }
+  70%  { transform: translateX(-4px); }
+  80%  { transform: translateX(4px); }
+  90%  { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+
+#golden-toilet,
+#golden-toilet img {
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.toilet-sparkle {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: gold;
+    border-radius: 50%;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 999;
+    animation: sparkleFade 0.5s ease-out forwards;
+}
+
+
+@keyframes sparkleFade {
+    0% { opacity: 0.9; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.5); }
+}

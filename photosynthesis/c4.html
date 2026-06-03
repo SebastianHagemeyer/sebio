@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C4 Photosynthesis Animation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      display: block;
+      margin: 20px auto;
+    }
+    label {
+      font-size: 16px;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+    .button-container {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="button-container">
+    <a href="index.html" class="button">Return to Home</a>
+  </div>
+  <h1>C4 Photosynthesis Animation</h1>
+  <label>
+    <input type="checkbox" id="toggleGas" /> Use O2 instead of CO2
+  </label>
+  <canvas id="c4Canvas" width="800" height="600"></canvas>
+  <script src="c4.js"></script>
+</body>
+</html>

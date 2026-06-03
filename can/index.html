@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/globalstyle.css">
+    <title>Gas Particles Interaction with a Can</title>
+    
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background: #000;
+        }
+
+        body,
+        html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        #controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: white;
+        }
+
+        #controls button {
+            background: linear-gradient(to bottom, #ff6600, #cc5200);
+            /* Orange gradient */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+        }
+
+        .button2 {
+            background: linear-gradient(to bottom, #2bff00, #97f094) !important;
+            padding: 5px 10px !important;
+        }
+
+
+        #controls button:hover {
+            background: linear-gradient(to bottom, #ff8533, #e65c00);
+            /* Lighter orange on hover */
+        }
+
+        #controls button:active {
+            transform: scale(0.95);
+            /* Slight shrink effect on click */
+        }
+
+        #pressureContainer {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            width: 300px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            transform: translateX(-50%);
+            overflow: hidden;
+        }
+
+        #pressureBar {
+            width: 0%;
+            height: 100%;
+            background: limegreen;
+            transition: width 0.2s, background 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="bgMusic" loop>
+        <source src="underpressure.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <canvas id="canvas"></canvas>
+    <div id="controls">
+        <a id = "home" href = "/" >Home</a></br></br>
+        <button onclick="toggleLid()">Toggle Lid</button>
+        <br>
+        <label for="speedSlider">Temperature inside can:</label>
+        <input type="range" id="speedSlider" min="0.5" max="2.5" value="1" step="0.1">
+        <div id="particleCounter">Particles inside: 0</div>
+        <br>
+        <button class="button2" onclick="toggleMusic()">Toggle Music</button>
+    </div>
+    <div id="pressureContainer">
+        <div id="pressureBar"></div>
+    </div>
+    <script>
+        // < 10 Shrink, > 25 explode , >= 12 reinflate
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const particleCounter = document.getElementById('particleCounter');
+        const speedSlider = document.getElementById('speedSlider');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const numberOfParticles = 200;
+        const particlesNeeded = 15;
+        const imageURL = './cans1.png';
+
+        const iceImage = new Image();
+        const flameImage = new Image();
+        iceImage.src = './ice.png';   // Path to ice image
+        flameImage.src = './flame.png'; // Path to flame image
+
+
+        function generateRandom() {
+            var num = Math.random() * 0.5;  // Generates a number between 0 and 0.5
+            var sign = Math.round(Math.random()) * 2 - 1; // Randomly gives either 1 or -1
+            return sign * (num + 2); // Shifts the number into the desired range
+        }
+
+
+        // Can initial dimensions
+        const can = {
+            x: canvas.width / 2 - 150,
+            y: canvas.height / 2 - 200,
+            width: 300,
+            height: 400,
+            lidOpen: true,
+            originalWidth: 300, // Keep track of original width for calculations
+            originalHeight: 400, // Keep track of original height for calculations
+            crushed: false
+        };
+
+        // Image setup
+        const imageSources = ['./cans1.png', './cans2.png']; // Example paths for different states
+        const images = imageSources.map(src => {
+            const img = new Image();
+            img.src = src;
+            return img;
+        });
+        let currentImageIndex = 0; // Start with the first image
+
+        function drawTemperatureEffect() {
+            const temperature = parseFloat(speedSlider.value);
+            const effectY = can.y + can.height + 10; // Position the effect just below the can
+            const effectX = can.x + can.width / 2 - 50; // Center the effect horizontally
+
+            var scale = (0.5 + (Math.abs(2 - speedSlider.value)))
+            var extra = 100 * scale * 2
+            var extra2 = 100 * scale / 2
+            if (temperature <= 2.1) {
+                // Draw ice image
+                ctx.drawImage(iceImage, effectX, effectY - (extra2 - 100), 100, 100 * scale / 2);
+            } else if (temperature > 2.1) {
+                // Draw flame image
+                ctx.drawImage(flameImage, effectX, effectY - (extra - 100), 100, 100 * scale * 2);
+            }
+        }
+
+
+        function updateCanState() {
+            const count = countParticlesInCan();
+            const speed = parseFloat(speedSlider.value);
+
+            if (speed > 2 && count < 15 && !can.lidOpen && !can.crushed) {
+                can.width = can.originalWidth - (can.originalWidth * 0.05) + ((can.originalWidth * 0.05) * ((speed - 0.5) / 2)); // speed = 1.5 ,1 speed = 5, 2
+            }
+            // Conditions to shrink the can and change the image
+            if (speed < 1 && count < 10 && !can.lidOpen) {
+                can.crushed = true;
+                can.width = can.originalWidth * 0.8; // Shrink width by 20%
+                //can.height = can.originalHeight * 0.8; // Shrink height by 20%
+                currentImageIndex = 1; // Switch to the second image
+            } else {
+                if (!can.lidOpen && can.crushed && count >= 12 && speed > 2) {
+                    can.crushed = false;
+                    can.width = can.originalWidth;
+                    can.height = can.originalHeight;
+                    currentImageIndex = 0; // Switch back to the first image
+                }
+            }
+        }
+
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = generateRandom();// between -2.5 to -2 and 2 to 2.5
+                this.vy = generateRandom();
+                this.size = 6 //+ Math.random() * 3;
+            }
+
+            isInsideCan() {
+                return this.x > can.x && this.x < can.x + can.width &&
+                    this.y > can.y && this.y < can.y + can.height;
+            }
+
+            update() {
+                const insideCan = this.isInsideCan();
+                const speedFactor = insideCan ? parseFloat(speedSlider.value) : 1;
+
+                // Move the particle
+                this.x += this.vx * speedFactor;
+                this.y += this.vy * speedFactor;
+
+                if (insideCan) {
+                    // Collision with the left or right walls of the can
+                    if (this.x - this.size <= can.x) {
+                        this.x = can.x + this.size; // Prevent sticking
+                        this.vx *= -1; // Reverse velocity
+                    }
+                    if (this.x + this.size >= can.x + can.width) {
+                        this.x = can.x + can.width - this.size; // Prevent sticking
+                        this.vx *= -1; // Reverse velocity
+                    }
+
+                    // Collision with the top of the can (if lid is closed)
+                    if (!can.lidOpen && this.y - this.size <= can.y) {
+                        this.y = can.y + this.size; // Prevent sticking
+                        this.vy *= -1; // Reverse velocity
+                    }
+
+                    // Collision with the bottom of the can
+                    if (this.y + this.size >= can.y + can.height) {
+                        this.y = can.y + can.height - this.size; // Prevent sticking
+                        this.vy *= -1; // Reverse velocity
+                    }
+                } else {
+                    // If outside, bounce off the CAN instead of getting sucked in
+                    if (this.x + this.size >= can.x && this.x - this.size <= can.x + can.width &&
+                        this.y + this.size >= can.y && this.y - this.size <= can.y + can.height) {
+
+                        // If the lid is open and the particle is entering from the top, allow it
+                        if (can.lidOpen && this.x >= can.x && this.y <= can.y + can.height * 0.1) {
+                            return;
+                        }
+
+                        // Determine the nearest can wall and bounce away
+                        const distLeft = Math.abs(this.x - can.x);
+                        const distRight = Math.abs(this.x - (can.x + can.width));
+                        const distTop = Math.abs(this.y - can.y);
+                        const distBottom = Math.abs(this.y - (can.y + can.height));
+
+                        const minDist = Math.min(distLeft, distRight, distTop, distBottom);
+
+                        if (minDist === distLeft) {
+                            this.x = can.x - this.size;  // Move outside the can
+                            this.vx *= -1; // Bounce away
+                        } else if (minDist === distRight) {
+                            this.x = can.x + can.width + this.size;
+                            this.vx *= -1;
+                        } else if (minDist === distTop) {
+                            this.y = can.y - this.size;
+                            this.vy *= -1;
+                        } else if (minDist === distBottom) {
+                            this.y = can.y + can.height + this.size;
+                            this.vy *= -1;
+                        }
+                    }
+                }
+
+                // Bounce off the global canvas boundaries
+                if (this.x - this.size <= 0) {
+                    this.x = this.size;
+                    this.vx *= -1;
+                }
+                if (this.x + this.size >= canvas.width) {
+                    this.x = canvas.width - this.size;
+                    this.vx *= -1;
+                }
+                if (this.y - this.size <= 0) {
+                    this.y = this.size;
+                    this.vy *= -1;
+                }
+                if (this.y + this.size >= canvas.height) {
+                    this.y = canvas.height - this.size;
+                    this.vy *= -1;
+                }
+            }
+
+
+
+
+            draw() {
+                ctx.fillStyle = '#F00';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles dynamically
+        function initializeParticles() {
+            particles.length = 0; // Clear existing particles
+            const particleCount = getParticleCount();
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        // Function to determine the number of particles dynamically
+        function getParticleCount() {
+            const baseParticles = 200; // Number of particles for a standard screen
+            const screenFactor = (canvas.width * canvas.height) / (1920 * 1080); // Normalize to full HD
+            const adjustedParticles = Math.max(Math.floor(baseParticles * screenFactor), 50); // Ensure at least 50 particles
+            return adjustedParticles;
+        }
+        // Function to recenter the can while maintaining its state
+        function recenterCan() {
+            // Keep the can centered based on its current width and height
+            can.x = (canvas.width / 2) - (can.width / 2);
+            can.y = (canvas.height / 2) - (can.height / 2);
+        }
+
+
+        // Resize event listener to adjust particles on screen resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initializeParticles(); // Recalculate particles
+            recenterCan()
+        });
+
+        // Initial particle setup
+        initializeParticles();
+
+        function drawCan() {
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 4; // Increase this value to make the line thicker
+            ctx.beginPath();
+
+            // Draw the left side
+            ctx.moveTo(can.x, can.y);
+            ctx.lineTo(can.x, can.y + can.height);
+
+            // Draw the right side
+            ctx.moveTo(can.x + can.width, can.y);
+            ctx.lineTo(can.x + can.width, can.y + can.height);
+
+            // Draw the bottom
+            ctx.moveTo(can.x, can.y + can.height);
+            ctx.lineTo(can.x + can.width, can.y + can.height);
+
+            // Conditionally draw the top if the lid is closed
+            if (!can.lidOpen) {
+                ctx.moveTo(can.x, can.y);
+                ctx.lineTo(can.x + can.width, can.y);
+            }
+
+            ctx.stroke();
+        }
+
+
+        function drawImage() {
+            const img = images[currentImageIndex];
+            ctx.drawImage(img, can.x, can.y, can.width, can.height);
+        }
+
+        function countParticlesInCan() {
+            return particles.filter(p => p.isInsideCan()).length;
+        }
+
+        function updateParticleCounter() {
+            particleCounter.innerText = "Particles inside: " + countParticlesInCan();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (can.height != 0) {
+                drawTemperatureEffect(); // Draw temperature effect based on the slider value
+                updateCanState(); // Update can size and image based on conditions
+                drawCan();
+            }
+
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            drawImage();
+            updateParticleCounter();
+
+            updatePressureBar(); // Update pressure bar display
+            updateShrapnel(); // Update shrapnel movement
+            drawShrapnel(); // Draw shrapnel
+
+            requestAnimationFrame(animate);
+        }
+
+        function toggleLid() {
+            can.lidOpen = !can.lidOpen;
+        }
+
+        images[0].onload = () => { // Ensure the animation starts when the first image is loaded
+            animate();
+        };
+
+        const pressureBar = document.getElementById("pressureBar");
+
+        function updatePressureBar() {
+            const count = countParticlesInCan();
+            const temp = parseFloat(speedSlider.value);
+
+            // Base pressure calculation
+            let basePressure = count * temp;
+
+            // Ensure 0% pressure when conditions for crushing the can are met
+            if (!can.crushed && !can.lidOpen && count < 10 && temp < 1) {
+                basePressure = 0; // Forces the pressure bar to 0%
+            }
+
+
+            // Ensure 100% pressure when conditions for uncrushing the can are met
+            if (can.crushed && !can.lidOpen && count >= 12 && temp > 2) {
+                basePressure = 100; // Forces the pressure bar to 100%
+            }
+
+            // 🔹 EXPLOSION CONDITION: If > 25 particles inside AND max temperature (2.5), the can explodes!
+            if (count > 25 && temp >= 2.5 && !can.lidOpen) {
+                explodeCan();
+                return; // Stop further updates after explosion
+            }
+
+            // Adjust pressure scaling based on can state
+            let pressure;
+            if (can.crushed) {
+                // Increase pressure faster when crushed
+                let maxCrushedPressure = 100; // Target 100% when uncrushing conditions are met
+                let minCrushedPressure = 40; // Minimum pressure when crushed but low count/temp
+                let normalizedCount = Math.min(count / 12, 1); // Scale count from 0 to 1
+                let normalizedTemp = Math.min((temp - 0.5) / 1.5, 1); // Scale temp from 0 to 1
+
+                pressure = minCrushedPressure + (maxCrushedPressure - minCrushedPressure) * (normalizedCount * normalizedTemp);
+            } else {
+                // Normal pressure behavior
+                let maxNormalPressure = 80;
+                let minNormalPressure = 0; // Now starts at 0%
+                let normalizedCount = Math.min(count / 20, 1); // Scale count
+                let normalizedTemp = Math.min((temp - 0.5) / 2, 1); // Scale temp
+
+                pressure = minNormalPressure + (maxNormalPressure - minNormalPressure) * (normalizedCount * normalizedTemp);
+            }
+
+            // 🔹 Prevent pressure from being 0% when count is 10 or more
+            if (count >= 10) {
+                pressure = Math.max(pressure, 10); // Ensure pressure never drops to 0 when count ≥ 10
+            }
+
+            // Ensure pressure is correctly capped at 0% and 100%
+            let pressurePercentage = Math.min(pressure, 100);
+            pressurePercentage = Math.max(pressurePercentage, 0);
+
+            // If the lid is open, pressure remains neutral at 50%
+            if (can.lidOpen) {
+                pressurePercentage = 50;
+            }
+
+            // Change color from green → yellow → red as pressure increases
+            let color;
+            if (pressurePercentage < 40) {
+                color = "limegreen";
+            } else if (pressurePercentage < 80) {
+                color = "yellow";
+            } else {
+                color = "red";
+            }
+
+            // Apply changes to the bar
+            pressureBar.style.width = pressurePercentage + "%";
+            pressureBar.style.background = color;
+
+        }
+        // Function to explode the can
+        function explodeCan() {
+            //alert("💥 The can exploded!"); // Explosion alert
+            // Create shrapnel effect
+            createShrapnel();
+            // Hide the can briefly to simulate explosion
+            can.width = 0;
+            can.height = 0;
+
+            setTimeout(() => {
+                // Reset the can after explosion
+                can.crushed = false;
+                can.width = can.originalWidth;
+                can.height = can.originalHeight;
+                currentImageIndex = 0; // Switch back to normal can image
+            }, 3000); // Reappear after 3 seconds
+
+            // Scatter particles outside the can
+            particles.forEach(particle => {
+                particle.x = Math.random() * canvas.width;
+                particle.y = Math.random() * canvas.height;
+                particle.vx = (Math.random() - 0.5) * 5; // Random speed
+                particle.vy = (Math.random() - 0.5) * 5;
+            });
+
+            // Remove pressure
+            pressureBar.style.width = "0%";
+        }
+
+        // Function to update and draw shrapnel
+        function updateShrapnel() {
+            shrapnelPieces.forEach((shrapnel, index) => {
+                // Move shrapnel
+                shrapnel.x += shrapnel.vx;
+                shrapnel.y += shrapnel.vy;
+                shrapnel.life--;
+
+                // Remove shrapnel after it "disappears"
+                if (shrapnel.life <= 0) {
+                    shrapnelPieces.splice(index, 1);
+                }
+            });
+        }
+
+        // Function to draw shrapnel
+        function drawShrapnel() {
+            ctx.fillStyle = "gray"; // Shrapnel color
+            shrapnelPieces.forEach(shrapnel => {
+                ctx.beginPath();
+                ctx.arc(shrapnel.x, shrapnel.y, shrapnel.size, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+        }
+
+        // Shrapnel array
+        let shrapnelPieces = [];
+
+        // Function to create shrapnel
+        function createShrapnel() {
+            shrapnelPieces = []; // Clear previous shrapnel
+
+            const numShrapnel = 20; // Number of shrapnel pieces
+            for (let i = 0; i < numShrapnel; i++) {
+                let angle = (Math.PI * 2 * i) / numShrapnel; // Spread evenly in a circle
+                let speed = Math.random() * 5 + 2; // Random speed
+
+                shrapnelPieces.push({
+                    x: can.x + can.width / 2, // Start from center of can
+                    y: can.y + can.height / 2,
+                    vx: Math.cos(angle) * speed, // Velocity outward
+                    vy: Math.sin(angle) * speed,
+                    size: Math.random() * 5 + 3, // Random size
+                    life: 50 // How long shrapnel stays on screen
+                });
+            }
+        }
+
+
+
+        const audio = document.getElementById("bgMusic");
+        // Function to toggle music
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }
+
+    </script>
+	<footer style="position: fixed; bottom: 10px; left: 10px; color: white; font-size: 14px; background: none; padding: 0;">
+    Sebastian Hagemeyer © 2025
+</footer>
+</body>
+
+</html>

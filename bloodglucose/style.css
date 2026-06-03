@@ -1,0 +1,275 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    /* Horizontally center the items within the container */
+    align-items: center;
+    /* Vertically center the items within the container */
+}
+
+#pancreas {
+    margin: 20px;
+    font-size: 0.8em;
+}
+
+svg {
+    width: 50%;
+    height: 100px;
+    border: 1px solid black;
+    /* Add outline */
+    min-height: 50px;
+    /* Set minimum height */
+}
+
+line {
+    stroke-width: 2;
+}
+
+.currentTime {
+    stroke: green;
+}
+
+.mealTime {
+    stroke: brown;
+}
+
+.glucoseLevel {
+    stroke: red;
+}
+
+.critical {
+    stroke: red;
+    stroke-dasharray: 5;
+}
+
+.ideal {
+    stroke: green;
+    stroke-dasharray: 5;
+}
+
+.indicator {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    margin: 0px;
+}
+
+.filled {
+    background-color: green;
+    background-image: url(/bloodglucose/mac.png);
+     background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.empty {
+    background-color: transparent;
+    background-image: none;
+}
+
+.indicator-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Horizontally center the items within the container */
+}
+
+.glucoselevel-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack items vertically */
+    align-items: stretch;
+    /* Stretch items to fill the container vertically */
+    height: 20vh;
+    /* Set height to 20% of the viewport height */
+}
+
+.chart-container {
+    width: 80%;
+    margin: 0 auto;
+    min-height: 300px;
+    max-height: 600px;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+#glucoseChart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+header {
+    background: #2e8b57;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+
+main {
+    padding: 1em;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.slider-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5em 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    min-width: 200px;
+}
+
+.slider-groupnon {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    border-radius: 8px;
+    min-width: 200px;
+}
+
+.indicator-container {
+    margin: 1em 0;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+button {
+    margin: 0.5em;
+    padding: 0.5em 1em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .slider-group {
+        width: 90%;
+    }
+
+    .indicator-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+.main-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1em;
+  gap: 2em;
+}
+
+.sidebar {
+  flex: 1;
+  max-width: 400px;
+}
+
+.content {
+  flex: 2;
+  min-width: 0;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  background: #f2f2f2;
+  padding: 1em;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container {
+  width: 100%;
+}
+
+
+
+
+.glucose-time-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.1em;
+  margin-top: 1em;
+}
+
+.glucose-time-box {
+  flex: 1;
+  text-align: center;
+}
+
+#glucoseLevelLine {
+  width: 5vw;
+  height: 100px;
+  border: 1px solid black;
+}
+
+
+.glucose-time-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.1em;
+  flex-wrap: wrap;
+  margin: 1em auto;
+}
+
+.visual-box {
+    width: auto;
+  text-align: center;
+}
+
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 2em;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  text-align: center;
+}

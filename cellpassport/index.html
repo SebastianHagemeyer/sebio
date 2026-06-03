@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cell Passport Explorer</title>
+  <style>
+    body{margin:0;background:#0b1020;color:#e7ecff;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;display:flex;flex-direction:column;align-items:center;padding:20px}
+    h1{margin:0 0 8px}
+    .switch{display:flex;gap:8px;margin-bottom:12px}
+    .switch button{padding:10px 14px;border-radius:12px;background:#121a34;border:1px solid #27315b;color:#e7ecff;cursor:pointer;font-size:15px}
+    .switch button.active{border-color:#5aa9ff;background:#0e1530}
+    .canvas{position:relative}
+    img{width:520px;max-width:92vw;border-radius:12px;transition:opacity .25s ease}
+    .overlay{position:absolute;inset:0;animation:pulse 1.2s ease-in-out infinite;mix-blend-mode:normal;will-change:opacity;transform:translateZ(0)}
+    @keyframes pulse{0%{opacity:1}50%{opacity:.2}100%{opacity:1}}
+    .progress{width:100%;max-width:520px;height:12px;background:#1a223f;border-radius:6px;overflow:hidden;margin-top:12px}
+    .fill{height:100%;width:0;background:#5aa9ff;transition:width .3s}
+    .nav{margin-top:16px;display:flex;gap:12px}
+    .nav button{padding:10px 14px;border-radius:12px;background:#121a34;border:1px solid #27315b;color:#e7ecff;cursor:pointer;font-size:16px}
+    .nav button:hover,.switch button:hover{border-color:#5aa9ff}
+    .text{max-width:520px;margin-top:18px;white-space:pre-wrap;line-height:1.5;color:#a9b4d9}
+  </style>
+</head>
+<body>
+  <h1>Cell Passport</h1>
+  <div class="switch">
+    <button id="btnAnimal" class="active">🐾 Animal cell</button>
+    <button id="btnPlant">🌿 Plant cell</button>
+  </div>
+
+  <div class="canvas">
+    <img id="base" src="animalstage0.png" alt="stage">
+    <img id="overlay" class="overlay" alt="overlay">
+  </div>
+  <div class="progress"><div class="fill" id="fill"></div></div>
+  <div class="nav">
+    <button id="prev">Prev</button>
+    <button id="next">Next</button>
+  </div>
+  <div id="info" class="text"></div>
+
+  <script>
+    const animalStages = [
+      {id:0,image:"animalstage0.png",text:"This is a cell, the basic unit of life.\n\nWhat do you think these three big areas might be for?\n\nWhich part protects the cell?\nWhich part holds everything?\nWhich part might be in charge?"},
+      {id:1,image:"animalstage1.png",text:"Cell Membrane → boundary\nCytoplasm → medium\nNucleus → control centre\n\nThese are the core parts that make up every cell. They give the cell its structure, space, and control."},
+      {id:2,image:"animalstage2.png",text:"Mitochondria → energy\nRibosomes → protein building\n\nCells need power and building blocks. These organelles provide energy and make proteins to keep the cell running."},
+      {id:3,image:"animalstage3.png",text:"Endoplasmic Reticulum (ER) → transport\nGolgi Apparatus → packaging/shipping\n\nOnce parts are made, they have to be moved and organised. These organelles act like the cell’s transport and postal systems."},
+      {id:4,image:"animalstage4.png",text:"Lysosomes → waste disposal\n\nCells create waste too. Lysosomes break down and recycle unwanted material to keep the cell clean."},
+      {id:5,image:"animalstage5.png",text:"Small Vacuoles → storage & recycling\n\nAnimal cells also have vacuoles, but they are much smaller and used mainly for storage and moving materials around inside the cell."}
+    ];
+
+    const plantStages = [
+      {id:0,image:"plantstage0.png",text:"This is a cell, the basic unit of life.\n\nWhat do you think these three big areas might be for?\n\nWhich part protects the cell?\nWhich part holds everything?\nWhich part might be in charge?"},
+      {id:1,image:"plantstage1.png",text:"Cell Membrane → boundary\nCytoplasm → medium\nNucleus → control centre\n\nThese are the core parts that make up every cell. They give the cell its structure, space, and control."},
+      {id:2,image:"plantstage2.png",text:"Mitochondria → energy\nRibosomes → protein building\n\nCells need power and building blocks. These organelles provide energy and make proteins to keep the cell running."},
+      {id:3,image:"plantstage3.png",text:"Endoplasmic Reticulum (ER) → transport\nGolgi Apparatus → packaging/shipping\n\nOnce parts are made, they have to be moved and organised. These organelles act like the cell’s transport and postal systems."},
+      {id:4,image:"plantstage4.png",text:"Lysosomes → waste disposal\n\nCells create waste too. Lysosomes break down and recycle unwanted material to keep the cell clean."},
+      {id:5,image:"plantstage5.png",text:"Chloroplasts → photosynthesis\nCell Wall → support\nLarge Central Vacuole → storage, support, and recycling\n\nPlant cells have extra features: chloroplasts capture sunlight to make food, the cell wall provides strength and protection, and the large vacuole stores water and nutrients. It also helps keep the cell firm and supports the plant’s structure."}
+    ];
+
+    let currentSet = 'animal';
+    let stage = 0;
+
+    const base = document.getElementById('base');
+    const overlay = document.getElementById('overlay');
+    const fill = document.getElementById('fill');
+    const info = document.getElementById('info');
+
+    function stagesFor(set){ return set==='animal' ? animalStages : plantStages; }
+
+    function overlayPath(set, s){
+      if(s === 0) return null; // no overlay on overview
+      const list = stagesFor(set);
+      return list[s].image.replace('.png','_changed.png'); // current stage overlay flashes
+    }
+
+    function setStage(s){
+      const list = stagesFor(currentSet);
+      stage = Math.max(0, Math.min(list.length - 1, s));
+      const curr = list[Math.max(0,stage-1)];
+      const currt = list[Math.max(0,stage)];
+      base.style.opacity = 0;
+      overlay.style.opacity = 0;
+      requestAnimationFrame(()=>{
+        base.src = curr.image;
+        base.onload = () => base.style.opacity = 1;
+        const overlaySrc = overlayPath(currentSet, stage);
+        if(overlaySrc){
+          overlay.src = overlaySrc;
+          overlay.style.display = 'block';
+          overlay.style.animation = 'none';
+          void overlay.offsetWidth; // restart animation
+          overlay.style.animation = 'pulse 1.2s ease-in-out infinite';
+          overlay.onload = () => overlay.style.opacity = 1;
+        } else {
+          overlay.style.display = 'none';
+        }
+        info.textContent = currt.text;
+        fill.style.width = ((stage / (list.length - 1)) * 100) + '%';
+      });
+    }
+
+    document.getElementById('btnAnimal').onclick = ()=>{ currentSet='animal'; stage=0; setStage(0); };
+    document.getElementById('btnPlant').onclick = ()=>{ currentSet='plant'; stage=0; setStage(0); };
+
+    document.getElementById('next').onclick = ()=> setStage(stage + 1);
+    document.getElementById('prev').onclick = ()=> setStage(stage - 1);
+
+    setStage(0);
+  </script>
+</body>
+</html>

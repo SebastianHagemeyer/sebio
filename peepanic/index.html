@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pee Panic: Osmoregulation Game</title>
+    <link rel="stylesheet" href="/globalstyle.css">
+    <link rel="stylesheet" href="/peepanic/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #d0f4f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #00bcd4;
+            color: white;
+            padding: 1em;
+        }
+
+        #status,
+        #scoreboard,
+        #timer {
+            margin: 1em 0 0.5em;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        #scoreboard {
+            font-size: 1em;
+            color: #444;
+            /* Slightly different from #333, keep if intended */
+            margin-bottom: 0.5em;
+        }
+
+        #timer {
+            font-size: 1em;
+            margin-bottom: 1em;
+        }
+
+        #controls {
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+            margin-bottom: 1em;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="range"] {
+            width: 150px;
+        }
+
+        #events {
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+            margin-bottom: 1em;
+        }
+
+        button.event-btn {
+            width: 100px;
+            height: 100px;
+            line-height: 1;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            background-color: #00bcd4;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            user-select: none;
+        }
+
+        button.event-btn:hover:not(.disabled) {
+            background-color: #0288a7;
+        }
+
+        button.event-btn:active:not(.disabled) {
+            background-color: #026f88;
+        }
+
+        button.event-btn.disabled {
+            background-color: #ccc !important;
+            pointer-events: none;
+            color: #666;
+            cursor: default;
+        }
+
+        /* Fix emoji vertical alignment inside buttons */
+        button.event-btn span.emoji {
+            font-size: 1.2em;
+            line-height: 1;
+            vertical-align: middle;
+            margin-left: 0.25em;
+        }
+
+        #happyBladderCounter {
+            font-size: 2em;
+            margin-top: 0.5em;
+        }
+
+        #pee-message,
+        #penalties {
+            margin-top: 1em;
+            font-size: 1.1em;
+            min-height: 1.5em;
+            height: 1.5em;
+            /* reserve space */
+        }
+
+        #penalties {
+            color: darkred;
+        }
+
+        #bladder-container {
+            margin-top: 0em;
+            width: 100px;
+            height: 150px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            background: #eee;
+            border: 4px solid #999;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        #bladder-fill {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: #ffeb3b;
+            transition: height 0.3s ease;
+            z-index: 2;
+        }
+
+        #face {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5em;
+            pointer-events: none;
+            user-select: none;
+            z-index: 3;
+        }
+
+        #adhControl {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 200px;
+            height: 12px;
+            border-radius: 6px;
+            background: linear-gradient(to right, #ffeb3b, #0072ff);
+            outline: none;
+            margin: 10px auto;
+            display: block;
+            box-shadow: 0 0 5px #00bcd4aa;
+            transition: background 0.3s;
+        }
+
+        #adhControl::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: url('/peepanic/drop.png') no-repeat center;
+            background-size: cover;
+            cursor: pointer;
+            box-shadow: 0 0 3px #0072ff;
+            border: 2px solid white;
+        }
+
+        #adhControl::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: url('/peepanic/drop.png') no-repeat center;
+            background-size: cover;
+            cursor: pointer;
+            border: 2px solid white;
+        }
+
+        #name-entry{
+            margin-top: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Pee Panic: Osmoregulation Game</h1>
+        <h2>Pee as much as you can!</h2>
+        <a href="/">Home</a>
+
+        <a href="/peepanic/leaderboard/" style="margin-left:  5em;">Leaderboard</a>
+    </header>
+
+    <div id="happyBladderCounter" style="font-size: 2em; margin-top: 1em;"></div>
+    <div id="penalties"></div>
+
+    <div id="bladder-container">
+        <div id="drop-zone"></div> <!-- Drops fall inside the bladder -->
+        <div id="bladder-fill"></div>
+        <div id="face">😐</div>
+    </div>
+
+    <div id="status">
+        Water Level: <span id="waterLevel">50</span> | Salt Level: <span id="saltLevel">50</span> | Bladder: <span
+            id="bladderLevel">0</span>
+    </div>
+
+    <div id="controls">
+        <div class="slider-group">
+            <label for="adhControl">ADH Level</label>
+            <input type="range" id="adhControl" min="0" max="90" value="50">
+        </div>
+    </div>
+    <div id="events">
+        <button class="event-btn" id="drinkBtn" onclick="drinkWater()">Drink Water</button>
+        <button id="saltBtn" class="event-btn" onclick="eatSalt()">Eat</button>
+        <button class="event-btn" onclick="sweatStorm()">Sweat!</button>
+        <button class="event-btn" id="peeBtn" onclick="peeNow()">Pee Now 💧</button>
+    </div>
+
+
+    <div id="timer">
+        Time Left: <span id="timeLeft">120</span> seconds
+    </div>
+
+    <div id="scoreboard">
+        Score: <span id="score">0</span>
+
+    </div>
+
+    <div id="pee-message"></div>
+
+    <br>
+
+
+    <div id="golden-toilet" style="
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+">
+  <img src="/peepanic/toilet.png" style="width: 100%; height: 100%;">
+</div>
+
+    <script src="game.js">
+
+    </script>
+
+    <div id="gameover"
+        style="display:none !important; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); color:white; font-size:2em; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:9999;">
+        <p id="gameover-text"></p>
+        <button id="retry-btn" onclick="restartGame()">Retry</button>
+
+        <div id="name-entry" style="display:none !important;">
+            
+            <input type="text" id="player-name" maxlength="20" placeholder="Enter your name">
+            <button id="sub-btn" onclick="submit()">Submit Score</button>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

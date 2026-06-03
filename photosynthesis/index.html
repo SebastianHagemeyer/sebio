@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photosynthesis Pathways</title>
+  <link rel="stylesheet" href="/globalstyle.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 10px;
+      width: 80%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .card h2 {
+      margin-top: 0;
+    }
+    .image {
+      width: 100%;
+      max-width: 60vw;
+      height: auto;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Photosynthesis Pathways</h1>
+    <a href="/">Home</a>
+  </header>
+
+  <div class="container">
+    
+    <div id="c3" class="card"></div>
+    <div id="c4" class="card"></div>
+    <div id="cam" class="card"></div>
+  </div>
+
+  <script>
+    class Photosynthesis {
+      constructor(type, carbonFixation, specialAdaptation, examplePlants, imageUrl, link) {
+        this.type = type;
+        this.carbonFixation = carbonFixation;
+        this.specialAdaptation = specialAdaptation;
+        this.examplePlants = examplePlants;
+        this.imageUrl = imageUrl;
+        this.link = link;
+      }
+
+      render(elementId) {
+        const element = document.getElementById(elementId);
+        element.innerHTML = `
+          <h2>${this.type} Pathway</h2>
+          <img src="${this.imageUrl}" alt="${this.type} Pathway" class="image">
+          <p><strong>Carbon Fixation Process:</strong> ${this.carbonFixation}</p>
+          <p><strong>Special Adaptation:</strong> ${this.specialAdaptation}</p>
+          <p><strong>Example Plants:</strong> ${this.examplePlants.join(', ')}</p>
+          <a href="${this.link}" class="button">Explore Simulation</a>
+        `;
+      }
+    }
+
+    const c3 = new Photosynthesis(
+      'C3',
+      'CO2 is directly fixed into a 3-carbon compound (3-PGA) using the enzyme RuBisCO.',
+      'Most efficient under cool, moist conditions with normal light.',
+      ['Rice', 'Wheat', 'Soybeans'],
+      './1.png',
+      'c3.html'
+    );
+
+    const c4 = new Photosynthesis(
+      'C4',
+      'CO2 is initially fixed into a 4-carbon compound (oxaloacetate) which is later converted to malate and transported to bundle-sheath cells where CO2 is released and re-fixed by RuBisCO.',
+      'Minimizes photorespiration and is efficient under high light intensity and high temperatures.',
+      ['Maize', 'Sugarcane', 'Sorghum'],
+      './2.png',
+      'c4.html'
+    );
+
+    const cam = new Photosynthesis(
+      'CAM',
+      'CO2 is fixed at night into a 4-carbon compound (malate) and stored in vacuoles. During the day, CO2 is released for photosynthesis.',
+      'Adaptation to arid conditions by opening stomata at night to reduce water loss.',
+      ['Cacti', 'Succulents', 'Pineapple'],
+      './3.png',
+      'cam.html'
+    );
+
+    c3.render('c3');
+    c4.render('c4');
+    cam.render('cam');
+  </script>
+</body>
+</html>

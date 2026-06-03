@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>Leaderboard – Pee Panic</title>
+  <link rel="stylesheet" href="/globalstyle.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #d0f4f7;
+      color: #333;
+
+    }
+
+    header {
+      background: #00bcd4;
+      margin-bottom: 1em;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+
+
+    #leaderboard {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 1em 2em;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    #leaderboard h2 {
+      margin-bottom: 1em;
+      color: #00bcd4;
+    }
+
+    #leaderboard-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #leaderboard-list li {
+      font-size: 1.1em;
+      margin: 0.5em 0;
+      padding: 0.3em 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    #leaderboard-list li:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Pee Panic Leaderboard</h1>
+    <a href="/peepanic/" class="home-link"> Home</a>
+  </header>
+
+  <div id="leaderboard">
+    <h2>🏆 Top Players</h2>
+    <ul id="leaderboard-list">
+      <li>Loading...</li>
+    </ul>
+  </div>
+
+  <script>
+    async function loadLeaderboard() {
+      try {
+        const res = await fetch("https://retirementcoin.io/get_peederboard.php");
+        const data = await res.json();
+        const list = document.getElementById("leaderboard-list");
+        list.innerHTML = "";
+
+        data.forEach((entry, index) => {
+          const li = document.createElement("li");
+          li.textContent = `${index + 1}. ${entry.name}: ${entry.score}`;
+          list.appendChild(li);
+        });
+      } catch (err) {
+        console.error("Failed to load leaderboard:", err);
+        document.getElementById("leaderboard-list").innerHTML = "<li>Error loading leaderboard</li>";
+      }
+    }
+
+    loadLeaderboard();
+  </script>
+
+</body>
+
+</html>
