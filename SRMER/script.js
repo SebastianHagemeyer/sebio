@@ -1,5 +1,5 @@
-const drops = document.querySelectorAll('.drop');
-const draggablesContainer = document.getElementById('draggables');
+const drops = document.querySelectorAll(".drop");
+const draggablesContainer = document.getElementById("draggables");
 let gameover = false;
 
 /*const scenarios = {
@@ -18,7 +18,7 @@ const scenarios = {
       Receptor: "Beta cells in pancreas",
       Modulator: "Pancreas",
       Effector: "Liver cells",
-      Response: "Glucose stored as glycogen"
+      Response: "Glucose stored as glycogen",
     },
     decoys: [
       "Drop in blood glucose",
@@ -26,8 +26,8 @@ const scenarios = {
       "Sweat glands and skin arterioles",
       "Vasoconstriction",
       "Oxytocin surge",
-      "ADH secretion"
-    ]
+      "ADH secretion",
+    ],
   },
   lowGlucose: {
     correct: {
@@ -35,7 +35,7 @@ const scenarios = {
       Receptor: "Alpha cells in pancreas",
       Modulator: "Pancreas",
       Effector: "Liver cells",
-      Response: "Release of glucose into blood"
+      Response: "Release of glucose into blood",
     },
     decoys: [
       "Rise in blood glucose",
@@ -43,8 +43,8 @@ const scenarios = {
       "Sweat glands",
       "Shivering",
       "Thyroid hormone release",
-      "Stretch receptors in cervix"
-    ]
+      "Stretch receptors in cervix",
+    ],
   },
   highTemp: {
     correct: {
@@ -52,7 +52,7 @@ const scenarios = {
       Receptor: "Thermoreceptors in skin and brain",
       Modulator: "Hypothalamus",
       Effector: "Sweat glands and skin arterioles",
-      Response: "Sweating and vasodilation"
+      Response: "Sweating and vasodilation",
     },
     decoys: [
       "Drop in blood glucose",
@@ -60,8 +60,8 @@ const scenarios = {
       "Alpha cells activated",
       "Shivering and vasoconstriction",
       "Glucose stored as glycogen",
-      "Insulin release"
-    ]
+      "Insulin release",
+    ],
   },
   lowTemp: {
     correct: {
@@ -69,7 +69,7 @@ const scenarios = {
       Receptor: "Thermoreceptors in skin and brain",
       Modulator: "Hypothalamus",
       Effector: "Skeletal muscles and skin arterioles",
-      Response: "Shivering and vasoconstriction"
+      Response: "Shivering and vasoconstriction",
     },
     decoys: [
       "Sweating and vasodilation",
@@ -77,8 +77,8 @@ const scenarios = {
       "Oxytocin surge",
       "Liver stores glycogen",
       "Increased heart rate",
-      "Cervix pressure"
-    ]
+      "Cervix pressure",
+    ],
   },
   childbirth: {
     correct: {
@@ -86,7 +86,7 @@ const scenarios = {
       Receptor: "Stretch receptors in cervix",
       Modulator: "Hypothalamus",
       Effector: "Pituitary gland releases oxytocin",
-      Response: "Stronger uterine contractions"
+      Response: "Stronger uterine contractions",
     },
     decoys: [
       "Glucose stored as glycogen",
@@ -94,38 +94,36 @@ const scenarios = {
       "Shivering",
       "Vasodilation",
       "Sweat glands",
-      "Pancreas"
-    ]
+      "Pancreas",
+    ],
   },
   adhResponse: {
-  correct: {
-    Stimulus: "Increase in blood osmolarity",
-    Receptor: "Osmoreceptors in hypothalamus",
-    Modulator: "Hypothalamus and posterior pituitary",
-    Effector: "Kidney collecting ducts",
-    Response: "More water reabsorbed, concentrated urine"
+    correct: {
+      Stimulus: "Increase in blood osmolarity",
+      Receptor: "Osmoreceptors in hypothalamus",
+      Modulator: "Hypothalamus and posterior pituitary",
+      Effector: "Kidney collecting ducts",
+      Response: "More water reabsorbed, concentrated urine",
+    },
+    decoys: [
+      "Drop in blood glucose",
+      "Alpha cells in pancreas",
+      "Liver cells store glycogen",
+      "Sweat glands increase output",
+      "Vasoconstriction in skin arterioles",
+      "Release of insulin",
+      "Thyroxine release",
+    ],
   },
-  decoys: [
-    "Drop in blood glucose",
-    "Alpha cells in pancreas",
-    "Liver cells store glycogen",
-    "Sweat glands increase output",
-    "Vasoconstriction in skin arterioles",
-    "Release of insulin",
-    "Thyroxine release"
-  ]
-}
-
-
 };
 
 function loadScenario() {
-  const selected = document.getElementById('scenario').value;
+  const selected = document.getElementById("scenario").value;
   const set = scenarios[selected];
 
   // Clear previous draggables and dropzones
   draggablesContainer.innerHTML = "";
-  drops.forEach(drop => {
+  drops.forEach((drop) => {
     drop.textContent = "";
     drop.removeAttribute("data-drop-type");
     drop.classList.remove("correct", "incorrect");
@@ -134,107 +132,98 @@ function loadScenario() {
   // Combine correct entries and decoys
   const correctEntries = Object.entries(set.correct).map(([type, label]) => ({
     type,
-    label
+    label,
   }));
 
-  const decoyEntries = set.decoys.map(label => ({
+  const decoyEntries = set.decoys.map((label) => ({
     type: "Decoy",
-    label
+    label,
   }));
 
   const allItems = correctEntries.concat(decoyEntries);
   shuffleArray(allItems);
 
   // Generate draggable elements
-  allItems.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'drag';
-    div.setAttribute('draggable', 'true');
-    div.setAttribute('data-type', item.type);
+  allItems.forEach((item) => {
+    const div = document.createElement("div");
+    div.className = "drag";
+    div.setAttribute("draggable", "true");
+    div.setAttribute("data-type", item.type);
     div.textContent = item.label;
     draggablesContainer.appendChild(div);
   });
 
   // Enable drag-drop functionality
   enableDragging();
-
-  // Store current scenario’s correct mapping for validation
-  currentScenario = set.correct;
 }
 
 function enableDragging() {
-
-
-  
-
-  const drags = document.querySelectorAll('.drag');
-drags.forEach(originalDrag => {
+  const drags = document.querySelectorAll(".drag");
+  drags.forEach((originalDrag) => {
     const drag = originalDrag.cloneNode(true); // Remove old listeners
     originalDrag.replaceWith(drag); // Replace element
 
-    drag.addEventListener('dragstart', e => {
-        e.dataTransfer.setData('type', drag.dataset.type);
-        e.dataTransfer.setData('label', drag.textContent);
+    drag.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("type", drag.dataset.type);
+      e.dataTransfer.setData("label", drag.textContent);
     });
 
     // Click to place in first empty drop zone
-    drag.addEventListener('click', () => {
-        for (let drop of drops) {
-            if (!drop.textContent) {
-                drop.textContent = drag.textContent;
-                drop.setAttribute('data-drop-type', drag.dataset.type);
-                drag.remove();
-                break;
-            }
+    drag.addEventListener("click", () => {
+      for (let drop of drops) {
+        if (!drop.textContent) {
+          drop.textContent = drag.textContent;
+          drop.setAttribute("data-drop-type", drag.dataset.type);
+          drag.remove();
+          break;
         }
+      }
     });
-});
+  });
 
+  drops.forEach((drop) => {
+    drop.addEventListener("dragover", (e) => e.preventDefault());
+    drop.addEventListener("drop", (e) => {
+      e.preventDefault();
+      const label = e.dataTransfer.getData("label");
+      const type = e.dataTransfer.getData("type");
 
-  drops.forEach(drop => {
-    drop.addEventListener('dragover', e => e.preventDefault());
-    drop.addEventListener('drop', e => {
-    e.preventDefault();
-    const label = e.dataTransfer.getData('label');
-    const type = e.dataTransfer.getData('type');
+      // If there's already an item in the drop, return it to draggables
+      const existingLabel = drop.textContent;
+      const existingType = drop.getAttribute("data-drop-type");
 
-    // If there's already an item in the drop, return it to draggables
-    const existingLabel = drop.textContent;
-    const existingType = drop.getAttribute('data-drop-type');
-
-    if (existingLabel && existingType) {
-        const returnDiv = document.createElement('div');
-        returnDiv.className = 'drag';
-        returnDiv.setAttribute('draggable', 'true');
-        returnDiv.setAttribute('data-type', existingType);
+      if (existingLabel && existingType) {
+        const returnDiv = document.createElement("div");
+        returnDiv.className = "drag";
+        returnDiv.setAttribute("draggable", "true");
+        returnDiv.setAttribute("data-type", existingType);
         returnDiv.textContent = existingLabel;
         draggablesContainer.appendChild(returnDiv);
         enableDragging(); // re-enable drag for the new element
-    }
+      }
 
-    // Place the new item
-    drop.textContent = label;
-    drop.setAttribute('data-drop-type', type);
+      // Place the new item
+      drop.textContent = label;
+      drop.setAttribute("data-drop-type", type);
 
-    // Remove the dragged item from the draggable container
-    const dragElements = document.querySelectorAll('.drag');
-    dragElements.forEach(drag => {
+      // Remove the dragged item from the draggable container
+      const dragElements = document.querySelectorAll(".drag");
+      dragElements.forEach((drag) => {
         if (drag.textContent === label && drag.dataset.type === type) {
-            drag.remove();
+          drag.remove();
         }
+      });
     });
-});
 
+    drop.addEventListener("click", () => {
+      const existingLabel = drop.textContent;
+      const existingType = drop.getAttribute("data-drop-type");
 
-drop.addEventListener('click', () => {
-    const existingLabel = drop.textContent;
-    const existingType = drop.getAttribute('data-drop-type');
-
-    if (existingLabel && existingType) {
-        const returnDiv = document.createElement('div');
-        returnDiv.className = 'drag';
-        returnDiv.setAttribute('draggable', 'true');
-        returnDiv.setAttribute('data-type', existingType);
+      if (existingLabel && existingType) {
+        const returnDiv = document.createElement("div");
+        returnDiv.className = "drag";
+        returnDiv.setAttribute("draggable", "true");
+        returnDiv.setAttribute("data-type", existingType);
         returnDiv.textContent = existingLabel;
         draggablesContainer.appendChild(returnDiv);
         enableDragging(); // Re-enable dragging for the new item
@@ -242,40 +231,39 @@ drop.addEventListener('click', () => {
         drop.textContent = "";
         drop.removeAttribute("data-drop-type");
         drop.classList.remove("correct", "incorrect");
-    }
-});
-
+      }
+    });
   });
 }
 
 function checkAnswers() {
   if (gameover) {
-    return
+    return;
   }
-  const selected = document.getElementById('scenario').value;
+  const selected = document.getElementById("scenario").value;
   const correctSet = scenarios[selected];
   let correct = true;
 
-  drops.forEach(drop => {
-    const expected = drop.getAttribute('data-type');
-    const actual = drop.getAttribute('data-drop-type');
+  drops.forEach((drop) => {
+    const expected = drop.getAttribute("data-type");
+    const actual = drop.getAttribute("data-drop-type");
     if (expected !== actual) correct = false;
   });
 
-  const feedback = document.getElementById('feedback');
-  feedback.textContent = correct ? "✅ All correct! Well done." : "❌ Some are incorrect. Try again!";
+  const feedback = document.getElementById("feedback");
+  feedback.textContent = correct
+    ? "✅ All correct! Well done."
+    : "❌ Some are incorrect. Try again!";
   feedback.style.color = correct ? "green" : "red";
-
 
   if (correct) {
     const modal = document.getElementById("correctModal");
-modal.style.display = "flex";
+    modal.style.display = "flex";
 
-// Auto-close after 1.5 seconds
-setTimeout(() => {
-  modal.style.display = "none";
-}, 1500);
-
+    // Auto-close after 1.5 seconds
+    setTimeout(() => {
+      modal.style.display = "none";
+    }, 1500);
 
     happyBladders += 1;
     updateHappyBladders();
@@ -299,15 +287,10 @@ setTimeout(() => {
       select.selectedIndex = 0;
       loadScenario();
     } else {
-
       feedback.textContent += " 🎉 All scenarios completed!";
       gameover = true;
     }
-
-
   }
-
-
 }
 
 function shuffleArray(arr) {

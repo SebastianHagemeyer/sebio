@@ -72,8 +72,8 @@ function generateMixedPositions(alphaCount, betaCount, radius, alphaSize, betaSi
       allCells.push({
         x,
         y,
-        type: allCells.length < alphaCount ? 'alpha' : 'beta',
-        size: newSize
+        type: allCells.length < alphaCount ? "alpha" : "beta",
+        size: newSize,
       });
     }
 
@@ -89,19 +89,22 @@ function updateCells(percent) {
   betaCountDisplay.textContent = liveBeta;
   alphaCountDisplay.textContent = alphaCellsCount;
 
-  const spacingRadius = (isletSize * 0.4) * (0.7 + 0.3 * (percent / 100));
+  const spacingRadius = isletSize * 0.4 * (0.7 + 0.3 * (percent / 100));
   const minSize = isletSize * 0.065; // scale 20 at 300
   const maxSize = isletSize * 0.083; // scale 25 at 300
   const betaSize = minSize + (maxSize - minSize) * (percent / 100);
   const alphaSize = maxSize;
 
   const allPositions = generateMixedPositions(
-    alphaCellsCount, liveBeta,
-    spacingRadius, alphaSize, betaSize
+    alphaCellsCount,
+    liveBeta,
+    spacingRadius,
+    alphaSize,
+    betaSize
   );
 
-  const alphaPositions = allPositions.filter(p => p.type === 'alpha');
-  const betaPositions = allPositions.filter(p => p.type === 'beta');
+  const alphaPositions = allPositions.filter((p) => p.type === "alpha");
+  const betaPositions = allPositions.filter((p) => p.type === "beta");
 
   // Position alpha cells
   alphaCells.forEach((cell, i) => {
@@ -129,10 +132,3 @@ function updateCells(percent) {
     }
   });
 }
-
-
-// Initialize
-//setSize(300); // You can change this to any starting size like 200 or 400
-// Initial render
-//updateCells(100);
-
