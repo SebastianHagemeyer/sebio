@@ -1,0 +1,26 @@
+{
+  "name": "sebio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interactive biology learning platform — static HTML/CSS/JS simulations and mini-games",
+  "author": "Sebastian Hagemeyer",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SebastianHagemeyer/sebio.git"
+  },
+  "scripts": {
+    "start": "serve .",
+    "format": "prettier --write \"**/*.{html,css,js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{html,css,js,json,md}\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "eslint": "^9.39.4",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.3",
+    "serve": "^14.2.6"
+  }
+}

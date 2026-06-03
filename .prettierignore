@@ -1,0 +1,8 @@
+# Dependencies
+node_modules/
+
+# Build output (Eleventy, added in Phase 2)
+_site/
+
+# Lockfiles (managed by npm)
+package-lock.json
