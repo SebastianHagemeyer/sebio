@@ -63,7 +63,7 @@
 
       .drag {
         background: #ffffff;
-        border: 2px solid #00bcd4;
+        border: 2px solid var(--color-accent);
         padding: 0.5em 1em;
         border-radius: 8px;
         cursor: grab;
@@ -77,10 +77,10 @@
       button {
         padding: 0.6em 1.2em;
         font-size: 1em;
-        background: #00bcd4;
+        background: var(--color-accent);
         border: none;
         color: white;
-        border-radius: 6px;
+        border-radius: var(--radius-sm);
         cursor: pointer;
       }
 
@@ -106,10 +106,10 @@
         align-items: center;
       }
 
-      .modal-content {
+      .scenario-modal-content {
         background-color: white;
         padding: 2em;
-        border-radius: 10px;
+        border-radius: var(--radius-lg);
         text-align: center;
         font-size: 2em;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -144,7 +144,7 @@
     </header>
     <div class="container">
       <div id="correctModal" class="modal">
-        <div class="modal-content">
+        <div class="scenario-modal-content">
           <span class="tick">✔</span>
           <p>Correct!</p>
         </div>
