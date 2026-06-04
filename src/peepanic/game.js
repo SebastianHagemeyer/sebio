@@ -602,34 +602,10 @@ function submit() {
 }
 
 async function submitScore(id, name, score) {
-  const url = "https://retirementcoin.io/update_peederboard.php"; // Change to your actual URL
-
-  const payload = {
-    ID: id,
-    name: name,
-    score: score,
-  };
-
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      console.log("Server Response:", result.message);
-      // Optionally update UI
-    } else {
-      console.error("Server Error:", result.message);
-    }
-  } catch (err) {
-    console.error("Fetch Error:", err);
-  }
+  // Delegates to the shared Supabase-backed leaderboard client. `id` is unused
+  // (Supabase generates the row id). See /scripts/leaderboard.js.
+  if (!window.Leaderboard) throw new Error("Leaderboard client not loaded");
+  return window.Leaderboard.submitScore(name, score);
 }
 
 // GOLDEN TOILET SHIT

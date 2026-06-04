@@ -50,13 +50,22 @@ navExtra: '<a href="/peepanic/" style="margin-left: 5em">← Pee Panic</a>'
   </ul>
 </div>
 
+<script src="/scripts/leaderboard.js"></script>
 <script>
   async function loadLeaderboard() {
+    const list = document.getElementById("leaderboard-list");
     try {
-      const res = await fetch("https://retirementcoin.io/get_peederboard.php");
-      const data = await res.json();
-      const list = document.getElementById("leaderboard-list");
-      list.innerHTML = "";
+      const data = await window.Leaderboard.getScores(10);
+      list.textContent = "";
+
+      if (!data.length) {
+        const li = document.createElement("li");
+        li.textContent = window.Leaderboard.isConfigured()
+          ? "No scores yet — be the first!"
+          : "Leaderboard not configured yet.";
+        list.appendChild(li);
+        return;
+      }
 
       data.forEach((entry, index) => {
         const li = document.createElement("li");
@@ -65,7 +74,10 @@ navExtra: '<a href="/peepanic/" style="margin-left: 5em">← Pee Panic</a>'
       });
     } catch (err) {
       console.error("Failed to load leaderboard:", err);
-      document.getElementById("leaderboard-list").innerHTML = "<li>Error loading leaderboard</li>";
+      list.textContent = "";
+      const li = document.createElement("li");
+      li.textContent = "Error loading leaderboard";
+      list.appendChild(li);
     }
   }
 

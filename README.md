@@ -37,11 +37,21 @@ npm run format   # Prettier (write)
 npm run lint     # ESLint
 ```
 
-The site uses root-absolute paths (e.g. `/globalstyle.css`) and is intended for a
-GitHub Pages user/apex deploy where `_site/` is the site root.
+## Deployment
+
+`.github/workflows/deploy.yml` builds `_site/` and publishes it to GitHub Pages
+on every push to `main` (enable Pages → Source: **GitHub Actions** in repo
+settings).
+
+> **Path note:** the site uses root-absolute paths (e.g. `/globalstyle.css`), so
+> it must be served from the **site root** (apex). A GitHub Pages _project_ site
+> serves at `username.github.io/sebio/` (a subpath), which breaks those paths —
+> use a **custom domain** or a **`username.github.io` user repo** to serve at the
+> apex, or rework the paths to be base-aware.
 
 ## Notes
 
-- The Pee Panic leaderboard reads/writes to an external endpoint (to be moved to a
-  serverless function behind a configurable base URL).
+- The **Pee Panic leaderboard** is backed by Supabase — see
+  [`docs/leaderboard-setup.md`](docs/leaderboard-setup.md). It degrades
+  gracefully until you add your project URL + anon key in `src/scripts/leaderboard.js`.
 - Blood Glucose loads Chart.js (pinned, with SRI) from a CDN.
