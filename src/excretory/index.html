@@ -1,290 +1,274 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Kidney Filtration & ADH</title>
-    <link rel="stylesheet" href="/globalstyle.css" />
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        background: #f4f4f4;
-      }
+---
+layout: base.njk
+title: Kidney Function & ADH Simulation
+modal: true
+---
 
-      section {
-        padding: 1em;
-      }
+<style>
+  body {
+    background: #f4f4f4;
+  }
 
-      .tube-sim {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 1em;
-      }
+  section {
+    padding: 1em;
+  }
 
-      .collecting-duct {
-        width: 60px;
-        height: 300px;
-        background: #ccc;
-        position: relative;
-        margin: 0 2em;
-        border-radius: 10px;
-        overflow: hidden;
-      }
+  .tube-sim {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+  }
 
-      .water {
-        width: 20px;
-        height: 20px;
-        background: #f5ce2f;
-        border-radius: 50%;
-        position: absolute;
-        left: 20px;
-        animation: fall 4s linear forwards;
-      }
+  .collecting-duct {
+    width: 60px;
+    height: 300px;
+    background: #ccc;
+    position: relative;
+    margin: 0 2em;
+    border-radius: 10px;
+    overflow: hidden;
+  }
 
-      .reabsorbed {
-        background: blue !important;
-      }
+  .water {
+    width: 20px;
+    height: 20px;
+    background: #f5ce2f;
+    border-radius: 50%;
+    position: absolute;
+    left: 20px;
+    animation: fall 4s linear forwards;
+  }
 
-      @keyframes fall {
-        0% {
-          top: 0;
-        }
+  .reabsorbed {
+    background: blue !important;
+  }
 
-        100% {
-          top: 300px;
-        }
-      }
+  @keyframes fall {
+    0% {
+      top: 0;
+    }
 
-      @keyframes leakCustom {
-        0% {
-          top: 0;
-          left: 20px;
-          opacity: 1;
-        }
+    100% {
+      top: 300px;
+    }
+  }
 
-        100% {
-          top: 150px;
-          left: calc(20px + var(--side-shift, 0px));
-          opacity: 0;
-        }
-      }
+  @keyframes leakCustom {
+    0% {
+      top: 0;
+      left: 20px;
+      opacity: 1;
+    }
 
-      .controls {
-        text-align: center;
-        margin: 2em 0;
-      }
+    100% {
+      top: 150px;
+      left: calc(20px + var(--side-shift, 0px));
+      opacity: 0;
+    }
+  }
 
-      .controls input[type="range"] {
-        width: 300px;
-      }
+  .controls {
+    text-align: center;
+    margin: 2em 0;
+  }
 
-      .slide-container {
-        max-width: 600px;
-        margin: auto;
-        background: white;
-        padding: 1em;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      }
+  .controls input[type="range"] {
+    width: 300px;
+  }
 
-      .slide {
-        display: none;
-      }
+  .slide-container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
 
-      .slide.active {
-        display: block;
-      }
+  .slide {
+    display: none;
+  }
 
-      .tube-sim-container {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 2em;
-      }
+  .slide.active {
+    display: block;
+  }
 
-      .legend {
-        background: #fff;
-        padding: 1em;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        font-size: 0.9em;
-        max-width: 200px;
-      }
+  .tube-sim-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2em;
+  }
 
-      .legend h3 {
-        margin-top: 0;
-      }
+  .legend {
+    background: #fff;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 0.9em;
+    max-width: 200px;
+  }
 
-      .legend-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.5em;
-      }
+  .legend h3 {
+    margin-top: 0;
+  }
 
-      .legend-box {
-        width: 20px;
-        height: 20px;
-        margin-right: 0.5em;
-        border: 1px solid #aaa;
-        border-radius: 50%;
-      }
-    </style>
-  </head>
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em;
+  }
 
-  <body>
-    <header style="background-color: #ecd473">
-      <h1>Kidney Function & ADH Simulation</h1>
-      <a href="/">Home</a>
-    </header>
-    <section>
-      <h2>ADH and Collecting Duct Simulation</h2>
-      <div class="controls">
-        <label for="adhSlider">ADH Level (0 = None, 100 = High):</label><br />
-        <input
-          type="range"
-          id="adhSlider"
-          min="0"
-          max="100"
-          value="20"
-          oninput="updateADH(this.value)"
-        />
-        <p>Current ADH Level: <span id="adhLevel">20</span>%</p>
-      </div>
-      <div class="tube-sim-container">
-        <div class="tube-sim">
-          <div class="collecting-duct" id="duct"></div>
-        </div>
-        <div class="legend">
-          <h3>Legend</h3>
-          <div class="legend-item">
-            <span id="peelegend" class="legend-box" style="background-color: #f5ce2f"></span> Water
-            lost/released as urine
-          </div>
-          <div class="legend-item">
-            <span class="legend-box" style="background-color: blue"></span> Water reabsorbed
-          </div>
-        </div>
-      </div>
-    </section>
-    <section>
-      <h2>Concept Slides</h2>
-      <div class="slide-container">
-        <div class="slide active">
-          ADH (antidiuretic hormone) helps the kidneys retain water by making the collecting duct
-          walls permeable to water.
-        </div>
-        <div class="slide">
-          When you're dehydrated, ADH levels rise. Water is reabsorbed from the duct into the
-          bloodstream.
-        </div>
-        <div class="slide">
-          When ADH is absent, ducts are impermeable. Water stays in the duct and becomes urine.
-        </div>
-        <div class="slide">
-          This process is part of osmoregulation, balancing water and salts to maintain homeostasis.
-        </div>
-      </div>
-      <div class="controls">
-        <button onclick="prevSlide()">Previous</button>
-        <button onclick="nextSlide()">Next</button>
-      </div>
-    </section>
+  .legend-box {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5em;
+    border: 1px solid #aaa;
+    border-radius: 50%;
+  }
+</style>
 
-    <!-- Modal Viewer -->
-    <div id="modal" class="modal" onclick="closeModal()">
-      <span class="close">&times;</span>
-      <img class="modal-content" id="modalImg" />
+<section>
+  <h2>ADH and Collecting Duct Simulation</h2>
+  <div class="controls">
+    <label for="adhSlider">ADH Level (0 = None, 100 = High):</label><br />
+    <input
+      type="range"
+      id="adhSlider"
+      min="0"
+      max="100"
+      value="20"
+      oninput="updateADH(this.value)"
+    />
+    <p>Current ADH Level: <span id="adhLevel">20</span>%</p>
+  </div>
+  <div class="tube-sim-container">
+    <div class="tube-sim">
+      <div class="collecting-duct" id="duct"></div>
     </div>
-
-    <div class="image-row">
-      <div class="img-box">
-        <img src="/excretory/nephron.jpg" alt="Kidney/Nephron" onclick="openModal(this)" />
-        <p>Kidney/Nephron</p>
+    <div class="legend">
+      <h3>Legend</h3>
+      <div class="legend-item">
+        <span id="peelegend" class="legend-box" style="background-color: #f5ce2f"></span> Water
+        lost/released as urine
       </div>
-      <div class="img-box">
-        <img src="/excretory/ADH.png" alt="ADH on Nephron" onclick="openModal(this)" />
-        <p>ADH on Nephron</p>
+      <div class="legend-item">
+        <span class="legend-box" style="background-color: blue"></span> Water reabsorbed
       </div>
     </div>
+  </div>
+</section>
+<section>
+  <h2>Concept Slides</h2>
+  <div class="slide-container">
+    <div class="slide active">
+      ADH (antidiuretic hormone) helps the kidneys retain water by making the collecting duct walls
+      permeable to water.
+    </div>
+    <div class="slide">
+      When you're dehydrated, ADH levels rise. Water is reabsorbed from the duct into the
+      bloodstream.
+    </div>
+    <div class="slide">
+      When ADH is absent, ducts are impermeable. Water stays in the duct and becomes urine.
+    </div>
+    <div class="slide">
+      This process is part of osmoregulation, balancing water and salts to maintain homeostasis.
+    </div>
+  </div>
+  <div class="controls">
+    <button onclick="prevSlide()">Previous</button>
+    <button onclick="nextSlide()">Next</button>
+  </div>
+</section>
 
-    <script src="/scripts/modal.js"></script>
+<div class="image-row">
+  <div class="img-box">
+    <img src="/excretory/nephron.jpg" alt="Kidney/Nephron" onclick="openModal(this)" />
+    <p>Kidney/Nephron</p>
+  </div>
+  <div class="img-box">
+    <img src="/excretory/ADH.png" alt="ADH on Nephron" onclick="openModal(this)" />
+    <p>ADH on Nephron</p>
+  </div>
+</div>
 
-    <script>
-      const duct = document.getElementById("duct");
-      const adhSlider = document.getElementById("adhSlider");
-      const adhLevelDisplay = document.getElementById("adhLevel");
-      let adh = 20;
+<script src="/scripts/modal.js"></script>
 
-      function getPeeColor(t) {
-        // Clamp t to range [0, 1]
-        t = Math.max(0, Math.min(1, t));
+<script>
+  const duct = document.getElementById("duct");
+  const adhSlider = document.getElementById("adhSlider");
+  const adhLevelDisplay = document.getElementById("adhLevel");
+  let adh = 20;
 
-        // Dark yellow pee: #d1a300 → RGB(209, 163, 0)
-        // Light yellow:     #ffffe0 → RGB(255, 255, 224)
+  function getPeeColor(t) {
+    // Clamp t to range [0, 1]
+    t = Math.max(0, Math.min(1, t));
 
-        const start = { r: 209, g: 163, b: 0 };
-        const end = { r: 255, g: 255, b: 224 };
+    // Dark yellow pee: #d1a300 → RGB(209, 163, 0)
+    // Light yellow:     #ffffe0 → RGB(255, 255, 224)
 
-        // Linear interpolation
-        const r = Math.round(start.r + t * (end.r - start.r));
-        const g = Math.round(start.g + t * (end.g - start.g));
-        const b = Math.round(start.b + t * (end.b - start.b));
+    const start = { r: 209, g: 163, b: 0 };
+    const end = { r: 255, g: 255, b: 224 };
 
-        return `rgb(${r}, ${g}, ${b})`;
-      }
+    // Linear interpolation
+    const r = Math.round(start.r + t * (end.r - start.r));
+    const g = Math.round(start.g + t * (end.g - start.g));
+    const b = Math.round(start.b + t * (end.b - start.b));
 
-      function createWaterParticle() {
-        const drop = document.createElement("div");
-        drop.classList.add("water");
+    return `rgb(${r}, ${g}, ${b})`;
+  }
 
-        // Set pee-yellow based on ADH level (inverse relationship)
-        const t = 1 - adh / 100; // less ADH = darker pee
-        drop.style.backgroundColor = getPeeColor(t);
+  function createWaterParticle() {
+    const drop = document.createElement("div");
+    drop.classList.add("water");
 
-        const peelegend = document.getElementById("peelegend");
-        peelegend.style.backgroundColor = getPeeColor(t);
+    // Set pee-yellow based on ADH level (inverse relationship)
+    const t = 1 - adh / 100; // less ADH = darker pee
+    drop.style.backgroundColor = getPeeColor(t);
 
-        if (Math.random() < adh / 100) {
-          drop.classList.add("reabsorbed");
+    const peelegend = document.getElementById("peelegend");
+    peelegend.style.backgroundColor = getPeeColor(t);
 
-          const sideShift = (Math.random() - 0.5) * 160; // range approx -80 to +80
-          drop.style.setProperty("--side-shift", `${sideShift}px`);
-          drop.style.animation = "leakCustom 4s linear forwards";
-        }
+    if (Math.random() < adh / 100) {
+      drop.classList.add("reabsorbed");
 
-        duct.appendChild(drop);
-        setTimeout(() => {
-          if (drop.parentNode) drop.remove();
-        }, 4000);
-      }
+      const sideShift = (Math.random() - 0.5) * 160; // range approx -80 to +80
+      drop.style.setProperty("--side-shift", `${sideShift}px`);
+      drop.style.animation = "leakCustom 4s linear forwards";
+    }
 
-      setInterval(createWaterParticle, 100);
+    duct.appendChild(drop);
+    setTimeout(() => {
+      if (drop.parentNode) drop.remove();
+    }, 4000);
+  }
 
-      function updateADH(value) {
-        adh = parseInt(value);
-        adhLevelDisplay.textContent = adh;
-      }
+  setInterval(createWaterParticle, 100);
 
-      // Slideshow Logic
-      const slides = document.querySelectorAll(".slide");
-      let currentSlide = 0;
+  function updateADH(value) {
+    adh = parseInt(value);
+    adhLevelDisplay.textContent = adh;
+  }
 
-      function showSlide(index) {
-        slides.forEach((slide, i) => {
-          slide.classList.toggle("active", i === index);
-        });
-      }
+  // Slideshow Logic
+  const slides = document.querySelectorAll(".slide");
+  let currentSlide = 0;
 
-      function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-      }
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === index);
+    });
+  }
 
-      function prevSlide() {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        showSlide(currentSlide);
-      }
-    </script>
-  </body>
-</html>
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+  }
+</script>

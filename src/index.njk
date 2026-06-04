@@ -1,0 +1,20 @@
+---
+layout: base.njk
+title: Interactive Biology Simulations
+subtitle: by Sebastian Hagemeyer
+tagline: Select a module to explore
+hideHome: true
+bodyClass: catalog
+---
+
+<main>
+  {% for group in catalog %}
+  <h2>{{ group.category }}</h2>
+  {% for item in group.items %}
+  <a class="sim-link" href="{{ item.href }}">
+    <div class="sim-title">{{ item.title }}</div>
+    <div class="sim-desc">{{ item.desc }}</div>
+  </a>
+  {% endfor %}
+  {% endfor %}
+</main>

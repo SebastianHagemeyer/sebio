@@ -1,0 +1,15 @@
+<header>
+  <h1>{{ title }}</h1>
+  {%- if subtitle %}
+  <h2 style="font-weight: normal; margin-top: 0.2em">{{ subtitle }}</h2>
+  {%- endif %}
+  {%- if tagline %}
+  <p>{{ tagline }}</p>
+  {%- endif %}
+  {%- if not hideHome %}
+  <a id="home" href="/">Home</a>
+  {%- endif %}
+  {%- if navExtra %}
+  {{ navExtra | safe }}
+  {%- endif %}
+</header>

@@ -1,0 +1,67 @@
+[
+  {
+    "category": "Body Systems",
+    "items": [
+      {
+        "title": "Excretory System Simulation",
+        "desc": "Explore the function of ADH in the kidney.",
+        "href": "/excretory"
+      },
+      {
+        "title": "Islets of Langerhans",
+        "desc": "Understand the presence of alpha and beta cells in the pancreas.",
+        "href": "/islet"
+      },
+      {
+        "title": "Blood Glucose Regulation",
+        "desc": "Understand how insulin and glucagon maintain blood sugar, as well as malfunctions.",
+        "href": "/bloodglucose"
+      },
+      {
+        "title": "Pee Panic",
+        "desc": "Osmoregulation game.",
+        "href": "/peepanic"
+      },
+      {
+        "title": "SRMER",
+        "desc": "Stimulus Response model scenarios to solve.",
+        "href": "/SRMER"
+      }
+    ]
+  },
+  {
+    "category": "Cell Biology",
+    "items": [
+      {
+        "title": "Cell Passport",
+        "desc": "Explore animal and plant cell organelles stage by stage.",
+        "href": "/cellpassport"
+      }
+    ]
+  },
+  {
+    "category": "Agriculture",
+    "items": [
+      {
+        "title": "Plant Parts",
+        "desc": "Basic macro outline of plant parts and their function.",
+        "href": "/plantparts"
+      },
+      {
+        "title": "Photosynthesis",
+        "desc": "Explore how plants adapt photosynthesis to their environments.",
+        "href": "/photosynthesis"
+      }
+    ]
+  },
+  {
+    "category": "Miscellaneous",
+    "items": [
+      {
+        "title": "Other Games/Simulations",
+        "desc": "Non-Biology Simulations.",
+        "href": "/other"
+      }
+    ]
+  }
+]

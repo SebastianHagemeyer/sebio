@@ -1,65 +1,21 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Simulations Index</title>
-    <link rel="stylesheet" href="/globalstyle.css" />
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background: #eef2f3;
-        margin: 0;
-        padding: 0;
-      }
-      main {
-        padding: 2em;
-        max-width: 800px;
-        margin: auto;
-      }
-      .sim-link {
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 1.5em;
-        margin-bottom: 1.5em;
-        text-decoration: none;
-        color: #333;
-        display: block;
-        transition: background 0.3s;
-      }
-      .sim-link:hover {
-        background: #e2f0e5;
-      }
-      .sim-title {
-        font-size: 1.5em;
-        margin-bottom: 0.2em;
-      }
-      .sim-desc {
-        font-size: 1em;
-      }
-    </style>
-  </head>
-  <body>
-    <header style="background-color: #333">
-      <h1>Interactive Simulations</h1>
-      <h2 style="font-weight: normal; margin-top: 0.2em">by Sebastian Hagemeyer</h2>
-      <p>Select a module to explore</p>
-      <a href="/">Home</a>
-    </header>
-    <main>
-      <h2>Physics</h2>
-      <a class="sim-link" href="/can">
-        <div class="sim-title">Atmospheric Pressure Demo</div>
-        <div class="sim-desc">Can crush experiment as a simulation.</div>
-      </a>
+---
+layout: base.njk
+title: Other Games/Simulations
+bodyClass: catalog
+---
 
-      <a class="sim-link" href="/displacement">
-        <div class="sim-title">Sharp Mouse Tracker</div>
-        <div class="sim-desc">
-          Watch how your mouse moves: see its displacement, speed, and velocity update live with
-          visual aids and motion paths.
-        </div>
-      </a>
-    </main>
-  </body>
-</html>
+<main>
+  <h2>Physics</h2>
+  <a class="sim-link" href="/can">
+    <div class="sim-title">Atmospheric Pressure Demo</div>
+    <div class="sim-desc">Can crush experiment as a simulation.</div>
+  </a>
+
+  <a class="sim-link" href="/displacement">
+    <div class="sim-title">Sharp Mouse Tracker</div>
+    <div class="sim-desc">
+      Watch how your mouse moves: see its displacement, speed, and velocity update live with visual
+      aids and motion paths.
+    </div>
+  </a>
+</main>
