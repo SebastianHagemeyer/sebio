@@ -1,7 +1,8 @@
 # SEBIO — Interactive Biology Simulations
 
 A collection of interactive biology learning modules and mini-games by Sebastian Hagemeyer.
-Built as a static site (HTML / CSS / vanilla JS), with one module index linking out to each simulation.
+A static site of vanilla HTML / CSS / JS, built with [Eleventy](https://www.11ty.dev/):
+source lives in `src/`, the production build outputs to `_site/`.
 
 ## Modules
 
@@ -13,6 +14,10 @@ Built as a static site (HTML / CSS / vanilla JS), with one module index linking 
 - **Pee Panic** (`/peepanic`) — osmoregulation game (with online leaderboard).
 - **SRMER** (`/SRMER`) — stimulus–response model scenarios.
 
+**Cell Biology**
+
+- **Cell Passport** (`/cellpassport`) — explore animal and plant cell organelles stage by stage.
+
 **Agriculture**
 
 - **Plant Parts** (`/plantparts`) — macro outline of plant parts and their function.
@@ -20,23 +25,23 @@ Built as a static site (HTML / CSS / vanilla JS), with one module index linking 
 
 **Miscellaneous**
 
-- **Other** (`/other`) — non-biology simulations (e.g. `displacement`, `can`, `cellpassport`).
+- **Other** (`/other`) — non-biology simulations (`can`, `displacement`).
 
-## Running locally
-
-The site uses root-absolute paths (e.g. `/globalstyle.css`), so serve it from the project root:
+## Building & running locally
 
 ```bash
-# Python
-python -m http.server 8000
-
-# or Node
-npx serve .
+npm install      # one-time
+npm start        # dev server with live reload
+npm run build    # production build to _site/
+npm run format   # Prettier (write)
+npm run lint     # ESLint
 ```
 
-Then open <http://localhost:8000>.
+The site uses root-absolute paths (e.g. `/globalstyle.css`) and is intended for a
+GitHub Pages user/apex deploy where `_site/` is the site root.
 
 ## Notes
 
-- The Pee Panic leaderboard reads/writes to an external PHP endpoint.
-- Blood Glucose loads Chart.js from a CDN.
+- The Pee Panic leaderboard reads/writes to an external endpoint (to be moved to a
+  serverless function behind a configurable base URL).
+- Blood Glucose loads Chart.js (pinned, with SRI) from a CDN.

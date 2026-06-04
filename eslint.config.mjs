@@ -26,7 +26,7 @@ export default [
   {
     // bloodglucose borrows islet's updateCells() via a duplicated <script> include —
     // a cross-file global coupling slated for removal in Phase 4.
-    files: ["bloodglucose/game.js"],
+    files: ["src/bloodglucose/game.js"],
     languageOptions: { globals: { updateCells: "readonly" } },
   },
 ];
