@@ -121,6 +121,14 @@
       .home-link:hover {
         text-decoration: underline;
       }
+      @media (prefers-reduced-motion: reduce) {
+        .overlay {
+          animation: none !important;
+        }
+        * {
+          transition-duration: 0.01ms !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -140,7 +148,7 @@
       <button id="prev">Prev</button>
       <button id="next">Next</button>
     </div>
-    <div id="info" class="text"></div>
+    <div id="info" class="text" aria-live="polite"></div>
 
     <script>
       const animalStages = [

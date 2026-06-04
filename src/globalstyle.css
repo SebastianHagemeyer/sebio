@@ -135,7 +135,13 @@ body {
   right: 2rem;
   color: white;
   font-size: 2rem;
+  line-height: 1;
   cursor: pointer;
+  /* reset the shared button styling — this is a bare "x" control */
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
 
 button {
@@ -200,4 +206,53 @@ body.catalog main {
 
 .sim-desc {
   font-size: 1em;
+}
+
+/* ---- Accessibility helpers ---- */
+
+/* Skip link: hidden until focused via keyboard. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 2000;
+  padding: 0.6em 1em;
+  background: var(--color-brand);
+  color: #fff;
+  border-radius: 0 0 var(--radius) 0;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* Programmatic focus target (skip-link destination) shouldn't show a ring. */
+#content:focus {
+  outline: none;
+}
+
+/* Screen-reader-only text. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Respect users who prefer reduced motion: damp animations/transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

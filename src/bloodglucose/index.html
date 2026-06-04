@@ -68,7 +68,13 @@ headExtra: |
   }
 </style>
 
-<div id="glucoseModal" class="modal">
+<div
+  id="glucoseModal"
+  class="modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="glucoseConditionTitle"
+>
   <div class="glucose-modal-content">
     <span id="closeModal" class="close">&times;</span>
     <h2 id="glucoseConditionTitle">Condition</h2>
@@ -160,7 +166,7 @@ headExtra: |
       >
         <div id="pancreas">
           <p style="height: 80px !important">
-            <strong>Body Status:</strong> <span id="pancreasStatus">Normal</span>
+            <strong>Body Status:</strong> <span id="pancreasStatus" aria-live="polite">Normal</span>
           </p>
           <!--p>Glucose intake from food</p-->
           <div class="indicator" id="sugarIndicator"></div>
@@ -175,7 +181,9 @@ headExtra: |
     </div>
 
     <div class="chart-container">
-      <canvas id="glucoseChart"></canvas>
+      <canvas id="glucoseChart" aria-label="Blood glucose level over time (chart)"
+        >Your browser does not support the glucose chart.</canvas
+      >
     </div>
   </section>
 </main>

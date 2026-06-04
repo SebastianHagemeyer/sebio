@@ -196,7 +196,7 @@ headExtra: |
 </style>
 
 <div id="happyBladderCounter" style="font-size: 2em; margin-top: 1em"></div>
-<div id="penalties"></div>
+<div id="penalties" aria-live="polite"></div>
 
 <div id="bladder-container">
   <div id="drop-zone"></div>
@@ -205,7 +205,7 @@ headExtra: |
   <div id="face">😐</div>
 </div>
 
-<div id="status">
+<div id="status" aria-live="polite">
   Water Level: <span id="waterLevel">50</span> | Salt Level: <span id="saltLevel">50</span> |
   Bladder: <span id="bladderLevel">0</span>
 </div>
@@ -225,9 +225,9 @@ headExtra: |
 
 <div id="timer">Time Left: <span id="timeLeft">120</span> seconds</div>
 
-<div id="scoreboard">Score: <span id="score">0</span></div>
+<div id="scoreboard" aria-live="polite">Score: <span id="score">0</span></div>
 
-<div id="pee-message"></div>
+<div id="pee-message" aria-live="polite"></div>
 
 <br />
 
@@ -242,6 +242,8 @@ headExtra: |
 
 <div
   id="gameover"
+  role="dialog"
+  aria-modal="true"
   style="
     display: none !important;
     position: fixed;

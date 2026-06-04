@@ -40,7 +40,16 @@
   </head>
 
   <body>
-    <canvas id="canvas"></canvas>
+    <canvas
+      id="canvas"
+      role="img"
+      aria-label="Animated visualization of mouse displacement and velocity. A green ball follows the mouse cursor from a red start point, drawing a trail. Optional overlays show the velocity vector and a displacement triangle with dx and dy values. Live numeric readouts for total distance, displacement, average speed, and current velocity are available in the Controls panel."
+    >
+      This is an interactive canvas animation that tracks mouse movement and visualizes displacement
+      and velocity. The green ball accelerates toward your cursor from a red starting point, tracing
+      its path. Live metrics (total distance, displacement, average speed, and current velocity) are
+      available as text in the Controls panel.
+    </canvas>
     <div id="hud">
       <a id="home" href="/">Home</a>
 

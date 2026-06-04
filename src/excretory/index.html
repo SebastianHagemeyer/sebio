@@ -141,11 +141,16 @@ modal: true
       value="20"
       oninput="updateADH(this.value)"
     />
-    <p>Current ADH Level: <span id="adhLevel">20</span>%</p>
+    <p aria-live="polite">Current ADH Level: <span id="adhLevel">20</span>%</p>
   </div>
   <div class="tube-sim-container">
     <div class="tube-sim">
-      <div class="collecting-duct" id="duct"></div>
+      <div
+        class="collecting-duct"
+        id="duct"
+        role="img"
+        aria-label="Animated collecting duct: water droplets fall and are reabsorbed based on ADH level"
+      ></div>
     </div>
     <div class="legend">
       <h3>Legend</h3>
@@ -161,7 +166,7 @@ modal: true
 </section>
 <section>
   <h2>Concept Slides</h2>
-  <div class="slide-container">
+  <div class="slide-container" aria-live="polite">
     <div class="slide active">
       ADH (antidiuretic hormone) helps the kidneys retain water by making the collecting duct walls
       permeable to water.

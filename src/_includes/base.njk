@@ -10,10 +10,13 @@
     {%- endif %}
   </head>
   <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+    <a class="skip-link" href="#content">Skip to main content</a>
     {%- if not hideHeader %}
     {% include "partials/header.njk" %}
     {%- endif %}
-    {{ content | safe }}
+    <div id="content" tabindex="-1">
+      {{ content | safe }}
+    </div>
     {%- if modal %}
     {% include "partials/modal.njk" %}
     {%- endif %}

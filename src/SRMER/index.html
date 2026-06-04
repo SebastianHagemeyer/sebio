@@ -128,8 +128,8 @@ tagline: Drag each example into the correct part of the feedback loop.
 </style>
 
 <div class="container">
-  <div id="correctModal" class="modal">
-    <div class="scenario-modal-content">
+  <div id="correctModal" class="modal" role="alertdialog" aria-modal="true">
+    <div class="scenario-modal-content" aria-live="assertive">
       <span class="tick">✔</span>
       <p>Correct!</p>
     </div>
@@ -164,7 +164,7 @@ tagline: Drag each example into the correct part of the feedback loop.
   <div class="draggables" id="draggables"></div>
 
   <button onclick="checkAnswers()">Check Answers</button>
-  <div id="feedback"></div>
+  <div id="feedback" aria-live="polite"></div>
   <div id="happyBladderCounter" style="font-size: 2em; margin-top: 1em"></div>
 </div>
 

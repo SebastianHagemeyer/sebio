@@ -138,11 +138,15 @@ title: Islets of Langerhans
 <div class="sim-container">
   <!-- Simulation Visual -->
   <div>
-    <div id="islet-container">
+    <div
+      id="islet-container"
+      role="img"
+      aria-label="Pancreatic islet: alpha and beta cells; beta cells die as insulin capacity drops"
+    >
       <div id="islet"></div>
     </div>
     <input type="range" min="0" max="100" value="100" id="insulinCSlider" />
-    <p id="betaStatusText">Beta cells are functioning at full capacity.</p>
+    <p id="betaStatusText" aria-live="polite">Beta cells are functioning at full capacity.</p>
   </div>
 
   <!-- Legend -->
