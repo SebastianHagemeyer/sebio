@@ -10,44 +10,66 @@
         background: #0b1020;
         color: #e7ecff;
         font-family:
+          "Inter",
           system-ui,
-          Segoe UI,
+          -apple-system,
+          "Segoe UI",
           Roboto,
+          Helvetica,
           Arial,
           sans-serif;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 20px;
+        padding: 32px 20px 48px;
       }
       h1 {
-        margin: 0 0 8px;
+        margin: 0 0 20px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
       }
       .switch {
         display: flex;
-        gap: 8px;
-        margin-bottom: 12px;
+        gap: 10px;
+        margin-bottom: 20px;
+        padding: 8px;
+        background: rgba(18, 26, 52, 0.6);
+        border: 1px solid rgba(90, 169, 255, 0.12);
+        border-radius: 16px;
       }
       .switch button {
-        padding: 10px 14px;
+        padding: 10px 16px;
         border-radius: 12px;
         background: #121a34;
         border: 1px solid #27315b;
         color: #e7ecff;
         cursor: pointer;
         font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        box-shadow: none;
+        transition:
+          background 0.2s ease,
+          border-color 0.2s ease,
+          color 0.2s ease;
       }
       .switch button.active {
         border-color: #5aa9ff;
         background: #0e1530;
+        color: #5aa9ff;
       }
       .canvas {
         position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(90, 169, 255, 0.12);
       }
       img {
         width: 520px;
         max-width: 92vw;
-        border-radius: 12px;
+        display: block;
+        border-radius: 16px;
         transition: opacity 0.25s ease;
       }
       .overlay {
@@ -72,41 +94,55 @@
       .progress {
         width: 100%;
         max-width: 520px;
-        height: 12px;
+        height: 10px;
         background: #1a223f;
-        border-radius: 6px;
+        border: 1px solid rgba(90, 169, 255, 0.12);
+        border-radius: 999px;
         overflow: hidden;
-        margin-top: 12px;
+        margin-top: 20px;
       }
       .fill {
         height: 100%;
         width: 0;
         background: #5aa9ff;
+        border-radius: 999px;
         transition: width 0.3s;
       }
       .nav {
-        margin-top: 16px;
+        margin-top: 20px;
         display: flex;
         gap: 12px;
       }
       .nav button {
-        padding: 10px 14px;
+        padding: 10px 18px;
         border-radius: 12px;
         background: #121a34;
         border: 1px solid #27315b;
         color: #e7ecff;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        box-shadow: none;
+        transition:
+          background 0.2s ease,
+          border-color 0.2s ease,
+          color 0.2s ease;
       }
       .nav button:hover,
       .switch button:hover {
         border-color: #5aa9ff;
+        background: #16224a;
       }
       .text {
         max-width: 520px;
-        margin-top: 18px;
+        margin-top: 24px;
+        padding: 20px 24px;
+        background: #0e1530;
+        border: 1px solid rgba(90, 169, 255, 0.12);
+        border-radius: 16px;
         white-space: pre-wrap;
-        line-height: 1.5;
+        line-height: 1.6;
         color: #a9b4d9;
       }
       .home-link {
@@ -115,7 +151,7 @@
         left: 16px;
         color: #5aa9ff;
         text-decoration: none;
-        font-weight: bold;
+        font-weight: 600;
         font-size: 15px;
       }
       .home-link:hover {

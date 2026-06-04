@@ -1,7 +1,7 @@
 body {
-  font-family: Arial, sans-serif;
   text-align: center;
   margin: 0;
+  background: var(--color-bg);
 }
 
 .container {
@@ -20,7 +20,8 @@ body {
 svg {
   width: 50%;
   height: 100px;
-  border: 1px solid black;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   /* Add outline */
   min-height: 50px;
   /* Set minimum height */
@@ -55,7 +56,8 @@ line {
 .indicator {
   width: 50px;
   height: 50px;
-  border: 2px solid black;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
   margin: 0px;
 }
 
@@ -106,22 +108,6 @@ canvas {
   height: 100% !important;
 }
 
-header {
-  background: var(--color-brand);
-  color: white;
-  padding: 1em;
-  text-align: center;
-}
-
-header a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  position: absolute;
-  left: 20px;
-  top: 20px;
-}
-
 main {
   padding: 1em;
 }
@@ -139,9 +125,9 @@ main {
   flex-direction: column;
   align-items: center;
   padding: 0.5em 1em;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
   min-width: 200px;
 }
 
@@ -157,14 +143,20 @@ main {
 .indicator-container {
   margin: 1em 0;
   flex-wrap: wrap;
-  gap: 1em;
+  gap: 0.75em;
+  padding: 1em;
+  background: var(--color-surface-hover);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+input[type="range"] {
+  accent-color: var(--color-accent);
+  width: 100%;
 }
 
 button {
-  margin: 0.5em;
-  padding: 0.5em 1em;
-  font-weight: bold;
-  cursor: pointer;
+  margin: 0.4em;
 }
 
 @media screen and (max-width: 768px) {
@@ -188,18 +180,28 @@ button {
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 1em;
-  gap: 2em;
+  padding: 1.5em;
+  gap: 1.5em;
 }
 
 .sidebar {
   flex: 1;
   max-width: 400px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5em;
 }
 
 .content {
   flex: 2;
   min-width: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5em;
 }
 
 .controls {
@@ -212,10 +214,11 @@ button {
   display: flex;
   flex-direction: column;
   align-items: start;
-  background: #f2f2f2;
-  padding: 1em;
-  border-radius: 8px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  background: var(--color-surface-hover);
+  padding: 1em 1.25em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
 }
 
 .chart-container {
@@ -238,7 +241,8 @@ button {
 #glucoseLevelLine {
   width: 5vw;
   height: 100px;
-  border: 1px solid black;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
 }
 
 .glucose-time-row {
@@ -253,15 +257,21 @@ button {
 .visual-box {
   width: auto;
   text-align: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1em 1.25em;
 }
 
 .glucose-modal-content {
-  background-color: white;
+  background-color: var(--color-surface);
   margin: 10% auto;
   padding: 2em;
-  border: 1px solid #888;
+  border: 1px solid var(--color-border);
   width: 80%;
   max-width: 500px;
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   text-align: center;
 }

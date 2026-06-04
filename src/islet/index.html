@@ -5,9 +5,8 @@ title: Islets of Langerhans
 
 <style>
   body {
-    font-family: sans-serif;
     text-align: center;
-    background-color: #f0f0f0;
+    background-color: var(--color-bg);
     margin: 0;
   }
 
@@ -31,7 +30,7 @@ title: Islets of Langerhans
     border-radius: 50%;
     background-color: #fce4ec;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow);
   }
 
   .cell {
@@ -56,58 +55,92 @@ title: Islets of Langerhans
 
   #insulinCSlider {
     width: 300px;
-    margin-top: 10px;
+    margin-top: 1rem;
+    accent-color: var(--color-accent);
+    cursor: pointer;
   }
 
   .counts {
     margin-top: 10px;
-    font-weight: bold;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  #percent {
+    font-weight: 700;
+    color: var(--color-brand);
+  }
+
+  #betaStatusText {
+    color: var(--color-text-muted);
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .sim-container {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 2em;
-    margin-top: 20px;
+    gap: 2rem;
+    margin-top: 1.5rem;
   }
 
   .legend {
-    background: #fff;
-    padding: 1em;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-size: 0.9em;
-    max-width: 200px;
+    background: var(--color-surface);
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    font-size: 0.9rem;
+    max-width: 220px;
     text-align: left;
   }
 
   .legend h3 {
     margin-top: 0;
+    color: var(--color-brand);
+    font-weight: 700;
   }
 
   .legend-item {
     display: flex;
     align-items: center;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.6rem;
+    color: var(--color-text);
   }
 
   .legend-box {
     width: 20px;
     height: 20px;
-    margin-right: 0.5em;
-    border: 1px solid #aaa;
+    flex: 0 0 auto;
+    margin-right: 0.6rem;
+    border: 1px solid var(--color-border);
     border-radius: 50%;
   }
 
   .info-slides {
-    margin: 3em auto;
+    margin: 3rem auto;
     max-width: 600px;
-    background: white;
-    padding: 1.5em;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: var(--color-surface);
+    padding: 2rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
     text-align: left;
+  }
+
+  .info-slides h2 {
+    margin-top: 0;
+    color: var(--color-brand);
+  }
+
+  .info-slides h3 {
+    color: var(--color-text);
+  }
+
+  .info-slides p {
+    color: var(--color-text-muted);
   }
 
   .slide-container .slide {
@@ -119,14 +152,10 @@ title: Islets of Langerhans
   }
 
   .controls {
-    margin-top: 1em;
-    text-align: center;
-  }
-
-  .controls button {
-    margin: 0 0.5em;
-    padding: 0.5em 1em;
-    font-size: 1em;
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
   }
 </style>
 

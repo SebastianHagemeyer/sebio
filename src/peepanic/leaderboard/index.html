@@ -6,23 +6,25 @@ navExtra: '<a href="/peepanic/" style="margin-left: 5em">← Pee Panic</a>'
 
 <style>
   body {
-    font-family: Arial, sans-serif;
-    background: #d0f4f7;
-    color: #333;
+    background: var(--color-bg);
+    color: var(--color-text);
   }
 
   #leaderboard {
     max-width: 400px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 12px;
-    padding: 1em 2em;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin: 2.5rem auto;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem 2.25rem;
+    box-shadow: var(--shadow-sm);
   }
 
   #leaderboard h2 {
-    margin-bottom: 1em;
-    color: var(--color-accent);
+    margin: 0 0 1.5rem;
+    color: var(--color-brand);
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
   #leaderboard-list {
@@ -32,10 +34,10 @@ navExtra: '<a href="/peepanic/" style="margin-left: 5em">← Pee Panic</a>'
   }
 
   #leaderboard-list li {
-    font-size: 1.1em;
-    margin: 0.5em 0;
-    padding: 0.3em 0;
-    border-bottom: 1px solid #eee;
+    font-size: 1.05rem;
+    margin: 0;
+    padding: 0.85rem 0.25rem;
+    border-bottom: 1px solid var(--color-border);
   }
 
   #leaderboard-list li:last-child {

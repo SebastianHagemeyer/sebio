@@ -1,89 +1,240 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
 /* ============================================================
-   SEBIO design tokens — the single source of truth for the
-   shared brand/UI language. Per-simulation palettes (molecule
-   colors, particle systems, cellpassport's dark theme, chart
-   datasets) are intentionally NOT tokenized here.
+   SEBIO design system — single source of truth for the shared
+   brand/UI language. Modules consume these tokens, so retheming
+   the whole site is just editing the values below.
    ============================================================ */
 :root {
-  /* Brand */
-  --color-brand: #2e8b57; /* SeaGreen — header / primary identity */
-  --color-accent: #00bcd4; /* Cyan — interactive actions / buttons */
-  --color-accent-hover: #0097a7;
-  --color-accent-active: #007c91;
+  /* Brand — refined teal/emerald (science, but sophisticated) */
+  --color-brand: #0d9488; /* teal-600 */
+  --color-brand-strong: #0f766e; /* teal-700 */
+  --color-brand-soft: #ccfbf1; /* teal-100 */
+  --color-accent: #14b8a6; /* teal-500 — interactive actions */
+  --color-accent-hover: #0d9488;
+  --color-accent-active: #0f766e;
   --color-on-accent: #ffffff;
 
-  /* Surfaces & text (shared chrome / cards) */
-  --color-bg: #eef2f3;
+  /* Neutrals (slate) */
+  --color-bg: #f1f5f9; /* slate-100 — page background */
   --color-surface: #ffffff;
-  --color-surface-hover: #e2f0e5;
-  --color-text: #333333;
-  --color-border: #cccccc;
+  --color-surface-hover: #f8fafc; /* slate-50 */
+  --color-text: #0f172a; /* slate-900 */
+  --color-text-muted: #64748b; /* slate-500 */
+  --color-border: #e2e8f0; /* slate-200 */
 
   /* Typography */
-  --font-sans: Arial, Helvetica, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   /* Radii */
-  --radius-sm: 6px;
-  --radius: 8px;
-  --radius-lg: 10px;
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
 
   /* Elevation */
-  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.1);
-  --shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  --shadow-button: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-modal: 0 0 20px rgba(0, 0, 0, 0.8);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.1);
+  --shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.1), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+  --shadow-button: 0 1px 2px rgba(15, 23, 42, 0.12);
+  --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 
   /* Spacing scale */
-  --space-1: 0.25em;
-  --space-2: 0.5em;
-  --space-3: 1em;
-  --space-4: 1.5em;
-  --space-5: 2em;
-}
-
-header {
-  background: var(--color-brand);
-  color: white;
-  padding: 1em;
-  text-align: center;
-  width: 100%;
-}
-
-header a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  position: absolute;
-  left: 20px;
-  top: 20px;
-}
-
-#home {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
 }
 
 html,
 body {
   max-width: 100%;
   overflow-x: hidden;
-  margin: 0px;
+  margin: 0;
   font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* MODAL STUFF */
+/* ---- Header ---- */
+header {
+  background: linear-gradient(135deg, var(--color-brand) 0%, var(--color-brand-strong) 100%);
+  color: #fff;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 1rem + 2.5vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+header h2 {
+  margin: 0.35rem 0 0;
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+header p {
+  margin: 0.35rem 0 0;
+  opacity: 0.85;
+}
+
+/* Back-home link + extra nav links sit as subtle pills, top-left. */
+header a,
+#home {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: absolute;
+  left: 1.25rem;
+  top: 1.25rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+header a:hover,
+#home:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Secondary nav links (navExtra) flow on the right instead of overlapping. */
+header a + a {
+  left: auto;
+  right: 1.25rem;
+}
+
+/* ---- Buttons ---- */
+button {
+  display: inline-block;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--color-on-accent);
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-button);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+button:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+button:active {
+  transform: translateY(0);
+  background-color: var(--color-accent-active);
+}
+
+/* Visible keyboard focus everywhere. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---- Landing / hub catalog (index, other) ---- */
+body.catalog {
+  background: var(--color-bg);
+}
+
+body.catalog main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 2.5rem 1.5rem 3.5rem;
+}
+
+.catalog-section {
+  margin-bottom: 2.5rem;
+}
+
+body.catalog h2 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sim-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.sim-link {
+  display: block;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--color-text);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.sim-link:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-brand);
+}
+
+.sim-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+}
+
+.sim-desc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+/* ---- Image gallery + modal ---- */
 .image-row {
   display: flex;
-  gap: 1em;
+  gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 1em;
+  margin-top: 1rem;
 }
 
 .img-box {
   text-align: center;
-  max-width: 200px;
+  max-width: 220px;
   width: 100%;
 }
 
@@ -91,19 +242,22 @@ body {
   width: 100%;
   height: auto;
   border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow);
   cursor: pointer;
-  transition: transform 0.2s;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .img-box img:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
+  box-shadow: var(--shadow-lg);
 }
 
 .img-box p {
-  margin-top: 0.5em;
-  font-size: 0.95em;
-  color: var(--color-text);
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
 }
 
 .modal {
@@ -115,7 +269,8 @@ body {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(4px);
   align-items: center;
   justify-content: center;
 }
@@ -132,91 +287,24 @@ body {
 .close {
   position: absolute;
   top: 1rem;
-  right: 2rem;
-  color: white;
-  font-size: 2rem;
+  right: 1.5rem;
+  color: #fff;
+  font-size: 2.25rem;
   line-height: 1;
   cursor: pointer;
-  /* reset the shared button styling — this is a bare "x" control */
   background: none;
   border: none;
   box-shadow: none;
   padding: 0;
 }
 
-button {
-  display: inline-block;
-  padding: 0.6em 1.4em;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-on-accent);
-  background-color: var(--color-accent);
-  border: none;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-button);
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
-  text-decoration: none;
-  text-align: center;
-}
-
-button:hover {
-  background-color: var(--color-accent-hover);
-  transform: translateY(-2px);
-}
-
-button:active {
-  transform: scale(0.98);
-  background-color: var(--color-accent-active);
-}
-
-/* ---- Landing / hub catalog (index, other) ---- */
-body.catalog {
-  background: var(--color-bg);
-}
-
-body.catalog main {
-  padding: 2em;
-  max-width: 800px;
-  margin: auto;
-}
-
-.sim-link {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-  padding: 1.5em;
-  margin-bottom: 1.5em;
-  text-decoration: none;
-  color: var(--color-text);
-  display: block;
-  transition: background 0.3s;
-}
-
-.sim-link:hover {
-  background: var(--color-surface-hover);
-}
-
-.sim-title {
-  font-size: 1.5em;
-  margin-bottom: 0.2em;
-}
-
-.sim-desc {
-  font-size: 1em;
-}
-
 /* ---- Accessibility helpers ---- */
-
-/* Skip link: hidden until focused via keyboard. */
 .skip-link {
   position: absolute;
   left: -9999px;
   top: 0;
   z-index: 2000;
-  padding: 0.6em 1em;
+  padding: 0.6rem 1rem;
   background: var(--color-brand);
   color: #fff;
   border-radius: 0 0 var(--radius) 0;
@@ -227,12 +315,10 @@ body.catalog main {
   left: 0;
 }
 
-/* Programmatic focus target (skip-link destination) shouldn't show a ring. */
 #content:focus {
   outline: none;
 }
 
-/* Screen-reader-only text. */
 .visually-hidden {
   position: absolute !important;
   width: 1px;
@@ -245,7 +331,6 @@ body.catalog main {
   border: 0;
 }
 
-/* Respect users who prefer reduced motion: damp animations/transitions. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

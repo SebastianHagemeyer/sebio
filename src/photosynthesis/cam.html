@@ -5,35 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CAM Photosynthesis Animation</title>
     <style>
+      @import url("/globalstyle.css");
+
       body {
-        font-family: Arial, sans-serif;
         text-align: center;
+        background: var(--color-bg);
+        color: var(--color-text);
+        padding: 4.5rem 1.5rem 3rem;
+      }
+      h1 {
+        color: var(--color-brand);
+        font-weight: 800;
+        letter-spacing: -0.02em;
       }
       canvas {
-        border: 1px solid #ccc;
+        /* Frame is chrome; the drawing/animation inside is untouched. */
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
         display: block;
-        margin: 20px auto;
+        margin: 2rem auto;
       }
       label {
-        font-size: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--color-text);
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        padding: 0.65rem 1.1rem;
+      }
+      label input[type="checkbox"] {
+        accent-color: var(--color-accent);
+        width: 1.05rem;
+        height: 1.05rem;
+        margin: 0;
       }
       .button {
         display: inline-block;
-        padding: 10px 20px;
-        margin-top: 10px;
-        background-color: #007bff;
-        color: white;
+        padding: 0.65rem 1.25rem;
+        background-color: var(--color-accent);
+        color: var(--color-on-accent);
+        font-weight: 600;
         text-decoration: none;
-        border-radius: 5px;
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-button);
         text-align: center;
+        transition:
+          background-color 0.2s ease,
+          transform 0.15s ease,
+          box-shadow 0.2s ease;
       }
       .button:hover {
-        background-color: #0056b3;
+        background-color: var(--color-accent-hover);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow);
       }
       .button-container {
         position: absolute;
-        top: 10px;
-        left: 10px;
+        top: 1.25rem;
+        left: 1.25rem;
       }
     </style>
   </head>

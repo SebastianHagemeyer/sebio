@@ -21,41 +21,75 @@
         margin: 0;
       }
 
+      /* Floating glass/surface card, readable over the black canvas */
       #controls {
         position: fixed;
         top: 20px;
         left: 20px;
-        color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        max-width: 280px;
+        padding: 1.25rem;
+        color: var(--color-text);
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
       }
 
+      /* The <br> tags inside the card no longer need to add vertical gaps */
+      #controls br {
+        display: none;
+      }
+
+      /* Buttons inherit the modern global teal button; just refine sizing */
       #controls button {
-        background: linear-gradient(to bottom, #ff6600, #cc5200);
-        /* Orange gradient */
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 5px;
-        cursor: pointer;
-        transition:
-          background 0.3s,
-          transform 0.1s;
+        align-self: flex-start;
       }
 
+      /* "Toggle Music" keeps a green hue (signals an on/off media action) */
       .button2 {
-        background: linear-gradient(to bottom, #2bff00, #97f094) !important;
-        padding: 5px 10px !important;
+        background-color: #16a34a;
       }
 
-      #controls button:hover {
-        background: linear-gradient(to bottom, #ff8533, #e65c00);
-        /* Lighter orange on hover */
+      .button2:hover {
+        background-color: #15803d;
       }
 
-      #controls button:active {
-        transform: scale(0.95);
-        /* Slight shrink effect on click */
+      .button2:active {
+        background-color: #166534;
+      }
+
+      #controls label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--color-text-muted);
+      }
+
+      #controls #speedSlider {
+        width: 100%;
+        accent-color: var(--color-accent);
+      }
+
+      #particleCounter {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--color-text);
+      }
+
+      /* Home pill: keep it readable on the light card surface */
+      #controls #home {
+        position: static;
+        align-self: flex-start;
+        background: var(--color-brand);
+        color: #fff;
+      }
+
+      #controls #home:hover {
+        background: var(--color-brand-strong);
       }
 
       #pressureContainer {
