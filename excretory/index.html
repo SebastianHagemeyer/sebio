@@ -56,6 +56,20 @@
         }
       }
 
+      @keyframes leakCustom {
+        0% {
+          top: 0;
+          left: 20px;
+          opacity: 1;
+        }
+
+        100% {
+          top: 150px;
+          left: calc(20px + var(--side-shift, 0px));
+          opacity: 0;
+        }
+      }
+
       .controls {
         text-align: center;
         margin: 2em 0;
@@ -235,23 +249,14 @@
           drop.classList.add("reabsorbed");
 
           const sideShift = (Math.random() - 0.5) * 160; // range approx -80 to +80
-          const keyframes = `@keyframes leakCustom${Date.now()} {
-          0% { top: 0; left: 20px; opacity: 1; }
-          100% { top: 150px; left: ${20 + sideShift}px; opacity: 0; }
-        }`;
-
-          const styleSheet = document.createElement("style");
-          styleSheet.textContent = keyframes;
-          document.head.appendChild(styleSheet);
-
-          const animationName = styleSheet.textContent.match(/@keyframes (\w+)/)[1];
-          drop.style.animation = `${animationName} 4s linear forwards`;
+          drop.style.setProperty("--side-shift", `${sideShift}px`);
+          drop.style.animation = "leakCustom 4s linear forwards";
         }
 
         duct.appendChild(drop);
         setTimeout(() => {
           if (drop.parentNode) drop.remove();
-        }, 3000);
+        }, 4000);
       }
 
       setInterval(createWaterParticle, 100);

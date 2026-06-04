@@ -157,6 +157,8 @@ function loadScenario() {
   enableDragging();
 }
 
+let dropZonesWired = false;
+
 function enableDragging() {
   const drags = document.querySelectorAll(".drag");
   drags.forEach((originalDrag) => {
@@ -180,6 +182,10 @@ function enableDragging() {
       }
     });
   });
+
+  // Drop zones are stable elements, so wire their listeners exactly once.
+  if (dropZonesWired) return;
+  dropZonesWired = true;
 
   drops.forEach((drop) => {
     drop.addEventListener("dragover", (e) => e.preventDefault());

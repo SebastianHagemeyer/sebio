@@ -155,6 +155,18 @@ function gameover() {
   document.getElementById("gameover").style.display = "flex";
 }
 
+function endGame(reasonMessage) {
+  peeMessage.textContent = "";
+
+  // Apply the death penalty to the canonical score first, then display it so
+  // the game-over screen shows the player's ACTUAL final score.
+  score -= 5;
+
+  document.getElementById("gameover-text").textContent = `${reasonMessage} Final Score: ${score}`;
+
+  gameover();
+}
+
 function launchPeeDrop(rect = null) {
   const drop = document.createElement("img");
   drop.src = "/peepanic/drop.png";
@@ -267,50 +279,23 @@ function regulate() {
         peeMessage.textContent = "";
       }, 1000);
     } else {
-      peeMessage.textContent = "";
-      document.getElementById("gameover-text").textContent =
-        `💥 Your bladder exploded! Final Score: ${score - 5}`;
-
-      gameover();
-
-      score -= 5;
+      endGame("💥 Your bladder exploded!");
       //bladder = ;
     }
   }
 
   if (water <= 5) {
-    peeMessage.textContent = "";
-
-    document.getElementById("gameover-text").textContent =
-      `💥 You died of dehydration! Final Score: ${score - 5}`;
-
-    gameover();
-
-    score -= 5;
+    endGame("💥 You died of dehydration!");
     bladder = 0;
   }
 
   if (salt <= 5) {
-    peeMessage.textContent = "";
-
-    document.getElementById("gameover-text").textContent =
-      `💥 You died of hyponatremia! Final Score: ${score - 5}`;
-
-    gameover();
-
-    score -= 5;
+    endGame("💥 You died of hyponatremia!");
     bladder = 0;
   }
 
   if (salt >= 95) {
-    peeMessage.textContent = "";
-
-    document.getElementById("gameover-text").textContent =
-      `💥 You died of hypernatremia! Final Score: ${score - 5}`;
-
-    gameover();
-
-    score -= 5;
+    endGame("💥 You died of hypernatremia!");
     bladder = 0;
   }
 

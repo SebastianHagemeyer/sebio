@@ -485,6 +485,10 @@ function checkGameOver() {
 // End game
 function endGame(reason) {
   gameEnded = true;
+  if (metaboliseTimeout !== null) {
+    clearTimeout(metaboliseTimeout);
+    metaboliseTimeout = null;
+  }
   pancreasStatus.textContent = `Dead (${reason})`;
 }
 
@@ -565,9 +569,13 @@ function updateGlucoseLevel() {
   drawGlucoseLevelLine();
 }
 
+let metaboliseTimeout = null;
 function metabolise() {
+  if (gameEnded) {
+    return;
+  }
   glucose -= 1;
-  setTimeout(metabolise, 500);
+  metaboliseTimeout = setTimeout(metabolise, 500);
 }
 
 function setType0() {
