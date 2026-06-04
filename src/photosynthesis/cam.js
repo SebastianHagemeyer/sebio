@@ -58,27 +58,6 @@ let a = false;
 let hasMalate = false;
 let currMalate = null;
 
-function drawCell(position, color, label) {
-  ctx.beginPath();
-  ctx.arc(position.x, position.y, position.radius, 0, 2 * Math.PI);
-  ctx.fillStyle = color;
-  ctx.fill();
-  ctx.stroke();
-  ctx.fillStyle = "#000";
-  ctx.fillText(label, position.x - 30, position.y - position.radius - 10);
-}
-
-function drawMolecule(position, color, label, visible) {
-  if (!visible) return;
-  ctx.beginPath();
-  ctx.arc(position.x, position.y, 10, 0, 2 * Math.PI);
-  ctx.fillStyle = color;
-  ctx.fill();
-  ctx.stroke();
-  ctx.fillStyle = "#000";
-  ctx.fillText(label, position.x - 10, position.y - 15);
-}
-
 function resetCO2() {
   co2Position = { x: 50, y: 50 };
   co2Reached = false;

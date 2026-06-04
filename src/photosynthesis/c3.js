@@ -46,17 +46,6 @@ function drawChloroplast() {
   ctx.stroke();
 }
 
-function drawMolecule(position, color, label, visible) {
-  if (!visible) return;
-  ctx.beginPath();
-  ctx.arc(position.x, position.y, 10, 0, 2 * Math.PI);
-  ctx.fillStyle = color;
-  ctx.fill();
-  ctx.stroke();
-  ctx.fillStyle = "#000";
-  ctx.fillText(label, position.x - 10, position.y - 15);
-}
-
 function resetGas() {
   gasPosition = { x: 50, y: 50 };
   gasReached = false;
