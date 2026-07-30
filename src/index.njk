@@ -74,3 +74,56 @@ bodyClass: catalog
     <p>{{ catalog.site.byline }}</p>
   </div>
 </footer>
+
+{# Subject tabs: show one subject at a time, Mathematics (the first) by default.
+   Progressive enhancement, so with JS off every subject stays visible. The
+   script body is wrapped in raw so Nunjucks never parses it. #}
+<script>
+{% raw %}
+(function () {
+  var body = document.body;
+  var nav = document.querySelector('.subjectnav');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.subject-section'));
+  if (!nav || !sections.length) return;
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+  if (!links.length) return;
+
+  body.classList.add('js-tabs');
+
+  function activate(id, updateHash) {
+    if (!document.getElementById(id)) id = sections[0].id;
+    sections.forEach(function (s) {
+      s.classList.toggle('is-active', s.id === id);
+    });
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('is-active', on);
+      if (on) { a.setAttribute('aria-current', 'true'); }
+      else { a.removeAttribute('aria-current'); }
+    });
+    if (updateHash && window.history && history.replaceState) {
+      history.replaceState(null, '', '#' + id);
+    }
+    window.scrollTo(0, 0);
+  }
+
+  links.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      if (document.getElementById(id)) {
+        e.preventDefault();
+        activate(id, true);
+      }
+    });
+  });
+
+  window.addEventListener('hashchange', function () {
+    var id = location.hash.slice(1);
+    if (id && document.getElementById(id)) activate(id, false);
+  });
+
+  var initial = location.hash.slice(1);
+  activate(initial && document.getElementById(initial) ? initial : sections[0].id, false);
+}());
+{% endraw %}
+</script>

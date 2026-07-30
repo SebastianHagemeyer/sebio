@@ -232,6 +232,24 @@ header a + a {
   border-bottom-color: var(--color-highlight);
 }
 
+/* Active tab: the subject currently showing, marked with the house yellow
+   underline that matches the hover cue. */
+.subjectnav a.is-active {
+  background: rgba(255, 255, 255, 0.14);
+  border-bottom-color: var(--color-highlight);
+}
+
+/* Tabbed subjects. The .js-tabs class is added by script only when JS runs,
+   so with JS OFF every subject stays visible and the page still works
+   (progressive enhancement, no external requests). */
+.js-tabs .subject-section {
+  display: none;
+}
+
+.js-tabs .subject-section.is-active {
+  display: block;
+}
+
 /* ---- Buttons ---------------------------------------------- */
 button {
   font-family: inherit;
