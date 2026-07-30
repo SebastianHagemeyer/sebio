@@ -1,0 +1,235 @@
+﻿manufacturer,model,year,engine_litres,cylinders,transmission,drive,class,fuel_type,highway_l_per_100km,city_l_per_100km,highway_miles_per_gallon
+audi,a4,1999,1.8,4,auto(l5),Front wheel,compact,Premium,8.1,13.1,29
+audi,a4,1999,1.8,4,manual(m5),Front wheel,compact,Premium,8.1,11.2,29
+audi,a4,2008,2.0,4,manual(m6),Front wheel,compact,Premium,7.6,11.8,31
+audi,a4,2008,2.0,4,auto(av),Front wheel,compact,Premium,7.8,11.2,30
+audi,a4,1999,2.8,6,auto(l5),Front wheel,compact,Premium,9.0,14.7,26
+audi,a4,1999,2.8,6,manual(m5),Front wheel,compact,Premium,9.0,13.1,26
+audi,a4,2008,3.1,6,auto(av),Front wheel,compact,Premium,8.7,13.1,27
+audi,a4 quattro,1999,1.8,4,manual(m5),Four wheel,compact,Premium,9.0,13.1,26
+audi,a4 quattro,1999,1.8,4,auto(l5),Four wheel,compact,Premium,9.4,14.7,25
+audi,a4 quattro,2008,2.0,4,manual(m6),Four wheel,compact,Premium,8.4,11.8,28
+audi,a4 quattro,2008,2.0,4,auto(s6),Four wheel,compact,Premium,8.7,12.4,27
+audi,a4 quattro,1999,2.8,6,auto(l5),Four wheel,compact,Premium,9.4,15.7,25
+audi,a4 quattro,1999,2.8,6,manual(m5),Four wheel,compact,Premium,9.4,13.8,25
+audi,a4 quattro,2008,3.1,6,auto(s6),Four wheel,compact,Premium,9.4,13.8,25
+audi,a4 quattro,2008,3.1,6,manual(m6),Four wheel,compact,Premium,9.4,15.7,25
+audi,a6 quattro,1999,2.8,6,auto(l5),Four wheel,midsize,Premium,9.8,15.7,24
+audi,a6 quattro,2008,3.1,6,auto(s6),Four wheel,midsize,Premium,9.4,13.8,25
+audi,a6 quattro,2008,4.2,8,auto(s6),Four wheel,midsize,Premium,10.2,14.7,23
+chevrolet,c1500 suburban 2wd,2008,5.3,8,auto(l4),Rear wheel,suv,Regular,11.8,16.8,20
+chevrolet,c1500 suburban 2wd,2008,5.3,8,auto(l4),Rear wheel,suv,Ethanol,15.7,21.4,15
+chevrolet,c1500 suburban 2wd,2008,5.3,8,auto(l4),Rear wheel,suv,Regular,11.8,16.8,20
+chevrolet,c1500 suburban 2wd,1999,5.7,8,auto(l4),Rear wheel,suv,Regular,13.8,18.1,17
+chevrolet,c1500 suburban 2wd,2008,6.0,8,auto(l4),Rear wheel,suv,Regular,13.8,19.6,17
+chevrolet,corvette,1999,5.7,8,manual(m6),Rear wheel,2seater,Premium,9.0,14.7,26
+chevrolet,corvette,1999,5.7,8,auto(l4),Rear wheel,2seater,Premium,10.2,15.7,23
+chevrolet,corvette,2008,6.2,8,manual(m6),Rear wheel,2seater,Premium,9.0,14.7,26
+chevrolet,corvette,2008,6.2,8,auto(s6),Rear wheel,2seater,Premium,9.4,15.7,25
+chevrolet,corvette,2008,7.0,8,manual(m6),Rear wheel,2seater,Premium,9.8,15.7,24
+chevrolet,k1500 tahoe 4wd,2008,5.3,8,auto(l4),Four wheel,suv,Regular,12.4,16.8,19
+chevrolet,k1500 tahoe 4wd,2008,5.3,8,auto(l4),Four wheel,suv,Ethanol,16.8,21.4,14
+chevrolet,k1500 tahoe 4wd,1999,5.7,8,auto(l4),Four wheel,suv,Regular,15.7,21.4,15
+chevrolet,k1500 tahoe 4wd,1999,6.5,8,auto(l4),Four wheel,suv,Diesel,13.8,16.8,17
+chevrolet,malibu,1999,2.4,4,auto(l4),Front wheel,midsize,Regular,8.7,12.4,27
+chevrolet,malibu,2008,2.4,4,auto(l4),Front wheel,midsize,Regular,7.8,10.7,30
+chevrolet,malibu,1999,3.1,6,auto(l4),Front wheel,midsize,Regular,9.0,13.1,26
+chevrolet,malibu,2008,3.5,6,auto(l4),Front wheel,midsize,Regular,8.1,13.1,29
+chevrolet,malibu,2008,3.6,6,auto(s6),Front wheel,midsize,Regular,9.0,13.8,26
+dodge,caravan 2wd,1999,2.4,4,auto(l3),Front wheel,minivan,Regular,9.8,13.1,24
+dodge,caravan 2wd,1999,3.0,6,auto(l4),Front wheel,minivan,Regular,9.8,13.8,24
+dodge,caravan 2wd,1999,3.3,6,auto(l4),Front wheel,minivan,Regular,10.7,14.7,22
+dodge,caravan 2wd,1999,3.3,6,auto(l4),Front wheel,minivan,Regular,10.7,14.7,22
+dodge,caravan 2wd,2008,3.3,6,auto(l4),Front wheel,minivan,Regular,9.8,13.8,24
+dodge,caravan 2wd,2008,3.3,6,auto(l4),Front wheel,minivan,Regular,9.8,13.8,24
+dodge,caravan 2wd,2008,3.3,6,auto(l4),Front wheel,minivan,Ethanol,13.8,21.4,17
+dodge,caravan 2wd,1999,3.8,6,auto(l4),Front wheel,minivan,Regular,10.7,15.7,22
+dodge,caravan 2wd,1999,3.8,6,auto(l4),Front wheel,minivan,Regular,11.2,15.7,21
+dodge,caravan 2wd,2008,3.8,6,auto(l6),Front wheel,minivan,Regular,10.2,14.7,23
+dodge,caravan 2wd,2008,4.0,6,auto(l6),Front wheel,minivan,Regular,10.2,14.7,23
+dodge,dakota pickup 4wd,2008,3.7,6,manual(m6),Four wheel,pickup,Regular,12.4,15.7,19
+dodge,dakota pickup 4wd,2008,3.7,6,auto(l4),Four wheel,pickup,Regular,13.1,16.8,18
+dodge,dakota pickup 4wd,1999,3.9,6,auto(l4),Four wheel,pickup,Regular,13.8,18.1,17
+dodge,dakota pickup 4wd,1999,3.9,6,manual(m5),Four wheel,pickup,Regular,13.8,16.8,17
+dodge,dakota pickup 4wd,2008,4.7,8,auto(l5),Four wheel,pickup,Regular,12.4,16.8,19
+dodge,dakota pickup 4wd,2008,4.7,8,auto(l5),Four wheel,pickup,Regular,12.4,16.8,19
+dodge,dakota pickup 4wd,2008,4.7,8,auto(l5),Four wheel,pickup,Ethanol,19.6,26.1,12
+dodge,dakota pickup 4wd,1999,5.2,8,manual(m5),Four wheel,pickup,Regular,13.8,21.4,17
+dodge,dakota pickup 4wd,1999,5.2,8,auto(l4),Four wheel,pickup,Regular,15.7,21.4,15
+dodge,durango 4wd,1999,3.9,6,auto(l4),Four wheel,suv,Regular,13.8,18.1,17
+dodge,durango 4wd,2008,4.7,8,auto(l5),Four wheel,suv,Regular,13.8,18.1,17
+dodge,durango 4wd,2008,4.7,8,auto(l5),Four wheel,suv,Ethanol,19.6,26.1,12
+dodge,durango 4wd,2008,4.7,8,auto(l5),Four wheel,suv,Regular,13.8,18.1,17
+dodge,durango 4wd,1999,5.2,8,auto(l4),Four wheel,suv,Regular,14.7,21.4,16
+dodge,durango 4wd,2008,5.7,8,auto(l5),Four wheel,suv,Regular,13.1,18.1,18
+dodge,durango 4wd,1999,5.9,8,auto(l4),Four wheel,suv,Regular,15.7,21.4,15
+dodge,ram 1500 pickup 4wd,2008,4.7,8,manual(m6),Four wheel,pickup,Regular,14.7,19.6,16
+dodge,ram 1500 pickup 4wd,2008,4.7,8,auto(l5),Four wheel,pickup,Ethanol,19.6,26.1,12
+dodge,ram 1500 pickup 4wd,2008,4.7,8,auto(l5),Four wheel,pickup,Regular,13.8,18.1,17
+dodge,ram 1500 pickup 4wd,2008,4.7,8,auto(l5),Four wheel,pickup,Regular,13.8,18.1,17
+dodge,ram 1500 pickup 4wd,2008,4.7,8,manual(m6),Four wheel,pickup,Regular,14.7,19.6,16
+dodge,ram 1500 pickup 4wd,2008,4.7,8,manual(m6),Four wheel,pickup,Ethanol,19.6,26.1,12
+dodge,ram 1500 pickup 4wd,1999,5.2,8,auto(l4),Four wheel,pickup,Regular,15.7,21.4,15
+dodge,ram 1500 pickup 4wd,1999,5.2,8,manual(m5),Four wheel,pickup,Regular,14.7,21.4,16
+dodge,ram 1500 pickup 4wd,2008,5.7,8,auto(l5),Four wheel,pickup,Regular,13.8,18.1,17
+dodge,ram 1500 pickup 4wd,1999,5.9,8,auto(l4),Four wheel,pickup,Regular,15.7,21.4,15
+ford,expedition 2wd,1999,4.6,8,auto(l4),Rear wheel,suv,Regular,13.8,21.4,17
+ford,expedition 2wd,1999,5.4,8,auto(l4),Rear wheel,suv,Regular,13.8,21.4,17
+ford,expedition 2wd,2008,5.4,8,auto(l6),Rear wheel,suv,Regular,13.1,19.6,18
+ford,explorer 4wd,1999,4.0,6,auto(l5),Four wheel,suv,Regular,13.8,16.8,17
+ford,explorer 4wd,1999,4.0,6,manual(m5),Four wheel,suv,Regular,12.4,15.7,19
+ford,explorer 4wd,1999,4.0,6,auto(l5),Four wheel,suv,Regular,13.8,16.8,17
+ford,explorer 4wd,2008,4.0,6,auto(l5),Four wheel,suv,Regular,12.4,18.1,19
+ford,explorer 4wd,2008,4.6,8,auto(l6),Four wheel,suv,Regular,12.4,18.1,19
+ford,explorer 4wd,1999,5.0,8,auto(l4),Four wheel,suv,Regular,13.8,18.1,17
+ford,f150 pickup 4wd,1999,4.2,6,auto(l4),Four wheel,pickup,Regular,13.8,16.8,17
+ford,f150 pickup 4wd,1999,4.2,6,manual(m5),Four wheel,pickup,Regular,13.8,16.8,17
+ford,f150 pickup 4wd,1999,4.6,8,manual(m5),Four wheel,pickup,Regular,14.7,18.1,16
+ford,f150 pickup 4wd,1999,4.6,8,auto(l4),Four wheel,pickup,Regular,14.7,18.1,16
+ford,f150 pickup 4wd,2008,4.6,8,auto(l4),Four wheel,pickup,Regular,13.8,18.1,17
+ford,f150 pickup 4wd,1999,5.4,8,auto(l4),Four wheel,pickup,Regular,15.7,21.4,15
+ford,f150 pickup 4wd,2008,5.4,8,auto(l4),Four wheel,pickup,Regular,13.8,18.1,17
+ford,mustang,1999,3.8,6,manual(m5),Rear wheel,subcompact,Regular,9.0,13.1,26
+ford,mustang,1999,3.8,6,auto(l4),Rear wheel,subcompact,Regular,9.4,13.1,25
+ford,mustang,2008,4.0,6,manual(m5),Rear wheel,subcompact,Regular,9.0,13.8,26
+ford,mustang,2008,4.0,6,auto(l5),Rear wheel,subcompact,Regular,9.8,14.7,24
+ford,mustang,1999,4.6,8,auto(l4),Rear wheel,subcompact,Regular,11.2,15.7,21
+ford,mustang,1999,4.6,8,manual(m5),Rear wheel,subcompact,Regular,10.7,15.7,22
+ford,mustang,2008,4.6,8,manual(m5),Rear wheel,subcompact,Regular,10.2,15.7,23
+ford,mustang,2008,4.6,8,auto(l5),Rear wheel,subcompact,Regular,10.7,15.7,22
+ford,mustang,2008,5.4,8,manual(m6),Rear wheel,subcompact,Premium,11.8,16.8,20
+honda,civic,1999,1.6,4,manual(m5),Front wheel,subcompact,Regular,7.1,8.4,33
+honda,civic,1999,1.6,4,auto(l4),Front wheel,subcompact,Regular,7.4,9.8,32
+honda,civic,1999,1.6,4,manual(m5),Front wheel,subcompact,Regular,7.4,9.4,32
+honda,civic,1999,1.6,4,manual(m5),Front wheel,subcompact,Premium,8.1,10.2,29
+honda,civic,1999,1.6,4,auto(l4),Front wheel,subcompact,Regular,7.4,9.8,32
+honda,civic,2008,1.8,4,manual(m5),Front wheel,subcompact,Regular,6.9,9.0,34
+honda,civic,2008,1.8,4,auto(l5),Front wheel,subcompact,Regular,6.5,9.4,36
+honda,civic,2008,1.8,4,auto(l5),Front wheel,subcompact,CNG,6.5,9.8,36
+honda,civic,2008,2.0,4,manual(m6),Front wheel,subcompact,Premium,8.1,11.2,29
+hyundai,sonata,1999,2.4,4,auto(l4),Front wheel,midsize,Regular,9.0,13.1,26
+hyundai,sonata,1999,2.4,4,manual(m5),Front wheel,midsize,Regular,8.7,13.1,27
+hyundai,sonata,2008,2.4,4,auto(l4),Front wheel,midsize,Regular,7.8,11.2,30
+hyundai,sonata,2008,2.4,4,manual(m5),Front wheel,midsize,Regular,7.6,11.2,31
+hyundai,sonata,1999,2.5,6,auto(l4),Front wheel,midsize,Regular,9.0,13.1,26
+hyundai,sonata,1999,2.5,6,manual(m5),Front wheel,midsize,Regular,9.0,13.1,26
+hyundai,sonata,2008,3.3,6,auto(l5),Front wheel,midsize,Regular,8.4,12.4,28
+hyundai,tiburon,1999,2.0,4,auto(l4),Front wheel,subcompact,Regular,9.0,12.4,26
+hyundai,tiburon,1999,2.0,4,manual(m5),Front wheel,subcompact,Regular,8.1,12.4,29
+hyundai,tiburon,2008,2.0,4,manual(m5),Front wheel,subcompact,Regular,8.4,11.8,28
+hyundai,tiburon,2008,2.0,4,auto(l4),Front wheel,subcompact,Regular,8.7,11.8,27
+hyundai,tiburon,2008,2.7,6,auto(l4),Front wheel,subcompact,Regular,9.8,13.8,24
+hyundai,tiburon,2008,2.7,6,manual(m6),Front wheel,subcompact,Regular,9.8,14.7,24
+hyundai,tiburon,2008,2.7,6,manual(m5),Front wheel,subcompact,Regular,9.8,13.8,24
+jeep,grand cherokee 4wd,2008,3.0,6,auto(l5),Four wheel,suv,Diesel,10.7,13.8,22
+jeep,grand cherokee 4wd,2008,3.7,6,auto(l5),Four wheel,suv,Regular,12.4,15.7,19
+jeep,grand cherokee 4wd,1999,4.0,6,auto(l4),Four wheel,suv,Regular,11.8,15.7,20
+jeep,grand cherokee 4wd,1999,4.7,8,auto(l4),Four wheel,suv,Regular,13.8,16.8,17
+jeep,grand cherokee 4wd,2008,4.7,8,auto(l5),Four wheel,suv,Ethanol,19.6,26.1,12
+jeep,grand cherokee 4wd,2008,4.7,8,auto(l5),Four wheel,suv,Regular,12.4,16.8,19
+jeep,grand cherokee 4wd,2008,5.7,8,auto(l5),Four wheel,suv,Regular,13.1,18.1,18
+jeep,grand cherokee 4wd,2008,6.1,8,auto(l5),Four wheel,suv,Premium,16.8,21.4,14
+land rover,range rover,1999,4.0,8,auto(l4),Four wheel,suv,Premium,15.7,21.4,15
+land rover,range rover,2008,4.2,8,auto(s6),Four wheel,suv,Regular,13.1,19.6,18
+land rover,range rover,2008,4.4,8,auto(s6),Four wheel,suv,Regular,13.1,19.6,18
+land rover,range rover,1999,4.6,8,auto(l4),Four wheel,suv,Premium,15.7,21.4,15
+lincoln,navigator 2wd,1999,5.4,8,auto(l4),Rear wheel,suv,Regular,13.8,21.4,17
+lincoln,navigator 2wd,1999,5.4,8,auto(l4),Rear wheel,suv,Premium,14.7,21.4,16
+lincoln,navigator 2wd,2008,5.4,8,auto(l6),Rear wheel,suv,Regular,13.1,19.6,18
+mercury,mountaineer 4wd,1999,4.0,6,auto(l5),Four wheel,suv,Regular,13.8,16.8,17
+mercury,mountaineer 4wd,2008,4.0,6,auto(l5),Four wheel,suv,Regular,12.4,18.1,19
+mercury,mountaineer 4wd,2008,4.6,8,auto(l6),Four wheel,suv,Regular,12.4,18.1,19
+mercury,mountaineer 4wd,1999,5.0,8,auto(l4),Four wheel,suv,Regular,13.8,18.1,17
+nissan,altima,1999,2.4,4,manual(m5),Front wheel,compact,Regular,8.1,11.2,29
+nissan,altima,1999,2.4,4,auto(l4),Front wheel,compact,Regular,8.7,12.4,27
+nissan,altima,2008,2.5,4,auto(av),Front wheel,midsize,Regular,7.6,10.2,31
+nissan,altima,2008,2.5,4,manual(m6),Front wheel,midsize,Regular,7.4,10.2,32
+nissan,altima,2008,3.5,6,manual(m6),Front wheel,midsize,Premium,8.7,12.4,27
+nissan,altima,2008,3.5,6,auto(av),Front wheel,midsize,Premium,9.0,12.4,26
+nissan,maxima,1999,3.0,6,auto(l4),Front wheel,midsize,Regular,9.0,13.1,26
+nissan,maxima,1999,3.0,6,manual(m5),Front wheel,midsize,Regular,9.4,12.4,25
+nissan,maxima,2008,3.5,6,auto(av),Front wheel,midsize,Premium,9.4,12.4,25
+nissan,pathfinder 4wd,1999,3.3,6,auto(l4),Four wheel,suv,Regular,13.8,16.8,17
+nissan,pathfinder 4wd,1999,3.3,6,manual(m5),Four wheel,suv,Regular,13.8,15.7,17
+nissan,pathfinder 4wd,2008,4.0,6,auto(l5),Four wheel,suv,Premium,11.8,16.8,20
+nissan,pathfinder 4wd,2008,5.6,8,auto(s5),Four wheel,suv,Premium,13.1,19.6,18
+pontiac,grand prix,1999,3.1,6,auto(l4),Front wheel,midsize,Regular,9.0,13.1,26
+pontiac,grand prix,1999,3.8,6,auto(l4),Front wheel,midsize,Premium,9.0,14.7,26
+pontiac,grand prix,1999,3.8,6,auto(l4),Front wheel,midsize,Regular,8.7,13.8,27
+pontiac,grand prix,2008,3.8,6,auto(l4),Front wheel,midsize,Regular,8.4,13.1,28
+pontiac,grand prix,2008,5.3,8,auto(s4),Front wheel,midsize,Premium,9.4,14.7,25
+subaru,forester awd,1999,2.5,4,manual(m5),Four wheel,suv,Regular,9.4,13.1,25
+subaru,forester awd,1999,2.5,4,auto(l4),Four wheel,suv,Regular,9.8,13.1,24
+subaru,forester awd,2008,2.5,4,manual(m5),Four wheel,suv,Regular,8.7,11.8,27
+subaru,forester awd,2008,2.5,4,manual(m5),Four wheel,suv,Premium,9.4,12.4,25
+subaru,forester awd,2008,2.5,4,auto(l4),Four wheel,suv,Regular,9.0,11.8,26
+subaru,forester awd,2008,2.5,4,auto(l4),Four wheel,suv,Premium,10.2,13.1,23
+subaru,impreza awd,1999,2.2,4,auto(l4),Four wheel,subcompact,Regular,9.0,11.2,26
+subaru,impreza awd,1999,2.2,4,manual(m5),Four wheel,subcompact,Regular,9.0,12.4,26
+subaru,impreza awd,1999,2.5,4,manual(m5),Four wheel,subcompact,Regular,9.0,12.4,26
+subaru,impreza awd,1999,2.5,4,auto(l4),Four wheel,subcompact,Regular,9.0,12.4,26
+subaru,impreza awd,2008,2.5,4,auto(s4),Four wheel,compact,Premium,9.4,11.8,25
+subaru,impreza awd,2008,2.5,4,auto(s4),Four wheel,compact,Regular,8.7,11.8,27
+subaru,impreza awd,2008,2.5,4,manual(m5),Four wheel,compact,Premium,9.4,12.4,25
+subaru,impreza awd,2008,2.5,4,manual(m5),Four wheel,compact,Regular,8.7,11.8,27
+toyota,4runner 4wd,1999,2.7,4,manual(m5),Four wheel,suv,Regular,11.8,15.7,20
+toyota,4runner 4wd,1999,2.7,4,auto(l4),Four wheel,suv,Regular,11.8,14.7,20
+toyota,4runner 4wd,1999,3.4,6,auto(l4),Four wheel,suv,Regular,12.4,15.7,19
+toyota,4runner 4wd,1999,3.4,6,manual(m5),Four wheel,suv,Regular,13.8,15.7,17
+toyota,4runner 4wd,2008,4.0,6,auto(l5),Four wheel,suv,Regular,11.8,14.7,20
+toyota,4runner 4wd,2008,4.7,8,auto(l5),Four wheel,suv,Regular,13.8,16.8,17
+toyota,camry,1999,2.2,4,manual(m5),Front wheel,midsize,Regular,8.1,11.2,29
+toyota,camry,1999,2.2,4,auto(l4),Front wheel,midsize,Regular,8.7,11.2,27
+toyota,camry,2008,2.4,4,manual(m5),Front wheel,midsize,Regular,7.6,11.2,31
+toyota,camry,2008,2.4,4,auto(l5),Front wheel,midsize,Regular,7.6,11.2,31
+toyota,camry,1999,3.0,6,auto(l4),Front wheel,midsize,Regular,9.0,13.1,26
+toyota,camry,1999,3.0,6,manual(m5),Front wheel,midsize,Regular,9.0,13.1,26
+toyota,camry,2008,3.5,6,auto(s6),Front wheel,midsize,Regular,8.4,12.4,28
+toyota,camry solara,1999,2.2,4,auto(l4),Front wheel,compact,Regular,8.7,11.2,27
+toyota,camry solara,1999,2.2,4,manual(m5),Front wheel,compact,Regular,8.1,11.2,29
+toyota,camry solara,2008,2.4,4,manual(m5),Front wheel,compact,Regular,7.6,11.2,31
+toyota,camry solara,2008,2.4,4,auto(s5),Front wheel,compact,Regular,7.6,10.7,31
+toyota,camry solara,1999,3.0,6,auto(l4),Front wheel,compact,Regular,9.0,13.1,26
+toyota,camry solara,1999,3.0,6,manual(m5),Front wheel,compact,Regular,9.0,13.1,26
+toyota,camry solara,2008,3.3,6,auto(s5),Front wheel,compact,Regular,8.7,13.1,27
+toyota,corolla,1999,1.8,4,auto(l3),Front wheel,compact,Regular,7.8,9.8,30
+toyota,corolla,1999,1.8,4,auto(l4),Front wheel,compact,Regular,7.1,9.8,33
+toyota,corolla,1999,1.8,4,manual(m5),Front wheel,compact,Regular,6.7,9.0,35
+toyota,corolla,2008,1.8,4,manual(m5),Front wheel,compact,Regular,6.4,8.4,37
+toyota,corolla,2008,1.8,4,auto(l4),Front wheel,compact,Regular,6.7,9.0,35
+toyota,land cruiser wagon 4wd,1999,4.7,8,auto(l4),Four wheel,suv,Regular,15.7,21.4,15
+toyota,land cruiser wagon 4wd,2008,5.7,8,auto(s6),Four wheel,suv,Regular,13.1,18.1,18
+toyota,toyota tacoma 4wd,1999,2.7,4,manual(m5),Four wheel,pickup,Regular,11.8,15.7,20
+toyota,toyota tacoma 4wd,1999,2.7,4,auto(l4),Four wheel,pickup,Regular,11.8,14.7,20
+toyota,toyota tacoma 4wd,2008,2.7,4,manual(m5),Four wheel,pickup,Regular,10.7,13.8,22
+toyota,toyota tacoma 4wd,1999,3.4,6,manual(m5),Four wheel,pickup,Regular,13.8,15.7,17
+toyota,toyota tacoma 4wd,1999,3.4,6,auto(l4),Four wheel,pickup,Regular,12.4,15.7,19
+toyota,toyota tacoma 4wd,2008,4.0,6,manual(m6),Four wheel,pickup,Regular,13.1,15.7,18
+toyota,toyota tacoma 4wd,2008,4.0,6,auto(l5),Four wheel,pickup,Regular,11.8,14.7,20
+volkswagen,gti,1999,2.0,4,manual(m5),Front wheel,compact,Regular,8.1,11.2,29
+volkswagen,gti,1999,2.0,4,auto(l4),Front wheel,compact,Regular,9.0,12.4,26
+volkswagen,gti,2008,2.0,4,manual(m6),Front wheel,compact,Premium,8.1,11.2,29
+volkswagen,gti,2008,2.0,4,auto(s6),Front wheel,compact,Premium,8.1,10.7,29
+volkswagen,gti,1999,2.8,6,manual(m5),Front wheel,compact,Regular,9.8,13.8,24
+volkswagen,jetta,1999,1.9,4,manual(m5),Front wheel,compact,Diesel,5.3,7.1,44
+volkswagen,jetta,1999,2.0,4,manual(m5),Front wheel,compact,Regular,8.1,11.2,29
+volkswagen,jetta,1999,2.0,4,auto(l4),Front wheel,compact,Regular,9.0,12.4,26
+volkswagen,jetta,2008,2.0,4,auto(s6),Front wheel,compact,Premium,8.1,10.7,29
+volkswagen,jetta,2008,2.0,4,manual(m6),Front wheel,compact,Premium,8.1,11.2,29
+volkswagen,jetta,2008,2.5,5,auto(s6),Front wheel,compact,Regular,8.1,11.2,29
+volkswagen,jetta,2008,2.5,5,manual(m5),Front wheel,compact,Regular,8.1,11.2,29
+volkswagen,jetta,1999,2.8,6,auto(l4),Front wheel,compact,Regular,10.2,14.7,23
+volkswagen,jetta,1999,2.8,6,manual(m5),Front wheel,compact,Regular,9.8,13.8,24
+volkswagen,new beetle,1999,1.9,4,manual(m5),Front wheel,subcompact,Diesel,5.3,6.7,44
+volkswagen,new beetle,1999,1.9,4,auto(l4),Front wheel,subcompact,Diesel,5.7,8.1,41
+volkswagen,new beetle,1999,2.0,4,manual(m5),Front wheel,subcompact,Regular,8.1,11.2,29
+volkswagen,new beetle,1999,2.0,4,auto(l4),Front wheel,subcompact,Regular,9.0,12.4,26
+volkswagen,new beetle,2008,2.5,5,manual(m5),Front wheel,subcompact,Regular,8.4,11.8,28
+volkswagen,new beetle,2008,2.5,5,auto(s6),Front wheel,subcompact,Regular,8.1,11.8,29
+volkswagen,passat,1999,1.8,4,manual(m5),Front wheel,midsize,Premium,8.1,11.2,29
+volkswagen,passat,1999,1.8,4,auto(l5),Front wheel,midsize,Premium,8.1,13.1,29
+volkswagen,passat,2008,2.0,4,auto(s6),Front wheel,midsize,Premium,8.4,12.4,28
+volkswagen,passat,2008,2.0,4,manual(m6),Front wheel,midsize,Premium,8.1,11.2,29
+volkswagen,passat,1999,2.8,6,auto(l5),Front wheel,midsize,Premium,9.0,14.7,26
+volkswagen,passat,1999,2.8,6,manual(m5),Front wheel,midsize,Premium,9.0,13.1,26
+volkswagen,passat,2008,3.6,6,auto(s6),Front wheel,midsize,Premium,9.0,13.8,26

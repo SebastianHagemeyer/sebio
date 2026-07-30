@@ -116,6 +116,12 @@
   </head>
 
   <body>
+    <!-- Fullscreen canvas sim: it runs overflow:hidden on the whole viewport,
+         so it cannot take the shared site header without breaking. This
+         floating link is the way back to the hub. Style lives in
+         globalstyle.css as .backfloat -->
+    <a class="backfloat" href="/">&larr; All interactives</a>
+
     <audio id="bgMusic" loop>
       <source src="underpressure.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data Lab &middot; Year 10 Statistics</title>
+<meta name="description" content="Pick a real dataset, ask your own question, plot it and answer it.">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --navy:#1c4587; --navy-2:#153567; --ink:#16202e; --muted:#5a6a7d;
+  --line:#dfe5ec; --bg:#f6f8fb; --card:#fff; --yellow:#fff4d1; --pink:#fbe6ee;
+  --green:#e7f3e4; --blue:#e4ecf9;
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:40px 0 34px}
+header h1{margin:0 0 8px;font-size:2.1rem;line-height:1.15}
+header p{margin:0;font-size:1.05rem;opacity:.93;max-width:60ch}
+.uplink{margin:0 0 14px !important;font-size:.9rem !important}
+.uplink a{color:#ffd45e;text-decoration:none;font-weight:600}
+.uplink a:hover,.uplink a:focus{text-decoration:underline}
+nav{position:sticky;top:0;z-index:20;background:var(--navy-2);
+  box-shadow:0 2px 10px rgba(0,0,0,.18)}
+nav ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap}
+nav a{display:block;padding:13px 16px;color:#fff;text-decoration:none;
+  font-weight:600;font-size:.94rem;border-bottom:3px solid transparent}
+nav a:hover,nav a:focus{background:rgba(255,255,255,.14);border-bottom-color:#ffd45e}
+section{padding:38px 0 8px}
+h2{font-size:1.55rem;margin:0 0 6px;color:var(--navy)}
+h2+.lede{margin:0 0 22px;color:var(--muted);max-width:70ch}
+h3{font-size:1.06rem;margin:22px 0 6px}
+.steps{margin:0;padding:0;list-style:none;counter-reset:s;
+  display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);
+  border-radius:10px;padding:16px 16px 16px 54px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:16px;top:14px;
+  width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;
+  font-weight:700;font-size:.9rem;display:grid;place-items:center}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:18px;display:flex;flex-direction:column}
+.card h3{margin:0 0 2px;font-size:1.16rem;color:var(--navy)}
+.rows{font-size:.82rem;color:var(--muted);font-weight:600;letter-spacing:.02em;
+  text-transform:uppercase;margin-bottom:10px}
+.card dl{margin:0 0 12px;font-size:.93rem}
+.card dt{font-weight:700;margin-top:7px}
+.card dd{margin:1px 0 0}
+.ask{font-style:italic;color:var(--navy-2)}
+.actions{margin-top:auto;padding-top:14px;display:flex;gap:9px;flex-wrap:wrap}
+.btn{display:inline-block;background:var(--navy);color:#fff;text-decoration:none;
+  padding:9px 15px;border-radius:7px;font-weight:650;font-size:.92rem;
+  border:1px solid var(--navy);cursor:pointer;font-family:inherit}
+.btn:hover,.btn:focus{background:var(--navy-2)}
+.btn.ghost{background:#fff;color:var(--navy)}
+.btn.ghost:hover,.btn.ghost:focus{background:var(--blue)}
+details{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-weight:650;font-size:.9rem;color:var(--navy)}
+.scroll{overflow-x:auto;margin-top:10px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;font-size:.8rem;min-width:100%}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;white-space:nowrap}
+th{background:#eef2f8;font-weight:700}
+.qtable td{white-space:normal}
+.qtable td:first-child{font-style:italic;width:38%}
+.tick{color:#1a7f37;font-weight:800}
+.cross{color:#b42318;font-weight:800}
+.warn{color:#b25e00;font-weight:800}
+.box{border-radius:10px;padding:16px 18px;margin:16px 0;border:1px solid var(--line)}
+.box h3{margin:0 0 6px}
+.box.pink{background:var(--pink)} .box.yellow{background:var(--yellow)}
+.box.green{background:var(--green)} .box.blue{background:var(--blue)}
+.box ul{margin:6px 0 0;padding-left:20px} .box li{margin:4px 0}
+.tools{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.tool h3{margin:0 0 2px;color:var(--navy);font-size:1.2rem}
+.tool .sub{font-size:.86rem;color:var(--muted);margin-bottom:12px}
+.tool ol{margin:0;padding-left:22px} .tool li{margin:9px 0;font-size:.94rem}
+code{background:#eef2f8;padding:1px 5px;border-radius:4px;
+  font:.88em ui-monospace,Consolas,monospace}
+kbd{background:#fff;border:1px solid #c3ccd8;border-bottom-width:2px;border-radius:4px;
+  padding:0 5px;font:.85em ui-monospace,Consolas,monospace}
+footer{margin-top:40px;padding:26px 0;background:var(--navy);color:#fff;font-size:.9rem}
+footer a{color:#ffd45e}
+.copied{color:#1a7f37;font-weight:700;font-size:.86rem;align-self:center}
+@media print{nav{position:static}.actions{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<p class="uplink"><a href="../">&larr; All Hallam interactives</a></p>
+<h1>Data Lab</h1>
+<p>Pick some real data. Ask your own question. Plot it, fit a line, and answer it honestly.
+Everything you need is on this page.</p>
+</div></header>
+
+<nav><div class="wrap"><ul>
+<li><a href="#how">How it works</a></li>
+<li><a href="#data">The data</a></li>
+<li><a href="#question">Your question</a></li>
+<li><a href="#plot">How to plot it</a></li>
+<li><a href="#own">Find your own</a></li>
+</ul></div></nav>
+
+<main class="wrap">
+
+<section id="how">
+<h2>How it works</h2>
+<p class="lede">Four steps. Your booklet walks you through all of them, and you get your
+question signed off before you touch a computer.</p>
+<ol class="steps">
+<li><strong>Pick a dataset.</strong> Scroll down, read what one row means, and download it.</li>
+<li><strong>Write your question.</strong> It needs two number columns and it asks whether they
+are related.</li>
+<li><strong>Plot it.</strong> Scatterplot, explanatory variable across the bottom, then add the
+line of best fit.</li>
+<li><strong>Answer it.</strong> Name the association, read the gradient in context, make one
+prediction, then argue with yourself about whether to trust it.</li>
+</ol>
+</section>
+
+<section id="data">
+<h2>The data</h2>
+<p class="lede">Ten to choose from, plus four extras. Every file is small, already cleaned up,
+and opens straight into a spreadsheet or CODAP. Hit <strong>Peek at the data</strong> to see what
+you are getting before you commit.</p>
+<div class="grid"><article class="card" id="penguins"><h3>Antarctic penguins</h3><p class="rows">344 rows &middot; 8 columns &middot; 17 KB</p><dl><dt>One row is</dt><dd>one penguin measured at a research station</dd><dt>Good numbers to plot</dt><dd>flipper_length_mm, body_mass_g, bill_length_mm, bill_depth_mm</dd><dt>Groups you can split by</dt><dd>species, island, sex</dd><dt>Also in the file</dt><dd>year</dd><dt>You could ask</dt><dd class="ask">Do penguins with longer flippers weigh more? Is it the same for all three species?</dd></dl><div class="actions"><a class="btn" href="datasets/penguins.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/penguins.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>species</th><th>island</th><th>bill_length_mm</th><th>bill_depth_mm</th><th>flipper_length_mm</th><th>body_mass_g</th><th>sex</th><th>year</th></tr></thead><tbody><tr><td>Adelie</td><td>Torgersen</td><td>39.1</td><td>18.7</td><td>181.0</td><td>3750.0</td><td>male</td><td>2007</td></tr><tr><td>Adelie</td><td>Torgersen</td><td>39.5</td><td>17.4</td><td>186.0</td><td>3800.0</td><td>female</td><td>2007</td></tr><tr><td>Adelie</td><td>Torgersen</td><td>40.3</td><td>18.0</td><td>195.0</td><td>3250.0</td><td>female</td><td>2007</td></tr><tr><td>Adelie</td><td>Torgersen</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>2007</td></tr><tr><td>Adelie</td><td>Torgersen</td><td>36.7</td><td>19.3</td><td>193.0</td><td>3450.0</td><td>female</td><td>2007</td></tr></tbody></table></div></details></article><article class="card" id="afl_players"><h3>AFL players</h3><p class="rows">677 rows &middot; 5 columns &middot; 28 KB</p><dl><dt>One row is</dt><dd>one AFL player</dd><dt>Good numbers to plot</dt><dd>height_cm, weight_kg</dd><dt>Groups you can split by</dt><dd>position, team</dd><dt>Also in the file</dt><dd>player</dd><dt>You could ask</dt><dd class="ask">Are taller players heavier? Do ruckmen sit above or below everyone else?</dd></dl><div class="actions"><a class="btn" href="datasets/afl_players.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/afl_players.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>player</th><th>team</th><th>position</th><th>height_cm</th><th>weight_kg</th></tr></thead><tbody><tr><td>Scott Thompson</td><td>Adelaide</td><td>Midfielder</td><td>185</td><td>85</td></tr><tr><td>Richard Douglas</td><td>Adelaide</td><td>Midfielder</td><td>180</td><td>80</td></tr><tr><td>Rory Sloane</td><td>Adelaide</td><td>Midfielder</td><td>183</td><td>85</td></tr><tr><td>Patrick Dangerfield</td><td>Adelaide</td><td>Midfielder</td><td>185</td><td>92</td></tr><tr><td>Bernie Vince</td><td>Adelaide</td><td>Midfielder</td><td>186</td><td>87</td></tr></tbody></table></div></details></article><article class="card" id="nba_players"><h3>NBA players</h3><p class="rows">438 rows &middot; 13 columns &middot; 40 KB</p><dl><dt>One row is</dt><dd>one NBA player and their season</dd><dt>Good numbers to plot</dt><dd>minutes_per_game, points_per_game, height_cm, weight_kg, salary</dd><dt>Groups you can split by</dt><dd>position, team</dd><dt>Also in the file</dt><dd>player, age, years_experience, games_played, rebounds_per_game, assists_per_game</dd><dt>You could ask</dt><dd class="ask">Does more time on court mean more points? Is height or court time the better predictor? Does the pay match the points?</dd></dl><div class="actions"><a class="btn" href="datasets/nba_players.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/nba_players.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>player</th><th>team</th><th>position</th><th>age</th><th>years_experience</th><th>height_cm</th><th>weight_kg</th><th>salary</th><th>games_played</th><th>…</th></tr></thead><tbody><tr><td>Brad Wanamaker</td><td>Boston Celtics</td><td>Point guard</td><td>30</td><td>1</td><td>190.5</td><td>95.3</td><td>1445697.0</td><td>99.0</td><td>…</td></tr><tr><td>Carsen Edwards</td><td>Boston Celtics</td><td>Point guard</td><td>22</td><td>0</td><td>180.3</td><td>90.7</td><td>1228026.0</td><td>35.0</td><td>…</td></tr><tr><td>Daniel Theis</td><td>Boston Celtics</td><td>Centre</td><td>27</td><td>2</td><td>203.2</td><td>111.1</td><td>5000000.0</td><td>187.0</td><td>…</td></tr><tr><td>Enes Kanter</td><td>Boston Celtics</td><td>Centre</td><td>27</td><td>8</td><td>208.3</td><td>113.4</td><td>4767000.0</td><td>634.0</td><td>…</td></tr><tr><td>Gordon Hayward</td><td>Boston Celtics</td><td>Small forward</td><td>30</td><td>9</td><td>200.7</td><td>102.1</td><td>32700690.0</td><td>634.0</td><td>…</td></tr></tbody></table></div></details></article><article class="card" id="ais_athletes"><h3>Australian Institute of Sport athletes</h3><p class="rows">202 rows &middot; 10 columns &middot; 11 KB</p><dl><dt>One row is</dt><dd>one elite Australian athlete</dd><dt>Good numbers to plot</dt><dd>height_cm, weight_kg, lean_body_mass_kg, haemoglobin, haematocrit_pct</dd><dt>Groups you can split by</dt><dd>sport, sex</dd><dt>Also in the file</dt><dd>red_cell_count, white_cell_count, ferritin</dd><dt>You could ask</dt><dd class="ask">Are taller athletes heavier? Which sport has the tallest athletes?</dd></dl><div class="actions"><a class="btn" href="datasets/ais_athletes.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/ais_athletes.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>sport</th><th>sex</th><th>height_cm</th><th>weight_kg</th><th>lean_body_mass_kg</th><th>red_cell_count</th><th>white_cell_count</th><th>haematocrit_pct</th><th>haemoglobin</th><th>…</th></tr></thead><tbody><tr><td>Basketball</td><td>Female</td><td>195.9</td><td>78.9</td><td>63.32</td><td>3.96</td><td>7.5</td><td>37.5</td><td>12.3</td><td>…</td></tr><tr><td>Basketball</td><td>Female</td><td>189.7</td><td>74.4</td><td>58.55</td><td>4.41</td><td>8.3</td><td>38.2</td><td>12.7</td><td>…</td></tr><tr><td>Basketball</td><td>Female</td><td>177.8</td><td>69.1</td><td>55.36</td><td>4.14</td><td>5.0</td><td>36.4</td><td>11.6</td><td>…</td></tr><tr><td>Basketball</td><td>Female</td><td>185.0</td><td>74.9</td><td>57.18</td><td>4.11</td><td>5.3</td><td>37.3</td><td>12.6</td><td>…</td></tr><tr><td>Basketball</td><td>Female</td><td>184.6</td><td>64.6</td><td>53.2</td><td>4.45</td><td>6.8</td><td>41.5</td><td>14.0</td><td>…</td></tr></tbody></table></div></details></article><article class="card" id="aus_weather"><h3>Australian weather, three cities</h3><p class="rows">300 rows &middot; 13 columns &middot; 19 KB</p><dl><dt>One row is</dt><dd>one day in Hobart, Uluru or Wollongong</dd><dt>Good numbers to plot</dt><dd>min_temp_c, max_temp_c, humidity_3pm_pct</dd><dt>Groups you can split by</dt><dd>location, rain_today</dd><dt>Also in the file</dt><dd>rainfall_mm, wind_gust_kmh, humidity_9am_pct, temp_9am_c, temp_3pm_c, pressure_9am, pressure_3pm, rain_tomorrow</dd><dt>You could ask</dt><dd class="ask">Does a cold morning mean a cold afternoon? Does the rule work as well in Uluru as in Hobart?</dd></dl><div class="actions"><a class="btn" href="datasets/aus_weather.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/aus_weather.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>location</th><th>min_temp_c</th><th>max_temp_c</th><th>rainfall_mm</th><th>wind_gust_kmh</th><th>humidity_9am_pct</th><th>humidity_3pm_pct</th><th>temp_9am_c</th><th>temp_3pm_c</th><th>…</th></tr></thead><tbody><tr><td>Hobart</td><td>7.9</td><td>11.4</td><td>1.2</td><td>44.0</td><td>79</td><td>74</td><td>9.0</td><td>10.5</td><td>…</td></tr><tr><td>Hobart</td><td>6.1</td><td>10.8</td><td>0.0</td><td>31.0</td><td>86</td><td>86</td><td>8.5</td><td>10.3</td><td>…</td></tr><tr><td>Hobart</td><td>8.9</td><td>19.2</td><td>0.8</td><td>30.0</td><td>52</td><td>53</td><td>15.9</td><td>18.3</td><td>…</td></tr><tr><td>Hobart</td><td>10.6</td><td>20.1</td><td>0.2</td><td>44.0</td><td>86</td><td>76</td><td>12.5</td><td>17.5</td><td>…</td></tr><tr><td>Hobart</td><td>7.8</td><td>19.0</td><td>0.0</td><td>35.0</td><td>72</td><td>42</td><td>10.1</td><td>17.4</td><td>…</td></tr></tbody></table></div></details></article><article class="card" id="used_cars"><h3>Used cars for sale</h3><p class="rows">90 rows &middot; 4 columns &middot; 2 KB</p><dl><dt>One row is</dt><dd>one second-hand car advertised for sale</dd><dt>Good numbers to plot</dt><dd>age_years, price_thousands_usd, distance_driven_thousand_km</dd><dt>Groups you can split by</dt><dd>model</dd><dt>You could ask</dt><dd class="ask">How much value does a car lose each year? Does age or distance driven matter more?</dd></dl><div class="actions"><a class="btn" href="datasets/used_cars.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/used_cars.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>model</th><th>age_years</th><th>distance_driven_thousand_km</th><th>price_thousands_usd</th></tr></thead><tbody><tr><td>Mazda6</td><td>3</td><td>28.6</td><td>15.9</td></tr><tr><td>Mazda6</td><td>2</td><td>30.6</td><td>16.4</td></tr><tr><td>Mazda6</td><td>1</td><td>33.6</td><td>18.9</td></tr><tr><td>Mazda6</td><td>2</td><td>38.6</td><td>16.9</td></tr><tr><td>Mazda6</td><td>2</td><td>38.6</td><td>20.5</td></tr></tbody></table></div></details></article><article class="card" id="fast_food"><h3>Fast food nutrition</h3><p class="rows">515 rows &middot; 14 columns &middot; 43 KB</p><dl><dt>One row is</dt><dd>one item on a fast food menu</dd><dt>Good numbers to plot</dt><dd>calories, total_fat_g, sodium_mg, protein_g</dd><dt>Groups you can split by</dt><dd>restaurant, salad</dd><dt>Also in the file</dt><dd>item, calories_from_fat, sat_fat_g, trans_fat_g, cholesterol_mg, carbs_g, fibre_g, sugar_g</dd><dt>You could ask</dt><dd class="ask">Can you predict an item&#x27;s fat from its calories? Which chain comes out worst? Are the salads actually better?</dd></dl><div class="actions"><a class="btn" href="datasets/fast_food.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/fast_food.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>restaurant</th><th>item</th><th>calories</th><th>calories_from_fat</th><th>total_fat_g</th><th>sat_fat_g</th><th>trans_fat_g</th><th>cholesterol_mg</th><th>sodium_mg</th><th>…</th></tr></thead><tbody><tr><td>Mcdonalds</td><td>Artisan Grilled Chicken Sandwich</td><td>380</td><td>60</td><td>7</td><td>2.0</td><td>0.0</td><td>95</td><td>1110</td><td>…</td></tr><tr><td>Mcdonalds</td><td>Single Bacon Smokehouse Burger</td><td>840</td><td>410</td><td>45</td><td>17.0</td><td>1.5</td><td>130</td><td>1580</td><td>…</td></tr><tr><td>Mcdonalds</td><td>Double Bacon Smokehouse Burger</td><td>1130</td><td>600</td><td>67</td><td>27.0</td><td>3.0</td><td>220</td><td>1920</td><td>…</td></tr><tr><td>Mcdonalds</td><td>Grilled Bacon Smokehouse Chicken Sandwich</td><td>750</td><td>280</td><td>31</td><td>10.0</td><td>0.5</td><td>155</td><td>1940</td><td>…</td></tr><tr><td>Mcdonalds</td><td>Crispy Bacon Smokehouse Chicken Sandwich</td><td>920</td><td>410</td><td>45</td><td>12.0</td><td>0.5</td><td>120</td><td>1980</td><td>…</td></tr></tbody></table></div></details></article><article class="card" id="pokemon"><h3>Pokemon stats</h3><p class="rows">800 rows &middot; 13 columns &middot; 44 KB</p><dl><dt>One row is</dt><dd>one Pokemon</dd><dt>Good numbers to plot</dt><dd>attack, total_stats, defense, hp</dd><dt>Groups you can split by</dt><dd>type_1, generation, legendary</dd><dt>Also in the file</dt><dd>id, name, type_2, sp_attack, sp_defense, speed</dd><dt>You could ask</dt><dd class="ask">Do high attack Pokemon give up defense, or do strong ones just get more of everything? Are legendaries a different breed?</dd></dl><div class="actions"><a class="btn" href="datasets/pokemon.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/pokemon.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>id</th><th>name</th><th>type_1</th><th>type_2</th><th>total_stats</th><th>hp</th><th>attack</th><th>defense</th><th>sp_attack</th><th>…</th></tr></thead><tbody><tr><td>1</td><td>Bulbasaur</td><td>Grass</td><td>Poison</td><td>318</td><td>45</td><td>49</td><td>49</td><td>65</td><td>…</td></tr><tr><td>2</td><td>Ivysaur</td><td>Grass</td><td>Poison</td><td>405</td><td>60</td><td>62</td><td>63</td><td>80</td><td>…</td></tr><tr><td>3</td><td>Venusaur</td><td>Grass</td><td>Poison</td><td>525</td><td>80</td><td>82</td><td>83</td><td>100</td><td>…</td></tr><tr><td>3</td><td>VenusaurMega Venusaur</td><td>Grass</td><td>Poison</td><td>625</td><td>80</td><td>100</td><td>123</td><td>122</td><td>…</td></tr><tr><td>4</td><td>Charmander</td><td>Fire</td><td>&mdash;</td><td>309</td><td>39</td><td>52</td><td>43</td><td>60</td><td>…</td></tr></tbody></table></div></details></article><article class="card" id="spotify_songs"><h3>Spotify songs</h3><p class="rows">350 rows &middot; 19 columns &middot; 56 KB</p><dl><dt>One row is</dt><dd>one song</dd><dt>Good numbers to plot</dt><dd>energy, loudness, acousticness, popularity</dd><dt>Groups you can split by</dt><dd>genre, subgenre, playlist_name</dd><dt>Also in the file</dt><dd>title, artist, album, danceability, key, mode, speechiness, instrumentalness, liveness, valence, tempo, duration_ms</dd><dt>You could ask</dt><dd class="ask">Are high energy songs mixed louder? Are sad songs slower?</dd></dl><div class="actions"><a class="btn" href="datasets/spotify_songs.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/spotify_songs.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>title</th><th>artist</th><th>popularity</th><th>album</th><th>playlist_name</th><th>genre</th><th>subgenre</th><th>danceability</th><th>energy</th><th>…</th></tr></thead><tbody><tr><td>On &amp; On</td><td>Alok</td><td>79</td><td>On &amp; On</td><td>Dance Room</td><td>pop</td><td>dance pop</td><td>74.7</td><td>77.60000000000001</td><td>…</td></tr><tr><td>All The Lies</td><td>Alok</td><td>56</td><td>All The Lies (Remixes)</td><td>Cardio</td><td>pop</td><td>dance pop</td><td>70.7</td><td>80.60000000000001</td><td>…</td></tr><tr><td>Hear Me Now</td><td>Alok</td><td>75</td><td>Hear Me Now</td><td>ElectroPop 2020</td><td>pop</td><td>electropop</td><td>77.8</td><td>46.3</td><td>…</td></tr><tr><td>The Wall</td><td>Alok</td><td>65</td><td>The Wall</td><td>Electropop</td><td>pop</td><td>electropop</td><td>68.2</td><td>91.0</td><td>…</td></tr><tr><td>Hear Me Now</td><td>Alok</td><td>52</td><td>Hear Me Now</td><td>Chillout &amp; Remixes 💜</td><td>pop</td><td>indie poptimism</td><td>78.8</td><td>43.0</td><td>…</td></tr></tbody></table></div></details></article><article class="card" id="hollywood_movies"><h3>Hollywood movies</h3><p class="rows">970 rows &middot; 16 columns &middot; 100 KB</p><dl><dt>One row is</dt><dd>one film released between 2007 and 2013</dd><dt>Good numbers to plot</dt><dd>budget_m, world_gross_m, critic_score, audience_score, opening_weekend_m, domestic_gross_m</dd><dt>Groups you can split by</dt><dd>genre, studio, year</dd><dt>Also in the file</dt><dd>movie, story, theatres_opening_week, avg_per_theatre_opening, foreign_gross_m, profitability, opening_profit</dd><dt>You could ask</dt><dd class="ask">Does a bigger budget buy a bigger box office? Do critics and ordinary viewers agree, and which films split them hardest?</dd></dl><div class="actions"><a class="btn" href="datasets/hollywood_movies.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/hollywood_movies.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>movie</th><th>studio</th><th>critic_score</th><th>audience_score</th><th>story</th><th>genre</th><th>theatres_opening_week</th><th>opening_weekend_m</th><th>avg_per_theatre_opening</th><th>…</th></tr></thead><tbody><tr><td>Spider-Man 3</td><td>Sony</td><td>61.0</td><td>54.0</td><td>Metamorphosis</td><td>Action</td><td>4252.0</td><td>151.1</td><td>35540.0</td><td>…</td></tr><tr><td>Shrek the Third</td><td>Paramount</td><td>42.0</td><td>57.0</td><td>Quest</td><td>Animation</td><td>4122.0</td><td>121.6</td><td>29507.0</td><td>…</td></tr><tr><td>Transformers</td><td>Paramount</td><td>57.0</td><td>89.0</td><td>Monster Force</td><td>Action</td><td>4011.0</td><td>70.5</td><td>17577.0</td><td>…</td></tr><tr><td>Pirates of the Caribbean: At World&#x27;s End</td><td>Disney</td><td>45.0</td><td>74.0</td><td>Rescue</td><td>Action</td><td>4362.0</td><td>114.7</td><td>26302.0</td><td>…</td></tr><tr><td>Harry Potter and the Order of the Phoenix</td><td>Warner Bros</td><td>78.0</td><td>82.0</td><td>Quest</td><td>Adventure</td><td>4285.0</td><td>77.1</td><td>17998.0</td><td>…</td></tr></tbody></table></div></details></article></div>
+
+<h3 style="margin-top:30px">Also available</h3>
+<p class="lede">Smaller or stranger. Good if you have finished early or you want something
+nobody else will have.</p>
+<div class="grid"><article class="card" id="countries"><h3>Countries: money and lifespan</h3><p class="rows">187 rows &middot; 5 columns &middot; 9 KB</p><dl><dt>One row is</dt><dd>one country</dd><dt>Good numbers to plot</dt><dd>income_per_person, life_expectancy_years</dd><dt>Groups you can split by</dt><dd>region</dd><dt>Also in the file</dt><dd>country, population</dd><dt>You could ask</dt><dd class="ask">Does more money always buy more years of life, or does it level off? Warning: this one is not a straight line, which makes it interesting.</dd></dl><div class="actions"><a class="btn" href="datasets/countries.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/countries.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>country</th><th>income_per_person</th><th>life_expectancy_years</th><th>population</th><th>region</th></tr></thead><tbody><tr><td>Afghanistan</td><td>1925</td><td>57.63</td><td>32526562</td><td>south_asia</td></tr><tr><td>Albania</td><td>10620</td><td>76.0</td><td>2896679</td><td>europe_central_asia</td></tr><tr><td>Algeria</td><td>13434</td><td>76.5</td><td>39666519</td><td>middle_east_north_africa</td></tr><tr><td>Andorra</td><td>46577</td><td>84.1</td><td>70473</td><td>europe_central_asia</td></tr><tr><td>Angola</td><td>7615</td><td>61.0</td><td>25021974</td><td>sub_saharan_africa</td></tr></tbody></table></div></details></article><article class="card" id="possums"><h3>Australian possums</h3><p class="rows">104 rows &middot; 13 columns &middot; 7 KB</p><dl><dt>One row is</dt><dd>one possum trapped in Victoria or NSW/Qld</dd><dt>Good numbers to plot</dt><dd>head_length_mm, skull_width_mm, total_length_cm</dd><dt>Groups you can split by</dt><dd>region, sex, trap_site</dd><dt>Also in the file</dt><dd>age_years, tail_length_cm, foot_length_mm, ear_length_mm, eye_width_mm, chest_girth_cm, belly_girth_cm</dd><dt>You could ask</dt><dd class="ask">Can you tell a Victorian possum from a northern one by its skull?</dd></dl><div class="actions"><a class="btn" href="datasets/possums.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/possums.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>trap_site</th><th>region</th><th>sex</th><th>age_years</th><th>head_length_mm</th><th>skull_width_mm</th><th>total_length_cm</th><th>tail_length_cm</th><th>foot_length_mm</th><th>…</th></tr></thead><tbody><tr><td>1</td><td>Victoria</td><td>Male</td><td>8.0</td><td>94.1</td><td>60.4</td><td>89.0</td><td>36.0</td><td>74.5</td><td>…</td></tr><tr><td>1</td><td>Victoria</td><td>Female</td><td>6.0</td><td>92.5</td><td>57.6</td><td>91.5</td><td>36.5</td><td>72.5</td><td>…</td></tr><tr><td>1</td><td>Victoria</td><td>Female</td><td>6.0</td><td>94.0</td><td>60.0</td><td>95.5</td><td>39.0</td><td>75.4</td><td>…</td></tr><tr><td>1</td><td>Victoria</td><td>Female</td><td>6.0</td><td>93.2</td><td>57.1</td><td>92.0</td><td>38.0</td><td>76.1</td><td>…</td></tr><tr><td>1</td><td>Victoria</td><td>Female</td><td>2.0</td><td>91.5</td><td>56.3</td><td>85.5</td><td>36.0</td><td>71.0</td><td>…</td></tr></tbody></table></div></details></article><article class="card" id="cars_fuel"><h3>Cars: engine size and fuel use</h3><p class="rows">234 rows &middot; 12 columns &middot; 18 KB</p><dl><dt>One row is</dt><dd>one car model</dd><dt>Good numbers to plot</dt><dd>engine_litres, highway_l_per_100km, highway_miles_per_gallon</dd><dt>Groups you can split by</dt><dd>class, drive, manufacturer</dd><dt>Also in the file</dt><dd>model, year, cylinders, transmission, fuel_type, city_l_per_100km</dd><dt>You could ask</dt><dd class="ask">How much fuel economy do you lose per extra litre of engine? This file has fuel use measured two opposite ways, which is worth a look.</dd></dl><div class="actions"><a class="btn" href="datasets/cars_fuel.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/cars_fuel.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>manufacturer</th><th>model</th><th>year</th><th>engine_litres</th><th>cylinders</th><th>transmission</th><th>drive</th><th>class</th><th>fuel_type</th><th>…</th></tr></thead><tbody><tr><td>audi</td><td>a4</td><td>1999</td><td>1.8</td><td>4</td><td>auto(l5)</td><td>Front wheel</td><td>compact</td><td>Premium</td><td>…</td></tr><tr><td>audi</td><td>a4</td><td>1999</td><td>1.8</td><td>4</td><td>manual(m5)</td><td>Front wheel</td><td>compact</td><td>Premium</td><td>…</td></tr><tr><td>audi</td><td>a4</td><td>2008</td><td>2.0</td><td>4</td><td>manual(m6)</td><td>Front wheel</td><td>compact</td><td>Premium</td><td>…</td></tr><tr><td>audi</td><td>a4</td><td>2008</td><td>2.0</td><td>4</td><td>auto(av)</td><td>Front wheel</td><td>compact</td><td>Premium</td><td>…</td></tr><tr><td>audi</td><td>a4</td><td>1999</td><td>2.8</td><td>6</td><td>auto(l5)</td><td>Front wheel</td><td>compact</td><td>Premium</td><td>…</td></tr></tbody></table></div></details></article><article class="card" id="mammal_sleep"><h3>How mammals sleep</h3><p class="rows">83 rows &middot; 8 columns &middot; 4 KB</p><dl><dt>One row is</dt><dd>one mammal species</dd><dt>Good numbers to plot</dt><dd>sleep_hours, dream_sleep_hours, body_mass_kg, brain_mass_kg</dd><dt>Groups you can split by</dt><dd>diet</dd><dt>Also in the file</dt><dd>animal, sleep_cycle_hours, awake_hours</dd><dt>You could ask</dt><dd class="ask">Do animals that sleep more also dream more? Do carnivores sleep longer?</dd></dl><div class="actions"><a class="btn" href="datasets/mammal_sleep.csv" download>Download CSV</a><button class="btn ghost" type="button" data-copy="datasets/mammal_sleep.csv">Copy link for CODAP</button></div><details><summary>Peek at the data</summary><div class="scroll"><table><thead><tr><th>animal</th><th>diet</th><th>sleep_hours</th><th>dream_sleep_hours</th><th>sleep_cycle_hours</th><th>awake_hours</th><th>brain_mass_kg</th><th>body_mass_kg</th></tr></thead><tbody><tr><td>Cheetah</td><td>Carnivore</td><td>12.1</td><td>&mdash;</td><td>&mdash;</td><td>11.9</td><td>&mdash;</td><td>50.0</td></tr><tr><td>Owl monkey</td><td>Omnivore</td><td>17.0</td><td>1.8</td><td>&mdash;</td><td>7.0</td><td>0.0155</td><td>0.48</td></tr><tr><td>Mountain beaver</td><td>Herbivore</td><td>14.4</td><td>2.4</td><td>&mdash;</td><td>9.6</td><td>&mdash;</td><td>1.35</td></tr><tr><td>Greater short-tailed shrew</td><td>Omnivore</td><td>14.9</td><td>2.3</td><td>0.133333333</td><td>9.1</td><td>0.00029</td><td>0.019</td></tr><tr><td>Cow</td><td>Herbivore</td><td>4.0</td><td>0.7</td><td>0.666666667</td><td>20.0</td><td>0.423</td><td>600.0</td></tr></tbody></table></div></details></article></div>
+</section>
+
+<section id="question">
+<h2>Getting your question right</h2>
+<p class="lede">This is where this task actually goes wrong, so spend a minute on it. Use this
+shape:</p>
+<div class="box blue">
+<p style="margin:0;font-size:1.08rem"><strong>Is there a relationship between
+______ and ______ in ______ ?</strong></p>
+</div>
+<div class="box green">
+<h3>Check all four before you start</h3>
+<ul>
+<li>It names <strong>two</strong> columns that both hold numbers.</li>
+<li>It asks whether they are related, not what one single value is.</li>
+<li>You can answer it from your file, without going and finding more data.</li>
+<li>It is not secretly a compare-two-groups question. That is boxplot work, not a
+scatterplot. Both are fine, you just have to know which one you are doing.</li>
+</ul>
+</div>
+<div class="scroll"><table class="qtable"><thead><tr><th>The question</th><th>Verdict</th></tr></thead><tbody><tr><td><span class="tick">&#10004;</span> Do penguins with longer flippers weigh more?</td><td>Two number columns, and it asks about a relationship.</td></tr><tr><td><span class="tick">&#10004;</span> Does a bigger movie budget mean a bigger box office?</td><td>Both are numbers, and the file can answer it.</td></tr><tr><td><span class="tick">&#10004;</span> Is court time or height the better predictor of points?</td><td>Ambitious and good. Two scatterplots, then compare the two r values.</td></tr><tr><td><span class="cross">&#10008;</span> What is the best Pokemon?</td><td>‘Best’ is not a number, and nothing is being related to anything.</td></tr><tr><td><span class="cross">&#10008;</span> How many songs are in the Spotify file?</td><td>That is a fact you look up in one second, not an investigation.</td></tr><tr><td><span class="warn">!</span> Do midfielders weigh more than ruckmen?</td><td>Careful. This compares two GROUPS, so it is boxplots, not a scatterplot. Fine to do, but know which one you are doing.</td></tr><tr><td><span class="warn">!</span> Does more court time CAUSE more points?</td><td>Careful. Your data can show two things go together. It can never prove one causes the other. Ask whether they are related, then discuss cause separately.</td></tr><tr><td><span class="cross">&#10008;</span> Does eating fast food make people unhealthy?</td><td>There are no people in that file, only menu items. Check your file actually contains the thing you are asking about.</td></tr></tbody></table></div>
+</section>
+
+<section id="plot">
+<h2>How to plot it</h2>
+<p class="lede">Use whichever of these your lab has. CODAP needs no login and nothing installed.
+Excel is already on the machines.</p>
+<div class="tools">
+
+<div class="tool">
+<h3>CODAP</h3>
+<p class="sub">codap.concord.org/app &middot; free, any browser, no login, nothing to install</p>
+<ol>
+<li><strong>Open the data.</strong> Drag your CSV onto the CODAP window. Or use the menu button,
+choose <em>Import</em>, then the <em>Local File</em> tab. Your data appears as a table.
+<br>You can also use <strong>Copy link for CODAP</strong> above and import straight from the web.</li>
+<li><strong>Make an empty graph.</strong> Click <em>Graph</em> in the top toolbar.</li>
+<li><strong>Drag your explanatory variable</strong> onto the horizontal axis, across the bottom.</li>
+<li><strong>Drag your response variable</strong> onto the vertical axis. That is your scatterplot.</li>
+<li><strong>Add the line.</strong> Click the <strong>ruler icon</strong> in the strip of icons down
+the right of the graph, then tick <em>Least Squares Line</em>. You get the equation and a number
+called R squared.</li>
+<li><strong>Colour by group</strong> (optional, looks great). Drag a word column onto the middle
+of the graph.</li>
+</ol>
+<p style="font-size:.9rem;margin:12px 0 0"><strong>Stuck?</strong> If a column will not go on an
+axis, click its name and choose <em>Treat as Numeric</em>. If nothing happens when you drag,
+you forgot to make the graph first.</p>
+</div>
+
+<div class="tool">
+<h3>Excel</h3>
+<p class="sub">Use the Excel installed on the machine. Excel in a web browser cannot open a CSV
+at all.</p>
+<ol>
+<li><strong>Open the CSV.</strong> If everything lands in column A, stop and ask.</li>
+<li><strong>Get your two columns side by side</strong>, x on the left, y on the right. Copy them
+into fresh columns if you need to.</li>
+<li><strong>Select both columns</strong>, including the headings.</li>
+<li><strong>Insert &rarr; Scatter</strong>, and pick the plain one with dots and no lines.</li>
+<li><strong>Label it.</strong> Click the chart, then the <kbd>+</kbd>, and switch on Axis Titles
+and Chart Title. Units go in the labels.</li>
+<li><strong>Add the line.</strong> Right click a dot, <em>Add Trendline</em>, keep <em>Linear</em>,
+then tick <em>Display Equation on chart</em> and <em>Display R-squared value on chart</em>.</li>
+<li><strong>Want r directly?</strong> In any empty cell type
+<code>=CORREL(</code> your y column <code>,</code> your x column <code>)</code>.</li>
+</ol>
+<p style="font-size:.9rem;margin:12px 0 0"><strong>Dots joined by a line?</strong> You picked a
+Line chart instead of Scatter. That is rookie plot crime number one. Delete it and start again.</p>
+</div>
+</div>
+
+<div class="box pink">
+<h3>Getting r out of R squared</h3>
+<p style="margin:0 0 6px">Neither tool shows you <strong>r</strong> straight away. Both show
+<strong>R squared</strong>. Convert it yourself:</p>
+<p style="margin:0 0 6px"><strong>r = the square root of R squared</strong>, and the
+<strong>sign</strong> comes from which way the line slopes.</p>
+<p style="margin:0 0 6px">Example: R squared is 0.67. The square root of 0.67 is 0.82. The line
+slopes up, so r = +0.82. That is the penguin number from class, so you can check the method
+on data you already know.</p>
+<p style="margin:0"><strong>And remember:</strong> the sign only tells you the direction.
+Strength is how far r sits from zero, so r = &minus;0.9 is strong and r = +0.2 is weak.</p>
+</div>
+
+<div class="box yellow">
+<h3>SALT, before you call it finished</h3>
+<ul>
+<li><strong>S</strong>cale, evenly spaced, on both axes.</li>
+<li><strong>A</strong>xes, explanatory variable across the bottom.</li>
+<li><strong>L</strong>abels, both axes named, with units.</li>
+<li><strong>T</strong>itle, saying what the graph is of.</li>
+</ul>
+</div>
+</section>
+
+<section id="own">
+<h2>Find your own data</h2>
+<p class="lede">Finish the investigation first. Then, if you want to go hunting, this is the
+big public list:</p>
+<div class="box blue">
+<p style="margin:0 0 8px"><a href="https://github.com/awesomedata/awesome-public-datasets"
+rel="noopener">github.com/awesomedata/awesome-public-datasets</a></p>
+<p style="margin:0">Fair warning, and this is genuinely what working with data feels like: a lot
+of those links are dead, a lot of the files are far too big to open, and a file that will not
+load is not a maths problem you can solve. If that link is blocked at school, try it at home.</p>
+</div>
+<h3>What makes a dataset usable</h3>
+<ul>
+<li>It is a <strong>.csv</strong> file you can actually download.</li>
+<li>It has <strong>two columns of numbers</strong> that might be related.</li>
+<li>It is <strong>small</strong>. A few thousand rows at most, or it will not open.</li>
+<li>One row means <strong>one thing</strong>, and you can say what that thing is.</li>
+</ul>
+<p>Get it approved before you commit to it.</p>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+<p style="margin:0">Year 10 Statistics &middot; Data Lab. Data cleaned for classroom use;
+original sources are public.</p>
+</div></footer>
+<script>
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-copy]');
+  if (!b) return;
+  var url = new URL(b.getAttribute('data-copy'), location.href).href;
+  function done() {
+    var n = b.parentNode.querySelector('.copied');
+    if (!n) { n = document.createElement('span'); n.className = 'copied';
+              b.parentNode.appendChild(n); }
+    n.textContent = 'Copied';
+    setTimeout(function () { n.textContent = ''; }, 2000);
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(url).then(done, function () { window.prompt('Copy this link:', url); });
+  } else {
+    window.prompt('Copy this link:', url);
+  }
+});
+</script>
+</body>
+</html>

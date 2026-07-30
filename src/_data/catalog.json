@@ -1,67 +1,149 @@
-[
-  {
-    "category": "Body Systems",
-    "items": [
-      {
-        "title": "Excretory System Simulation",
-        "desc": "Explore the function of ADH in the kidney.",
-        "href": "/excretory"
-      },
-      {
-        "title": "Islets of Langerhans",
-        "desc": "Understand the presence of alpha and beta cells in the pancreas.",
-        "href": "/islet"
-      },
-      {
-        "title": "Blood Glucose Regulation",
-        "desc": "Understand how insulin and glucagon maintain blood sugar, as well as malfunctions.",
-        "href": "/bloodglucose"
-      },
-      {
-        "title": "Pee Panic",
-        "desc": "Osmoregulation game.",
-        "href": "/peepanic"
-      },
-      {
-        "title": "SRMER",
-        "desc": "Stimulus Response model scenarios to solve.",
-        "href": "/SRMER"
-      }
-    ]
+{
+  "site": {
+    "name": "Hallam Interactives",
+    "tagline": "Simulations, games and data tools for class",
+    "byline": "Built for Hallam students by S. Hagemeyer"
   },
-  {
-    "category": "Cell Biology",
-    "items": [
-      {
-        "title": "Cell Passport",
-        "desc": "Explore animal and plant cell organelles stage by stage.",
-        "href": "/cellpassport"
-      }
-    ]
-  },
-  {
-    "category": "Agriculture",
-    "items": [
-      {
-        "title": "Plant Parts",
-        "desc": "Basic macro outline of plant parts and their function.",
-        "href": "/plantparts"
-      },
-      {
-        "title": "Photosynthesis",
-        "desc": "Explore how plants adapt photosynthesis to their environments.",
-        "href": "/photosynthesis"
-      }
-    ]
-  },
-  {
-    "category": "Miscellaneous",
-    "items": [
-      {
-        "title": "Other Games/Simulations",
-        "desc": "Non-Biology Simulations.",
-        "href": "/other"
-      }
-    ]
-  }
-]
+  "subjects": [
+    {
+      "id": "mathematics",
+      "label": "Mathematics",
+      "blurb": "Real data, and the tools to investigate it.",
+      "groups": [
+        {
+          "group": "Statistics",
+          "items": [
+            {
+              "title": "Data Lab",
+              "desc": "Pick a real dataset, ask your own question, plot it and fit a line of best fit. Fourteen cleaned datasets, from AFL players to Antarctic penguins, with the instructions built in.",
+              "href": "/datalab/",
+              "tag": "Year 10",
+              "featured": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "biology",
+      "label": "Biology",
+      "blurb": "Body systems, cells and plants, all interactive.",
+      "groups": [
+        {
+          "group": "Body Systems",
+          "items": [
+            {
+              "title": "Excretory System",
+              "desc": "Explore the function of ADH in the kidney.",
+              "href": "/excretory/"
+            },
+            {
+              "title": "Islets of Langerhans",
+              "desc": "Understand the presence of alpha and beta cells in the pancreas.",
+              "href": "/islet/"
+            },
+            {
+              "title": "Blood Glucose Regulation",
+              "desc": "How insulin and glucagon keep blood sugar steady, and what happens when that breaks down.",
+              "href": "/bloodglucose/"
+            },
+            {
+              "title": "Pee Panic",
+              "desc": "An osmoregulation game. Keep the balance, or else.",
+              "href": "/peepanic/",
+              "tag": "Game"
+            },
+            {
+              "title": "SRMER",
+              "desc": "Stimulus and response model scenarios to work through.",
+              "href": "/SRMER/"
+            }
+          ]
+        },
+        {
+          "group": "Cell Biology",
+          "items": [
+            {
+              "title": "Cell Passport",
+              "desc": "Explore animal and plant cell organelles, stage by stage.",
+              "href": "/cellpassport/"
+            }
+          ]
+        },
+        {
+          "group": "Agriculture",
+          "items": [
+            {
+              "title": "Plant Parts",
+              "desc": "The macro outline of plant parts and what each one does.",
+              "href": "/plantparts/"
+            },
+            {
+              "title": "Photosynthesis",
+              "desc": "Explore how plants adapt photosynthesis to their environment.",
+              "href": "/photosynthesis/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "computing",
+      "label": "IT and Computing",
+      "blurb": "The class sites, with real Python running in the browser.",
+      "groups": [
+        {
+          "group": "Class sites",
+          "items": [
+            {
+              "title": "Hallam IT Basics",
+              "desc": "The Year 7 to 10 computing site: thirteen topic modules, in-browser Python, assignments and your progress.",
+              "href": "https://code.qmarkapp.com",
+              "external": true
+            },
+            {
+              "title": "PyWebLib",
+              "desc": "A Python playground and sharing community. Turtle graphics, games and a leaderboard.",
+              "href": "https://pyweb.qmarkapp.com",
+              "external": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "misc",
+      "label": "Games and Misc",
+      "blurb": "Physics toys and the odds and ends.",
+      "groups": [
+        {
+          "group": "Physics and motion",
+          "items": [
+            {
+              "title": "Under Pressure",
+              "desc": "Gas particles inside a can. Heat it, cool it, and watch what the pressure does.",
+              "href": "/can/",
+              "tag": "Fullscreen"
+            },
+            {
+              "title": "Displacement",
+              "desc": "A motion and displacement tracker that follows your mouse.",
+              "href": "/displacement/",
+              "tag": "Fullscreen"
+            }
+          ]
+        },
+        {
+          "group": "Everything else",
+          "items": [
+            {
+              "title": "Other Games and Simulations",
+              "desc": "The bits and bobs that do not fit anywhere else.",
+              "href": "/other/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

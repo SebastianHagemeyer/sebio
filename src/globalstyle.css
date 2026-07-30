@@ -1,43 +1,64 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
 /* ============================================================
-   SEBIO design system — single source of truth for the shared
-   brand/UI language. Modules consume these tokens, so retheming
-   the whole site is just editing the values below.
+   Hallam Interactives design system. Single source of truth for
+   the shared brand and UI language. Modules consume the tokens
+   below, so retheming the whole site means editing these values.
+
+   TWO HARD RULES, both learned the hard way:
+
+   1. NO EXTERNAL REQUESTS. This file used to open with an
+      @import pulling the Inter webfont off Google's font CDN.
+      On a locked-down school network that request dies, the type
+      system falls back mid-render and the site looks broken. The
+      font stack below leads with Century Gothic, which is already
+      installed on the school Windows machines (it ships with
+      Office) and is the same face as the class decks and
+      worksheets, so the site matches the printed materials.
+
+   2. Flat, navy, yellow. Matches the house deck spec: white
+      ground, navy chrome, yellow accent dots, no gradients and
+      effectively no shadows.
    ============================================================ */
 :root {
-  /* Brand — refined teal/emerald (science, but sophisticated) */
-  --color-brand: #0d9488; /* teal-600 */
-  --color-brand-strong: #0f766e; /* teal-700 */
-  --color-brand-soft: #ccfbf1; /* teal-100 */
-  --color-accent: #14b8a6; /* teal-500 — interactive actions */
-  --color-accent-hover: #0d9488;
-  --color-accent-active: #0f766e;
+  /* Brand: house navy and yellow, straight off the deck spec */
+  --color-brand: #1c4587; /* deep navy, the dominant brand colour */
+  --color-brand-strong: #1b3867; /* darker navy, secondary accent */
+  --color-brand-soft: #e4ecf9; /* pale navy wash for tinted panels */
+  --color-accent: #1c4587;
+  --color-accent-hover: #1b3867;
+  --color-accent-active: #14294c;
   --color-on-accent: #ffffff;
 
-  /* Neutrals (slate) */
-  --color-bg: #f1f5f9; /* slate-100 — page background */
-  --color-surface: #ffffff;
-  --color-surface-hover: #f8fafc; /* slate-50 */
-  --color-text: #0f172a; /* slate-900 */
-  --color-text-muted: #64748b; /* slate-500 */
-  --color-border: #e2e8f0; /* slate-200 */
+  /* Yellow is an ACCENT only: dots, pills, focus. Never a text colour. */
+  --color-highlight: #ffd45e; /* softened for screen; FFFF00 glares */
+  --color-highlight-pure: #ffff00; /* the deck value, for icon dots */
 
-  /* Typography */
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Neutrals */
+  --color-bg: #f6f8fb;
+  --color-surface: #ffffff;
+  --color-surface-hover: #fbfcfe;
+  --color-text: #16202e;
+  --color-text-muted: #5a6a7d;
+  --color-border: #dfe5ec;
+
+  /* Typography. Century Gothic first, then the closest widely
+     available geometric sans fallbacks, then the system stack. */
+  --font-sans:
+    "Century Gothic", "Questrial", "URW Gothic", "Avant Garde", "Trebuchet MS", system-ui,
+    -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   /* Radii */
-  --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 16px;
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
   --radius-pill: 999px;
 
-  /* Elevation */
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.1);
-  --shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.1), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
-  --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
-  --shadow-button: 0 1px 2px rgba(15, 23, 42, 0.12);
-  --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  /* Elevation. Kept as tokens for compatibility with existing
+     modules, but deliberately near-flat per the house spec. */
+  --shadow-sm: 0 1px 2px rgba(22, 32, 46, 0.05);
+  --shadow: 0 1px 3px rgba(22, 32, 46, 0.07);
+  --shadow-lg: 0 4px 14px rgba(22, 32, 46, 0.1);
+  --shadow-button: 0 1px 2px rgba(22, 32, 46, 0.1);
+  --shadow-modal: 0 20px 45px rgba(0, 0, 0, 0.4);
 
   /* Spacing scale */
   --space-1: 0.25rem;
@@ -45,6 +66,14 @@
   --space-3: 1rem;
   --space-4: 1.5rem;
   --space-5: 2rem;
+
+  --wrap: 1140px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html,
@@ -60,35 +89,36 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* ---- Header ---- */
+/* ---- Header ------------------------------------------------ */
+/* Flat navy band. No gradient, per the house spec. */
 header {
-  background: linear-gradient(135deg, var(--color-brand) 0%, var(--color-brand-strong) 100%);
+  background: var(--color-brand);
   color: #fff;
-  padding: 2rem 1.5rem;
+  padding: 1.75rem 1.5rem;
   text-align: center;
   position: relative;
 }
 
 header h1 {
   margin: 0;
-  font-size: clamp(1.5rem, 1rem + 2.5vw, 2.25rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.45rem, 1rem + 2.2vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 header h2 {
-  margin: 0.35rem 0 0;
+  margin: 0.3rem 0 0;
   font-size: 1rem;
   font-weight: 400;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 header p {
-  margin: 0.35rem 0 0;
-  opacity: 0.85;
+  margin: 0.3rem 0 0;
+  opacity: 0.88;
 }
 
-/* Back-home link + extra nav links sit as subtle pills, top-left. */
+/* Back-home link and extra nav links sit as subtle pills, top-left. */
 header a,
 #home {
   color: #fff;
@@ -100,186 +130,325 @@ header a,
   top: 1.25rem;
   padding: 0.4rem 0.85rem;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  transition: background 0.18s ease;
 }
 
 header a:hover,
-#home:hover {
-  background: rgba(255, 255, 255, 0.28);
+header a:focus-visible,
+#home:hover,
+#home:focus-visible {
+  background: rgba(255, 255, 255, 0.3);
 }
 
-/* Secondary nav links (navExtra) flow on the right instead of overlapping. */
+/* A second nav link stacks to the right of the first. */
 header a + a {
   left: auto;
   right: 1.25rem;
 }
 
-/* ---- Buttons ---- */
-button {
-  display: inline-block;
-  padding: 0.65rem 1.25rem;
+/* ---- Site brand bar and subject nav (the hub chrome) ------- */
+.sitebar {
+  background: var(--color-brand);
+  color: #fff;
+  padding: 1.6rem 0 1.4rem;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* The mark: a yellow disc, the same device as the deck icon circles. */
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--color-highlight);
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  color: var(--color-brand-strong);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.brand-text h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.brand-text p {
+  margin: 2px 0 0;
   font-size: 0.95rem;
-  font-weight: 600;
-  font-family: inherit;
-  color: var(--color-on-accent);
-  background-color: var(--color-accent);
-  border: none;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-button);
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    transform 0.15s ease,
-    box-shadow 0.2s ease;
+  opacity: 0.9;
+}
+
+/* Javalab-style category row: a horizontal strip under the brand. */
+.subjectnav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--color-brand-strong);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+}
+
+.subjectnav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.subjectnav a {
+  display: block;
+  padding: 12px 16px;
+  color: #fff;
   text-decoration: none;
-  text-align: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-bottom: 3px solid transparent;
+}
+
+.subjectnav a:hover,
+.subjectnav a:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+  border-bottom-color: var(--color-highlight);
+}
+
+/* ---- Buttons ---------------------------------------------- */
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-button);
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
 }
 
 button:hover {
-  background-color: var(--color-accent-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow);
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
 }
 
 button:active {
-  transform: translateY(0);
-  background-color: var(--color-accent-active);
+  background: var(--color-accent-active);
+  border-color: var(--color-accent-active);
 }
 
-/* Visible keyboard focus everywhere. */
-:where(a, button, input, select, textarea, [tabindex]):focus-visible {
-  outline: 2px solid var(--color-brand);
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--color-highlight);
   outline-offset: 2px;
-  border-radius: var(--radius-sm);
 }
 
-/* ---- Landing / hub catalog (index, other) ---- */
+/* ---- Catalog / hub homepage -------------------------------- */
 body.catalog {
   background: var(--color-bg);
 }
 
 body.catalog main {
-  max-width: 1100px;
-  margin: auto;
-  padding: 2.5rem 1.5rem 3.5rem;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 20px 3rem;
+}
+
+/* The hub supplies its own brand bar, so suppress the plain header. */
+body.catalog header {
+  display: none;
+}
+
+.subject-section {
+  padding: 2.2rem 0 0.5rem;
+  scroll-margin-top: 60px; /* clears the sticky nav on anchor jumps */
+}
+
+.subject-head {
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.subject-head h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--color-brand);
+  font-weight: 700;
+}
+
+.subject-head p {
+  margin: 0.2rem 0 0;
+  color: var(--color-text-muted);
 }
 
 .catalog-section {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.6rem;
 }
 
 body.catalog h2 {
-  font-size: 0.8rem;
-  font-weight: 700;
+  color: var(--color-brand);
+}
+
+.group-label {
+  font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
+  font-weight: 700;
   color: var(--color-text-muted);
-  margin: 0 0 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--color-border);
+  margin: 1.1rem 0 0.6rem;
 }
 
 .sim-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
 }
 
 .sim-link {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  padding: 1.5rem;
+  border-radius: var(--radius);
+  padding: 1.05rem 1.1rem 0.95rem;
   text-decoration: none;
-  color: var(--color-text);
+  color: inherit;
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.18s ease,
+    background 0.18s ease,
+    transform 0.18s ease;
 }
 
-.sim-link:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+.sim-link:hover,
+.sim-link:focus-visible {
   border-color: var(--color-brand);
+  background: var(--color-surface-hover);
+  transform: translateY(-2px);
 }
 
 .sim-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 0.4rem;
+  font-weight: 700;
+  font-size: 1.09rem;
+  color: var(--color-brand);
+  line-height: 1.3;
+}
+
+.sim-link:hover .sim-title {
+  color: var(--color-brand-strong);
 }
 
 .sim-desc {
+  margin-top: 0.35rem;
   font-size: 0.92rem;
-  line-height: 1.55;
   color: var(--color-text-muted);
+  flex: 1 1 auto;
 }
 
-/* ---- Image gallery + modal ---- */
+.sim-go {
+  margin-top: 0.85rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-brand);
+}
+
+.sim-link:focus-visible .sim-go,
+.sim-link:hover .sim-go {
+  text-decoration: underline;
+}
+
+/* A small pill for "Year 10", "Game", "Fullscreen" and friends. */
+.sim-tag {
+  align-self: flex-start;
+  margin-bottom: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-soft);
+  color: var(--color-brand-strong);
+}
+
+/* The featured card gets the yellow edge, nothing louder. */
+.sim-link.featured {
+  border-left: 5px solid var(--color-highlight);
+}
+
+/* ---- Shared image row (used inside several modules) -------- */
 .image-row {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  gap: var(--space-4);
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--space-4);
 }
 
 .img-box {
   text-align: center;
-  max-width: 220px;
-  width: 100%;
+  max-width: 320px;
 }
 
 .img-box img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
   cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.18s ease;
 }
 
 .img-box img:hover {
-  transform: scale(1.03);
-  box-shadow: var(--shadow-lg);
+  transform: scale(1.02);
 }
 
 .img-box p {
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
+  margin: var(--space-2) 0 0;
   color: var(--color-text-muted);
+  font-size: 0.92rem;
 }
 
+/* ---- Shared modal ----------------------------------------- */
 .modal {
   display: none;
   position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  z-index: 100;
+  background: rgba(12, 20, 33, 0.82);
+  padding: var(--space-4);
   overflow: auto;
-  background-color: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(4px);
-  align-items: center;
-  justify-content: center;
 }
 
 .modal-content {
-  margin: auto;
   display: block;
-  max-width: 90%;
-  max-height: 90%;
+  margin: auto;
+  max-width: min(92vw, 1000px);
+  max-height: 88vh;
   border-radius: var(--radius);
   box-shadow: var(--shadow-modal);
 }
@@ -287,28 +456,78 @@ body.catalog h2 {
 .close {
   position: absolute;
   top: 1rem;
-  right: 1.5rem;
+  right: 1.6rem;
   color: #fff;
-  font-size: 2.25rem;
+  font-size: 2.2rem;
   line-height: 1;
+  font-weight: 700;
   cursor: pointer;
   background: none;
-  border: none;
+  border: 0;
+  padding: 0.2rem 0.6rem;
   box-shadow: none;
-  padding: 0;
 }
 
-/* ---- Accessibility helpers ---- */
+.close:hover,
+.close:focus-visible {
+  color: var(--color-highlight);
+  background: none;
+}
+
+/* ---- Floating back link, for the fullscreen canvas modules -- */
+/* Those pages run overflow:hidden on a full-viewport canvas, so
+   they cannot take the normal header without breaking. This
+   keeps a way out without touching their layout. */
+.backfloat {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 9999;
+  display: inline-block;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-pill);
+  background: rgba(28, 69, 135, 0.9);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.backfloat:hover,
+.backfloat:focus-visible {
+  background: var(--color-brand-strong);
+}
+
+/* ---- Footer ------------------------------------------------ */
+.sitefoot {
+  background: var(--color-brand);
+  color: #fff;
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.sitefoot p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.sitefoot a {
+  color: var(--color-highlight);
+}
+
+/* ---- Accessibility ---------------------------------------- */
 .skip-link {
   position: absolute;
   left: -9999px;
   top: 0;
-  z-index: 2000;
+  background: var(--color-highlight);
+  color: var(--color-brand-strong);
   padding: 0.6rem 1rem;
-  background: var(--color-brand);
-  color: #fff;
-  border-radius: 0 0 var(--radius) 0;
-  text-decoration: none;
+  font-weight: 700;
+  z-index: 10000;
+  border-radius: 0 0 var(--radius-sm) 0;
 }
 
 .skip-link:focus {
@@ -320,13 +539,13 @@ body.catalog h2 {
 }
 
 .visually-hidden {
-  position: absolute !important;
+  position: absolute;
   width: 1px;
   height: 1px;
-  padding: 0;
   margin: -1px;
+  padding: 0;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
 }
@@ -335,9 +554,14 @@ body.catalog h2 {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .subjectnav,
+  .backfloat {
+    position: static;
   }
 }

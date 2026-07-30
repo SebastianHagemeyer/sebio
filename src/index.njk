@@ -1,24 +1,76 @@
 ---
 layout: base.njk
-title: Interactive Biology Simulations
-subtitle: by Sebastian Hagemeyer
-tagline: Select a module to explore
+title: Hallam Interactives
 hideHome: true
+hideHeader: true
 bodyClass: catalog
 ---
 
-<main>
-  {% for group in catalog %}
-  <section class="catalog-section">
-    <h2>{{ group.category }}</h2>
-    <div class="sim-grid">
-      {% for item in group.items %}
-      <a class="sim-link" href="{{ item.href }}">
-        <div class="sim-title">{{ item.title }}</div>
-        <div class="sim-desc">{{ item.desc }}</div>
-      </a>
-      {% endfor %}
+{# The hub supplies its own brand bar and subject nav, so base.njk's plain
+   header is suppressed above with hideHeader. Everything below is driven by
+   src/_data/catalog.json: add a resource there, not here. #}
+
+<div class="sitebar">
+  <div class="wrap">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">H</span>
+      <div class="brand-text">
+        <h1>{{ catalog.site.name }}</h1>
+        <p>{{ catalog.site.tagline }}</p>
+      </div>
     </div>
+  </div>
+</div>
+
+<nav class="subjectnav" aria-label="Subjects">
+  <ul>
+    {% for subject in catalog.subjects %}
+    <li><a href="#{{ subject.id }}">{{ subject.label }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>
+
+<main>
+  {% for subject in catalog.subjects %}
+  <section class="subject-section" id="{{ subject.id }}">
+    <div class="subject-head">
+      <h2>{{ subject.label }}</h2>
+      {%- if subject.blurb %}
+      <p>{{ subject.blurb }}</p>
+      {%- endif %}
+    </div>
+
+    {% for group in subject.groups %}
+    <div class="catalog-section">
+      {#- Only label the group when a subject has more than one, otherwise the
+          heading just repeats the subject name back at you. -#}
+      {%- if subject.groups.length > 1 %}
+      <p class="group-label">{{ group.group }}</p>
+      {%- endif %}
+      <div class="sim-grid">
+        {% for item in group.items %}
+        <a class="sim-link{% if item.featured %} featured{% endif %}"
+           href="{{ item.href }}"
+           {%- if item.external %} rel="noopener"{% endif %}>
+          {%- if item.tag %}
+          <span class="sim-tag">{{ item.tag }}</span>
+          {%- endif %}
+          <div class="sim-title">{{ item.title }}</div>
+          <div class="sim-desc">{{ item.desc }}</div>
+          <span class="sim-go" aria-hidden="true">
+            {%- if item.external %}Open site &nearr;{% else %}Explore &rarr;{% endif -%}
+          </span>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
   </section>
   {% endfor %}
 </main>
+
+<footer class="sitefoot">
+  <div class="wrap">
+    <p>{{ catalog.site.byline }}</p>
+  </div>
+</footer>
