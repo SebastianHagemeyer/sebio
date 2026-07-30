@@ -167,19 +167,16 @@ header a + a {
   gap: 14px;
 }
 
-/* The mark: a yellow disc, the same device as the deck icon circles. */
+/* The mark: the Hallam IT Basics 1010 logo, seated on a white rounded badge so
+   its navy tiles read against the navy brand bar. */
 .brand-mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--color-highlight);
+  width: 46px;
+  height: 46px;
   flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  color: var(--color-brand-strong);
-  font-weight: 700;
-  font-size: 1.15rem;
-  letter-spacing: -0.02em;
+  background: #fff;
+  border-radius: 12px;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 .brand-text h1 {
@@ -248,6 +245,19 @@ header a + a {
 
 .js-tabs .subject-section.is-active {
   display: block;
+}
+
+/* Sticky footer: with tabs a single subject can be short, so pin the footer to
+   the bottom of the viewport instead of letting it float mid-page. Scoped to
+   the hub (.catalog) so the interactive pages are untouched. */
+body.catalog #content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body.catalog main {
+  flex: 1 0 auto;
 }
 
 /* ---- Buttons ---------------------------------------------- */
