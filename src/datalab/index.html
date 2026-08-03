@@ -164,8 +164,8 @@ scatterplot. Both are fine, you just have to know which one you are doing.</li>
 
 <section id="plot">
 <h2>How to plot it</h2>
-<p class="lede">Use whichever of these your lab has. CODAP needs no login and nothing installed.
-Excel is already on the machines.</p>
+<p class="lede">We are using CODAP. It is free, it runs in the browser, there is no login and
+nothing to install, so it works the same on a Chromebook as on a lab computer.</p>
 <div class="tools">
 
 <div class="tool">
@@ -183,37 +183,21 @@ the right of the graph, then tick <em>Least Squares Line</em>. You get the equat
 called R squared.</li>
 <li><strong>Colour by group</strong> (optional, looks great). Drag a word column onto the middle
 of the graph.</li>
+<li><strong>Screenshot it</strong>, with the line <em>and</em> the box of numbers both readable, because
+you write the rest up off that picture. Chromebook: <kbd>Ctrl</kbd> + <kbd>Show Windows</kbd>, or
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Show Windows</kbd> to drag a box around just the graph.
+Windows: <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>. Paste it into your template at Question 5.</li>
 </ol>
 <p style="font-size:.9rem;margin:12px 0 0"><strong>Stuck?</strong> If a column will not go on an
 axis, click its name and choose <em>Treat as Numeric</em>. If nothing happens when you drag,
 you forgot to make the graph first.</p>
 </div>
 
-<div class="tool">
-<h3>Excel</h3>
-<p class="sub">Use the Excel installed on the machine. Excel in a web browser cannot open a CSV
-at all.</p>
-<ol>
-<li><strong>Open the CSV.</strong> If everything lands in column A, stop and ask.</li>
-<li><strong>Get your two columns side by side</strong>, x on the left, y on the right. Copy them
-into fresh columns if you need to.</li>
-<li><strong>Select both columns</strong>, including the headings.</li>
-<li><strong>Insert &rarr; Scatter</strong>, and pick the plain one with dots and no lines.</li>
-<li><strong>Label it.</strong> Click the chart, then the <kbd>+</kbd>, and switch on Axis Titles
-and Chart Title. Units go in the labels.</li>
-<li><strong>Add the line.</strong> Right click a dot, <em>Add Trendline</em>, keep <em>Linear</em>,
-then tick <em>Display Equation on chart</em> and <em>Display R-squared value on chart</em>.</li>
-<li><strong>Want r directly?</strong> In any empty cell type
-<code>=CORREL(</code> your y column <code>,</code> your x column <code>)</code>.</li>
-</ol>
-<p style="font-size:.9rem;margin:12px 0 0"><strong>Dots joined by a line?</strong> You picked a
-Line chart instead of Scatter. That is rookie plot crime number one. Delete it and start again.</p>
-</div>
 </div>
 
 <div class="box pink">
 <h3>Getting r out of R squared</h3>
-<p style="margin:0 0 6px">Neither tool shows you <strong>r</strong> straight away. Both show
+<p style="margin:0 0 6px">CODAP does not show you <strong>r</strong> straight away. It shows
 <strong>R squared</strong>. Convert it yourself:</p>
 <p style="margin:0 0 6px"><strong>r = the square root of R squared</strong>, and the
 <strong>sign</strong> comes from which way the line slopes.</p>
