@@ -132,16 +132,6 @@
               "tag": "Fullscreen"
             }
           ]
-        },
-        {
-          "group": "Everything else",
-          "items": [
-            {
-              "title": "Other Games and Simulations",
-              "desc": "The bits and bobs that do not fit anywhere else.",
-              "href": "/other/"
-            }
-          ]
         }
       ]
     }
