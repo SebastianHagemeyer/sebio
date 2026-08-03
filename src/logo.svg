@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Hallam Interactives">
+  <title>Hallam Interactives</title>
+  <!--
+    Orbit mark. Flat navy + yellow, no gradients or shadows, per the house rule.
+    A navy core with a tilted orbit ring and a single yellow body on it: a system
+    in motion, the shared thread across every simulation on the site.
+  -->
+  <ellipse cx="128" cy="128" rx="92" ry="52" fill="none" stroke="#1C4587"
+           stroke-width="16" transform="rotate(-25 128 128)" />
+  <circle cx="128" cy="128" r="27" fill="#1C4587" />
+  <circle cx="210" cy="89" r="21" fill="#FFEE00" stroke="#1C4587" stroke-width="5" />
+</svg>
