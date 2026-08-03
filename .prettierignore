@@ -6,3 +6,8 @@ _site/
 
 # Lockfiles (managed by npm)
 package-lock.json
+
+# Generated, not authored. src/datalab/ is emitted wholesale by
+# datalab_site.py in the Teaching repo and overwritten on every build, so
+# formatting it by hand is undone the next time the Data Lab is rebuilt.
+src/datalab/
