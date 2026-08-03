@@ -58,7 +58,17 @@ bodyClass: catalog
           <div class="sim-title">{{ item.title }}</div>
           <div class="sim-desc">{{ item.desc }}</div>
           <span class="sim-go" aria-hidden="true">
-            {%- if item.external %}Open site &nearr;{% else %}Explore &rarr;{% endif -%}
+            {%- if item.external %}Open site{% else %}Explore{% endif %}
+            <svg class="sim-arrow{% if item.external %} sim-arrow--ext{% endif %}"
+                 viewBox="0 0 24 24" width="17" height="17" fill="none"
+                 stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                 stroke-linejoin="round">
+              {%- if item.external %}
+              <path d="M7 17 17 7" /><path d="M8 7h9v9" />
+              {%- else %}
+              <path d="M4 12h13" /><path d="M11 6l6 6-6 6" />
+              {%- endif %}
+            </svg>
           </span>
         </a>
         {% endfor %}

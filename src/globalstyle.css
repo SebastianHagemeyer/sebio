@@ -397,14 +397,32 @@ body.catalog h2 {
 
 .sim-go {
   margin-top: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-size: 0.88rem;
   font-weight: 700;
   color: var(--color-brand);
 }
 
+.sim-arrow {
+  flex: none;
+  transition: transform 0.15s ease;
+}
+
 .sim-link:focus-visible .sim-go,
 .sim-link:hover .sim-go {
   text-decoration: underline;
+}
+
+.sim-link:focus-visible .sim-arrow,
+.sim-link:hover .sim-arrow {
+  transform: translateX(3px);
+}
+
+.sim-link:focus-visible .sim-arrow--ext,
+.sim-link:hover .sim-arrow--ext {
+  transform: translate(2px, -2px);
 }
 
 /* A small pill for "Year 10", "Game", "Fullscreen" and friends. */
