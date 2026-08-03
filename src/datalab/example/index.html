@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Worked example &middot; Data Lab</title>
+<meta name="description" content="One whole Data Lab investigation done end to end, on AFL height and weight.">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --navy:#1c4587; --navy-2:#153567; --ink:#16202e; --muted:#5a6a7d;
+  --line:#dfe5ec; --bg:#f6f8fb; --card:#fff; --yellow:#fff4d1; --pink:#fbe6ee;
+  --green:#e7f3e4; --blue:#e4ecf9;
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:40px 0 34px}
+header h1{margin:0 0 8px;font-size:2.1rem;line-height:1.15}
+header p{margin:0;font-size:1.05rem;opacity:.93;max-width:60ch}
+.uplink{margin:0 0 14px !important;font-size:.9rem !important}
+.uplink a{color:#ffd45e;text-decoration:none;font-weight:600}
+.uplink a:hover,.uplink a:focus{text-decoration:underline}
+nav{position:sticky;top:0;z-index:20;background:var(--navy-2);
+  box-shadow:0 2px 10px rgba(0,0,0,.18)}
+nav ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap}
+nav a{display:block;padding:13px 16px;color:#fff;text-decoration:none;
+  font-weight:600;font-size:.94rem;border-bottom:3px solid transparent}
+nav a:hover,nav a:focus{background:rgba(255,255,255,.14);border-bottom-color:#ffd45e}
+section{padding:38px 0 8px}
+h2{font-size:1.55rem;margin:0 0 6px;color:var(--navy)}
+h2+.lede{margin:0 0 22px;color:var(--muted);max-width:70ch}
+h3{font-size:1.06rem;margin:22px 0 6px}
+.steps{margin:0;padding:0;list-style:none;counter-reset:s;
+  display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);
+  border-radius:10px;padding:16px 16px 16px 54px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:16px;top:14px;
+  width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;
+  font-weight:700;font-size:.9rem;display:grid;place-items:center}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:18px;display:flex;flex-direction:column}
+.card h3{margin:0 0 2px;font-size:1.16rem;color:var(--navy)}
+.rows{font-size:.82rem;color:var(--muted);font-weight:600;letter-spacing:.02em;
+  text-transform:uppercase;margin-bottom:10px}
+.card dl{margin:0 0 12px;font-size:.93rem}
+.card dt{font-weight:700;margin-top:7px}
+.card dd{margin:1px 0 0}
+.ask{font-style:italic;color:var(--navy-2)}
+.actions{margin-top:auto;padding-top:14px;display:flex;gap:9px;flex-wrap:wrap}
+.btn{display:inline-block;background:var(--navy);color:#fff;text-decoration:none;
+  padding:9px 15px;border-radius:7px;font-weight:650;font-size:.92rem;
+  border:1px solid var(--navy);cursor:pointer;font-family:inherit}
+.btn:hover,.btn:focus{background:var(--navy-2)}
+.btn.ghost{background:#fff;color:var(--navy)}
+.btn.ghost:hover,.btn.ghost:focus{background:var(--blue)}
+details{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-weight:650;font-size:.9rem;color:var(--navy)}
+.scroll{overflow-x:auto;margin-top:10px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;font-size:.8rem;min-width:100%}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;white-space:nowrap}
+th{background:#eef2f8;font-weight:700}
+.qtable td{white-space:normal}
+.qtable td:first-child{font-style:italic;width:38%}
+.tick{color:#1a7f37;font-weight:800}
+.cross{color:#b42318;font-weight:800}
+.warn{color:#b25e00;font-weight:800}
+.box{border-radius:10px;padding:16px 18px;margin:16px 0;border:1px solid var(--line)}
+.box h3{margin:0 0 6px}
+.box.pink{background:var(--pink)} .box.yellow{background:var(--yellow)}
+.box.green{background:var(--green)} .box.blue{background:var(--blue)}
+.box ul{margin:6px 0 0;padding-left:20px} .box li{margin:4px 0}
+.tools{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.tool h3{margin:0 0 2px;color:var(--navy);font-size:1.2rem}
+.tool .sub{font-size:.86rem;color:var(--muted);margin-bottom:12px}
+.tool ol{margin:0;padding-left:22px} .tool li{margin:9px 0;font-size:.94rem}
+code{background:#eef2f8;padding:1px 5px;border-radius:4px;
+  font:.88em ui-monospace,Consolas,monospace}
+kbd{background:#fff;border:1px solid #c3ccd8;border-bottom-width:2px;border-radius:4px;
+  padding:0 5px;font:.85em ui-monospace,Consolas,monospace}
+footer{margin-top:40px;padding:26px 0;background:var(--navy);color:#fff;font-size:.9rem}
+footer a{color:#ffd45e}
+.copied{color:#1a7f37;font-weight:700;font-size:.86rem;align-self:center}
+@media print{nav{position:static}.actions{display:none}}
+
+.ex{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;margin:18px 0}
+.ex h3{margin:0 0 10px;color:var(--navy);font-size:1.14rem}
+.qa{margin:0 0 12px}
+.qa:last-child{margin-bottom:0}
+.qa .q{font-weight:700;font-size:.93rem;color:var(--muted);margin:0 0 4px}
+.qa .a{margin:0;padding:9px 13px;background:#fdf3f3;border-left:4px solid #c00000;
+  border-radius:0 7px 7px 0;color:#8a1f1f}
+.why{margin:12px 0 0;padding:11px 14px;background:var(--blue);border-radius:8px;
+  font-size:.93rem}
+.why strong{color:var(--navy-2)}
+figure{margin:0}
+figure img{width:100%;height:auto;display:block;border:1px solid var(--line);
+  border-radius:10px}
+figcaption{font-size:.86rem;color:var(--muted);margin-top:7px}
+.stepnum{display:inline-grid;place-items:center;width:26px;height:26px;
+  border-radius:50%;background:var(--navy);color:#fff;font-size:.85rem;
+  font-weight:700;margin-right:8px;vertical-align:2px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<p class="uplink"><a href="../">&larr; Back to the Data Lab</a></p>
+<h1>Worked example: the skinny legends</h1>
+<p>One whole investigation, start to finish, on the AFL file. This is what a finished
+one looks like. It is not longer than yours needs to be.</p>
+</div></header>
+
+<main class="wrap">
+
+<section>
+<div class="box yellow">
+<h3>Read this first</h3>
+<p style="margin:0">This example uses <strong>AFL height against weight</strong>, so that
+pairing is now spent. You can still use the AFL file, you just have to ask a different
+question of it, and there are plenty in there: does court time&hellip; sorry, does a
+ruckman's weight sit above the pattern for everyone else? Are forwards and defenders
+built differently? Pick your own and the work is yours.</p>
+</div>
+
+</section>
+
+<section>
+<h2><span class="stepnum">A</span>Before you touch the data</h2>
+<p class="lede">All of this happens on paper. It is the part people skip, and it is the
+part that decides whether the rest works.</p>
+
+<div class="ex">
+<h3>1 and 2. The data, and the question</h3>
+<div class="qa"><p class="q">Dataset, and what one row is</p><p class="a">AFL players. One row is one AFL player. 677 rows.</p></div>
+<div class="qa"><p class="q">The question, in the house shape</p><p class="a">Is there a relationship between <strong>height</strong> and <strong>weight</strong> in <strong>AFL players</strong>?</p></div>
+<div class="why"><strong>Why it passes the four checks:</strong> height and weight are both
+numbers, it asks whether they are related rather than what one value is, the file can answer
+it without going and finding more data, and it is not secretly comparing two groups.
+&ldquo;Do ruckmen weigh more than midfielders?&rdquo; would have been boxplot work.</div>
+</div>
+
+<div class="ex">
+<h3>3. Which variable goes where</h3>
+<div class="qa"><p class="q">Across the bottom (x)</p><p class="a">Height, in cm.</p></div>
+<div class="qa"><p class="q">Up the side (y)</p><p class="a">Weight, in kg.</p></div>
+<div class="qa"><p class="q">Why that way round</p><p class="a">Taller means a bigger frame, which will probably carry more mass. Height is doing the influencing. Gaining weight does not make you taller.</p></div>
+<div class="why"><strong>The test:</strong> say it out loud both ways. &ldquo;Being tall
+makes you heavier&rdquo; is arguable. &ldquo;Being heavy makes you tall&rdquo; is not. The
+arguable one goes across the bottom.</div>
+</div>
+
+<div class="ex">
+<h3>4. Call it before plotting</h3>
+<div class="qa"><p class="q">I think the dots will</p><p class="a">Go up and to the right.</p></div>
+<div class="qa"><p class="q">Because</p><p class="a">Taller players are simply bigger, so more height should mean more weight.</p></div>
+<div class="why"><strong>You lose nothing by being wrong.</strong> A wrong prediction is
+more interesting to write about than a right one, and you cannot write about it at all if
+you never committed to one.</div>
+</div>
+</section>
+
+<section>
+<h2><span class="stepnum">B</span>Build the plot</h2>
+<div class="ex">
+<figure>
+<img src="example_afl.png" alt="Scatterplot of 677 AFL players, height in cm against weight in kg,
+with a least squares line running up to the right and a yellow box giving the equation and r.">
+<figcaption>What the screenshot has to contain: the dots, the line, and the yellow box.
+Crop the numbers off and you cannot do Questions 8 or 9 without going back to a computer.</figcaption>
+</figure>
+</div>
+
+<div class="ex">
+<h3>6. First look, before naming anything</h3>
+<div class="qa"><p class="q">Any missing data?</p><p class="a">Some players have no position listed, but every height has a matching weight, so nothing was dropped from the plot.</p></div>
+<div class="qa"><p class="q">Reading left to right, the dots</p><p class="a">Drift up and to the right.</p></div>
+<div class="qa"><p class="q">Any dot well away from the pack?</p><p class="a">Two, at opposite extremes. <strong>David Rodan</strong> is a tank: 173 cm and 87 kg, heavy for his height. <strong>Zac Clarke</strong> is a skinny legend: 203 cm and only 83 kg, so he is 17 kg lighter than the line expects.</p></div>
+<div class="qa"><p class="q">Was the prediction right?</p><p class="a">Generally yes, but with plenty of exceptions, and more players sit below the line than above it.</p></div>
+<div class="why"><strong>Notice what is not here yet:</strong> no strength, no direction, no
+form. Describing comes first, naming comes second. Saying &ldquo;strong positive&rdquo; at
+this point is guessing before you have the number.</div>
+</div>
+</section>
+
+<section>
+<h2><span class="stepnum">C</span>Name it, then fit the line</h2>
+
+<div class="ex">
+<h3>7 and 8. The sentence, then r</h3>
+<div class="qa"><p class="q">The house sentence</p><p class="a">There is a <strong>strong</strong>, <strong>positive</strong>, <strong>linear</strong> association between height and weight in AFL players.</p></div>
+<div class="qa"><p class="q">r from CODAP, and does the sign agree?</p><p class="a">r = 0.7847. The line runs uphill and the sign is positive, so the number and the picture agree.</p></div>
+<div class="qa"><p class="q">Which band, and does it match Question 7?</p><p class="a">0.78 sits in the 0.75 to 1 band, so <strong>strong</strong>. First guess was &ldquo;moderate&rdquo;, so Question 7 got corrected.</p></div>
+<div class="why"><strong>That correction is the point of the question.</strong> Guess by eye,
+then let the number overrule you. Nobody is marked down for the first guess being off, only
+for leaving it wrong once r is sitting there in front of them.</div>
+</div>
+
+<div class="ex">
+<h3>9. The line, in English</h3>
+<div class="qa"><p class="q">Equation</p><p class="a">weight_kg = 0.913 (height_cm) &minus; 85</p></div>
+<div class="qa"><p class="q">The gradient means</p><p class="a">Every extra centimetre of height is worth about <strong>0.913 kg</strong> more weight.</p></div>
+<div class="qa"><p class="q">The y-intercept</p><p class="a">&minus;85 kg. It is nonsense here. It claims a player of no height weighs minus 85 kg. The line only means anything across the heights actually in the file, 170 cm to 211 cm.</p></div>
+<div class="why"><strong>A gradient with no units and no context is worth nothing.</strong>
+&ldquo;The gradient is 0.913&rdquo; earns nothing on its own. &ldquo;Every extra centimetre
+is worth about 0.9 kg&rdquo; is the whole answer.</div>
+</div>
+
+<div class="ex">
+<h3>10 and 11. Predict, then argue with yourself</h3>
+<div class="qa"><p class="q">Predict for a 188 cm player</p><p class="a">weight = 0.913 &times; 188 &minus; 85 = <strong>86.4 kg</strong></p></div>
+<div class="qa"><p class="q">Inside or outside the data, and do you trust it?</p><p class="a">Inside: 188 cm sits comfortably among the players in the file, so the prediction is worth something. Feed it a newborn baby at 50 cm and it returns &minus;39 kg, which is exactly what extrapolation gets you.</p></div>
+<div class="why"><strong>Substituting a number into an equation always gives you an
+answer.</strong> That is not the same as the answer being worth anything. The minus 39 kg
+baby is the cheapest way to prove it to yourself.</div>
+</div>
+</section>
+
+<section>
+<h2><span class="stepnum">D</span>The honest answer</h2>
+
+<div class="ex">
+<h3>12. Why are they related?</h3>
+<div class="qa"><p class="q">Most likely explanation</p><p class="a">Number 1, x causes y. A longer frame carries more bone and more muscle, so height drives weight rather than the other way round.</p></div>
+<div class="qa"><p class="q">A lurking variable</p><p class="a">Body volume. Height is tied to volume and weight is tied to volume, so the two move together partly because both are really tracking size.</p></div>
+</div>
+
+<div class="ex">
+<h3>13. The answer, in plain English</h3>
+<div class="qa"><p class="q">The answer, quoting r and a number off the line</p><p class="a">Yes, taller AFL players are generally heavier. r = 0.78 is a strong positive association, and the line says every extra centimetre is worth about 0.9 kg. It is a trend, not a rule.</p></div>
+<div class="qa"><p class="q">One thing this data cannot tell you</p><p class="a">Why any <em>individual</em> player is heavy. Rodan at 173 cm and 87 kg is not explained by height at all, and nothing in this file records muscle, playing position demands or training load.</p></div>
+<div class="why"><strong>Two sentences was enough.</strong> This question is not asking you to
+write everything again. It is asking what you would say to someone who never saw the graph.</div>
+</div>
+
+<div class="ex">
+<h3>14. Extension: split it by position</h3>
+<div class="qa"><p class="q">Comparing the groups</p><p class="a">Ruckmen sit higher in the middle than midfielders or forwards, and forwards are the most spread out of the three. Which is a reminder that one line across all 677 players is hiding several different body types.</p></div>
+</div>
+</section>
+
+<section>
+<div class="box green">
+<h3>What made this one work</h3>
+<ul>
+<li>The question named two number columns and nothing else.</li>
+<li>Every number came back with its units attached.</li>
+<li>It described the plot before naming the pattern.</li>
+<li>The first guess at strength was wrong, and got fixed once r appeared.</li>
+<li>It says what the data <em>cannot</em> do, not just what it can.</li>
+</ul>
+<p style="margin:12px 0 0"><a class="btn" href="../">Back to the Data Lab</a></p>
+</div>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+<p style="margin:0">Year 10 Statistics &middot; Data Lab. Worked example, AFL player data.</p>
+</div></footer>
+</body>
+</html>
