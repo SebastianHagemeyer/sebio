@@ -1,4 +1,4 @@
-player,team,position,age,games_played,minutes_total,minutes_per_game,player_efficiency_rating,true_shooting_pct,usage_pct,rebound_pct,assist_pct,win_shares
+﻿player,team,position,age,games_played,minutes_total,minutes_per_game,player_efficiency_rating,true_shooting_pct,usage_pct,rebound_pct,assist_pct,win_shares
 Renee Montgomery,Atlanta Dream,Guard,32,34,949,27.9,11.1,52.0,17.5,4.1,18.0,0.9
 Elizabeth Williams,Atlanta Dream,Centre-Forward,26,32,909,28.4,16.7,52.1,15.9,12.1,7.8,2.7
 Brittney Sykes,Atlanta Dream,Guard,25,34,880,25.9,11.3,44.5,23.1,9.1,19.6,0.0
@@ -35,11 +35,11 @@ Bria Holmes,Connecticut Sun,Guard,25,34,529,15.6,11.3,48.7,20.4,5.3,9.7,0.8
 Rachel Banham,Connecticut Sun,Guard,25,29,353,12.2,4.7,43.5,18.0,4.9,11.4,-0.2
 Morgan Tuck,Connecticut Sun,Forward,25,33,352,10.7,10.0,47.6,19.6,10.7,12.8,0.3
 Brionna Jones,Connecticut Sun,Centre,23,27,227,8.4,16.4,51.7,21.0,14.9,6.6,0.7
-Natisha Hiedeman,Connecticut Sun,Guard,22,20,205,10.2,15.9,53.2,17.2,8.4,29.2,0.8
+Natisha Hiedeman,Connecticut Sun,Guard,22,20,205,10.3,15.9,53.2,17.2,8.4,29.2,0.8
 Layshia Clarendon,Connecticut Sun,Guard,28,9,138,15.3,17.3,53.6,18.9,9.1,22.2,0.6
 Kristine Anigwe,Connecticut Sun,Centre-Forward,22,17,121,7.1,8.6,40.0,18.8,14.2,3.8,0.0
 Theresa Plaisance,Connecticut Sun,Forward,27,9,64,7.1,10.8,44.4,17.4,14.3,0.0,0.2
-Bridget Carleton,Connecticut Sun,,0,4,29,7.2,-8.1,0.0,10.5,5.9,4.6,-0.2
+Bridget Carleton,Connecticut Sun,,0,4,29,7.3,-8.1,0.0,10.5,5.9,4.6,-0.2
 Arike Ogunbowale,Dallas Wings,Guard,22,33,1059,32.1,18.3,50.1,30.4,4.5,22.5,2.7
 Allisha Gray,Dallas Wings,Guard,24,34,1035,30.4,16.5,59.3,15.8,8.1,14.1,3.6
 Kayla Thornton,Dallas Wings,Forward,26,27,822,30.4,11.5,44.5,20.2,10.3,11.1,0.6
@@ -52,7 +52,7 @@ Imani McGee-Stafford,Dallas Wings,Centre,24,29,346,11.9,14.8,48.6,19.9,19.0,10.4
 Megan Gustafson,Dallas Wings,Forward,22,25,238,9.5,15.1,57.2,14.3,15.7,5.5,0.7
 Azura Stevens,Dallas Wings,Forward,23,9,144,16.0,11.8,38.9,20.6,13.2,6.7,-0.1
 Kristine Anigwe,Dallas Wings,Centre-Forward,22,10,129,12.9,8.4,40.4,16.7,16.6,4.1,0.0
-Tayler Hill,Dallas Wings,Guard,28,4,49,12.2,9.9,42.8,14.3,6.1,10.8,0.1
+Tayler Hill,Dallas Wings,Guard,28,4,49,12.3,9.9,42.8,14.3,6.1,10.8,0.1
 Karlie Samuelson,Dallas Wings,Guard,24,4,48,12.0,6.8,42.9,6.7,2.5,6.9,0.1
 Candice Dupree,Indiana Fever,Forward,34,34,1043,30.7,14.5,50.2,19.3,9.4,14.9,1.6
 Betnijah Laney,Indiana Fever,Guard-Forward,25,34,877,25.8,8.7,42.4,14.2,9.4,10.7,0.1
@@ -66,19 +66,6 @@ Shenise Johnson,Indiana Fever,Guard,28,17,219,12.9,12.8,42.8,22.5,9.2,14.1,0.2
 Stephanie Mavunga,Indiana Fever,Forward,24,24,204,8.5,12.9,55.1,14.3,15.8,3.3,0.6
 Erica McCall,Indiana Fever,Forward,23,15,104,6.9,6.7,27.4,12.4,15.0,8.4,0.0
 Paris Kea,Indiana Fever,Guard,23,11,60,5.5,10.2,50.4,28.4,4.8,18.7,-0.1
-Kayla McBride,Las Vegas Aces,Guard,27,34,990,29.1,16.7,56.6,19.9,7.8,15.0,3.7
-Kelsey Plum,Las Vegas Aces,Guard,24,34,868,25.5,10.0,47.2,18.0,6.1,18.9,1.2
-Dearica Hamby,Las Vegas Aces,Forward,25,34,842,24.8,18.9,55.8,20.2,16.6,13.4,3.6
-Liz Cambage,Las Vegas Aces,Centre,27,32,807,25.2,24.3,55.8,28.1,17.6,16.8,4.1
-Jackie Young,Las Vegas Aces,Guard,21,34,767,22.6,12.4,42.0,18.0,7.9,30.9,1.3
-A'ja Wilson,Las Vegas Aces,Centre,22,26,740,28.5,21.0,54.7,26.1,12.4,12.0,3.1
-Tamera Young,Las Vegas Aces,Forward,32,34,628,18.5,9.5,43.7,17.4,10.8,16.8,0.6
-Sugar Rodgers,Las Vegas Aces,Guard,29,33,382,11.6,9.5,49.9,15.8,6.8,16.0,0.5
-Sydney Colson,Las Vegas Aces,Guard,29,33,379,11.5,13.5,55.8,14.3,3.3,24.1,1.2
-Carolyn Swords,Las Vegas Aces,Centre,29,29,257,8.9,9.5,47.6,16.0,13.4,6.3,0.4
-JiSu Park,Las Vegas Aces,Centre,20,25,163,6.5,1.4,24.4,12.6,9.0,8.8,-0.2
-Epiphanny Prince,Las Vegas Aces,Guard,31,3,28,9.3,20.0,65.0,15.3,3.9,18.9,0.2
-Jaime Nared,Las Vegas Aces,Guard-Forward,23,1,1,1.0,-19.9,,0.0,0.0,0.0,0.0
 Chelsea Gray,Los Angeles Sparks,Guard,26,34,1108,32.6,15.8,50.9,23.8,6.6,31.1,2.4
 Nneka Ogwumike,Los Angeles Sparks,Forward,28,32,892,27.9,25.7,57.5,25.2,18.0,12.4,5.5
 Tierra Ruffin-Pratt,Los Angeles Sparks,Guard,28,34,856,25.2,8.6,47.7,12.6,5.5,9.9,1.5
@@ -93,6 +80,19 @@ Alana Beard,Los Angeles Sparks,Guard-Forward,37,16,235,14.7,10.3,49.1,11.7,5.8,1
 Maria Vadeeva,Los Angeles Sparks,Centre,20,15,180,12.0,24.8,53.3,31.6,18.3,11.8,0.7
 Karlie Samuelson,Los Angeles Sparks,Guard,24,3,36,12.0,0.1,21.4,8.7,3.2,11.5,0.0
 Ashley Walker,Los Angeles Sparks,Forward-Centre,32,3,22,7.3,-6.1,9.1,22.3,7.8,19.2,-0.1
+Kayla McBride,Las Vegas Aces,Guard,27,34,990,29.1,16.7,56.6,19.9,7.8,15.0,3.7
+Kelsey Plum,Las Vegas Aces,Guard,24,34,868,25.5,10.0,47.2,18.0,6.1,18.9,1.2
+Dearica Hamby,Las Vegas Aces,Forward,25,34,842,24.8,18.9,55.8,20.2,16.6,13.4,3.6
+Liz Cambage,Las Vegas Aces,Centre,27,32,807,25.2,24.3,55.8,28.1,17.6,16.8,4.1
+Jackie Young,Las Vegas Aces,Guard,21,34,767,22.6,12.4,42.0,18.0,7.9,30.9,1.3
+A'ja Wilson,Las Vegas Aces,Centre,22,26,740,28.5,21.0,54.7,26.1,12.4,12.0,3.1
+Tamera Young,Las Vegas Aces,Forward,32,34,628,18.5,9.5,43.7,17.4,10.8,16.8,0.6
+Sugar Rodgers,Las Vegas Aces,Guard,29,33,382,11.6,9.5,49.9,15.8,6.8,16.0,0.5
+Sydney Colson,Las Vegas Aces,Guard,29,33,379,11.5,13.5,55.8,14.3,3.3,24.1,1.2
+Carolyn Swords,Las Vegas Aces,Centre,29,29,257,8.9,9.5,47.6,16.0,13.4,6.3,0.4
+JiSu Park,Las Vegas Aces,Centre,20,25,163,6.5,1.4,24.4,12.6,9.0,8.8,-0.2
+Epiphanny Prince,Las Vegas Aces,Guard,31,3,28,9.3,20.0,65.0,15.3,3.9,18.9,0.2
+Jaime Nared,Las Vegas Aces,Guard-Forward,23,1,1,1.0,-19.9,,0.0,0.0,0.0,0.0
 Napheesa Collier,Minnesota Lynx,Forward,22,34,1131,33.3,18.5,57.6,17.9,12.1,12.6,5.2
 Odyssey Sims,Minnesota Lynx,Guard,26,34,1083,31.9,15.0,48.8,25.5,6.5,29.3,2.1
 Sylvia Fowles,Minnesota Lynx,Centre,33,34,1003,29.5,22.2,61.3,20.0,18.5,9.1,5.3
@@ -108,13 +108,13 @@ Karima Christmas-Kelly,Minnesota Lynx,Guard-Forward,29,6,72,12.0,6.4,39.6,15.1,4
 Asia Taylor,Minnesota Lynx,Guard,27,8,65,8.1,14.3,50.7,20.5,13.2,17.9,0.2
 Shao Ting,Minnesota Lynx,Forward,29,5,27,5.4,-1.6,26.5,22.1,13.7,10.9,-0.1
 Jillian Alleyne,Minnesota Lynx,,0,5,14,2.8,16.0,33.3,19.2,21.9,11.6,0.0
-Bridget Carleton,Minnesota Lynx,,0,4,11,2.8,11.1,75.0,8.2,5.6,0.0,0.0
 Kenisha Bell,Minnesota Lynx,Guard,23,3,11,3.7,-5.9,0.0,8.2,5.6,12.0,0.0
+Bridget Carleton,Minnesota Lynx,,0,4,11,2.8,11.1,75.0,8.2,5.6,0.0,0.0
 Tina Charles,New York Liberty,Centre,30,33,1028,31.2,14.8,44.8,30.2,13.8,15.0,-0.1
 Kia Nurse,New York Liberty,Guard,23,34,1001,29.4,14.7,55.4,20.8,4.8,13.5,1.9
 Brittany Boyd,New York Liberty,Guard,26,33,649,19.7,13.0,44.9,18.6,10.6,38.2,0.0
 Tanisha Wright,New York Liberty,Guard,35,31,613,19.8,12.7,51.2,14.3,8.0,32.6,0.6
-Amanda Zahui B.,New York Liberty,Centre,25,24,558,23.2,15.8,56.0,17.0,15.5,6.6,1.4
+Amanda Zahui B.,New York Liberty,Centre,25,24,558,23.3,15.8,56.0,17.0,15.5,6.6,1.4
 Bria Hartley,New York Liberty,Guard,26,24,545,22.7,12.9,49.2,23.2,8.0,24.3,0.3
 Reshanda Gray,New York Liberty,Forward,26,34,519,15.3,11.1,50.2,18.5,19.3,6.0,0.5
 Asia Durr,New York Liberty,Guard,22,18,480,26.7,11.3,54.1,16.6,3.4,11.3,0.4
@@ -152,13 +152,13 @@ Blake Dietrick,Seattle Storm,Guard,25,17,106,6.2,0.7,23.7,9.8,5.8,22.0,-0.2
 Anriel Howard,Seattle Storm,,0,3,20,6.7,4.0,50.0,16.0,9.2,0.0,0.0
 Natasha Cloud,Washington Mystics,Guard,27,34,1093,32.1,12.2,50.1,15.5,4.7,24.1,2.5
 Elena Delle Donne,Washington Mystics,Guard-Forward,29,31,901,29.1,31.8,63.3,25.7,17.2,13.2,7.7
-Ariel Atkins,Washington Mystics,Guard,22,33,804,24.4,17.0,53.2,20.0,7.0,12.2,3.0
 LaToya Sanders,Washington Mystics,Forward,32,34,804,23.6,16.3,55.0,12.4,14.1,11.6,3.4
+Ariel Atkins,Washington Mystics,Guard,22,33,804,24.4,17.0,53.2,20.0,7.0,12.2,3.0
 Kristi Toliver,Washington Mystics,Guard,32,23,678,29.5,20.9,59.5,20.0,6.0,31.1,3.3
 Aerial Powers,Washington Mystics,Forward,25,30,593,19.8,21.8,58.7,25.9,10.0,12.0,3.0
 Shatori Walker-Kimbrough,Washington Mystics,Guard,24,34,580,17.1,15.2,56.4,18.5,5.6,10.6,1.9
 Emma Meesseman,Washington Mystics,Centre,26,23,543,23.6,27.3,62.8,22.0,10.9,22.7,4.0
 Tianna Hawkins,Washington Mystics,Forward,28,31,477,15.4,23.5,62.3,26.1,16.5,8.3,2.7
 Myisha Hines-Allen,Washington Mystics,Forward,23,27,211,7.8,12.6,42.4,20.6,16.7,16.3,0.3
-Kim Mestdagh,Washington Mystics,Guard,29,15,71,4.7,8.8,58.3,16.0,3.4,11.8,0.1
 Shey Peddy,Washington Mystics,Guard,30,15,71,4.7,20.2,83.1,12.0,7.7,16.0,0.5
+Kim Mestdagh,Washington Mystics,Guard,29,15,71,4.7,8.8,58.3,16.0,3.4,11.8,0.1
