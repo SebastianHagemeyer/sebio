@@ -7,14 +7,19 @@ modal: true
 <style>
   body {
     background: var(--color-bg);
-    margin: 0;
+  }
+
+  /* Scope the centred column to this page's own content wrapper — NOT body,
+     which also holds the shared header. Centring body shrank the full-width
+     header and dropped the Home pill on top of the title. */
+  #content {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2rem 1.5rem 3rem;
   }
 
-  body > p {
+  #content > p {
     color: var(--color-text-muted);
     margin: 0 0 2rem;
   }
