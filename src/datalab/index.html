@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Data Lab &middot; Year 10 Statistics</title>
 <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+<title>Data Lab &middot; Year 10 Statistics</title>
 <meta name="description" content="Pick a real dataset, ask your own question, plot it and answer it.">
 <style>
 *,*::before,*::after{box-sizing:border-box}
@@ -21,8 +21,6 @@ header{background:var(--navy);color:#fff;padding:40px 0 34px}
 header h1{margin:0 0 8px;font-size:2.1rem;line-height:1.15}
 header p{margin:0;font-size:1.05rem;opacity:.93;max-width:60ch}
 .uplink{margin:0 0 14px !important;font-size:.9rem !important}
-.backarrow{width:1.05em;height:1.05em;vertical-align:-.18em;margin-right:.3em;transition:transform .15s ease}
-.uplink a:hover .backarrow,.uplink a:focus-visible .backarrow{transform:translateX(-3px)}
 .uplink a{color:#ffd45e;text-decoration:none;font-weight:600}
 .uplink a:hover,.uplink a:focus{text-decoration:underline}
 nav{position:sticky;top:0;z-index:20;background:var(--navy-2);
@@ -59,22 +57,6 @@ h3{font-size:1.06rem;margin:22px 0 6px}
 .btn:hover,.btn:focus{background:var(--navy-2)}
 .btn.ghost{background:#fff;color:var(--navy)}
 .btn.ghost:hover,.btn.ghost:focus{background:var(--blue)}
-/* Collapsible dataset details: each card starts compact and the View button
-   expands the heavy dl vertically. The grid 0fr/1fr trick animates the height
-   without hard-coding it. The wrapper is added by JS, so with no JS the details
-   just show as normal. */
-.view-toggle{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
-  margin:2px 0 0;background:var(--blue);color:var(--navy);border:1px solid var(--line);
-  padding:7px 13px;border-radius:7px;font-weight:650;font-size:.9rem;
-  cursor:pointer;font-family:inherit}
-.view-toggle:hover,.view-toggle:focus{background:#d7e2f5}
-.view-toggle .chev{width:16px;height:16px;transition:transform .25s ease}
-.card.open .view-toggle .chev{transform:rotate(180deg)}
-.card-more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
-.card.open .card-more{grid-template-rows:1fr}
-.card-more>.card-more-inner{overflow:hidden;min-height:0}
-@media (prefers-reduced-motion:reduce){.card-more{transition:none}.view-toggle .chev{transition:none}}
-@media print{.card-more{grid-template-rows:1fr}.view-toggle{display:none}}
 details{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
 summary{cursor:pointer;font-weight:650;font-size:.9rem;color:var(--navy)}
 .scroll{overflow-x:auto;margin-top:10px;-webkit-overflow-scrolling:touch}
@@ -104,6 +86,24 @@ footer{margin-top:40px;padding:26px 0;background:var(--navy);color:#fff;font-siz
 footer a{color:#ffd45e}
 .copied{color:#1a7f37;font-weight:700;font-size:.86rem;align-self:center}
 @media print{nav{position:static}.actions{display:none}}
+.backarrow{width:1.05em;height:1.05em;vertical-align:-.18em;margin-right:.3em;transition:transform .15s ease}
+.uplink a:hover .backarrow,.uplink a:focus-visible .backarrow{transform:translateX(-3px)}
+/* Collapsible dataset details: each card starts compact and the View button
+   expands the heavy dl vertically. The grid 0fr/1fr trick animates the height
+   without hard-coding it. The wrapper is added by JS, so with no JS the details
+   just show as normal. */
+.view-toggle{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
+  margin:2px 0 0;background:var(--blue);color:var(--navy);border:1px solid var(--line);
+  padding:7px 13px;border-radius:7px;font-weight:650;font-size:.9rem;
+  cursor:pointer;font-family:inherit}
+.view-toggle:hover,.view-toggle:focus{background:#d7e2f5}
+.view-toggle .chev{width:16px;height:16px;transition:transform .25s ease}
+.card.open .view-toggle .chev{transform:rotate(180deg)}
+.card-more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
+.card.open .card-more{grid-template-rows:1fr}
+.card-more>.card-more-inner{overflow:hidden;min-height:0}
+@media (prefers-reduced-motion:reduce){.card-more{transition:none}.view-toggle .chev{transition:none}}
+@media print{.card-more{grid-template-rows:1fr}.view-toggle{display:none}}
 </style>
 </head>
 <body>
