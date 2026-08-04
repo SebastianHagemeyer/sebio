@@ -157,6 +157,17 @@
       .home-link:hover {
         text-decoration: underline;
       }
+      .backarrow {
+        width: 1.05em;
+        height: 1.05em;
+        vertical-align: -0.18em;
+        margin-right: 0.3em;
+        transition: transform 0.15s ease;
+      }
+      .home-link:hover .backarrow,
+      .home-link:focus-visible .backarrow {
+        transform: translateX(-3px);
+      }
       @media (prefers-reduced-motion: reduce) {
         .overlay {
           animation: none !important;
@@ -168,7 +179,7 @@
     </style>
   </head>
   <body>
-    <a class="home-link" href="/">← Home</a>
+    <a class="home-link" href="/"><svg class="backarrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H7" /><path d="M13 6l-6 6 6 6" /></svg>Home</a>
     <h1>Cell Passport</h1>
     <div class="switch">
       <button id="btnAnimal" class="active">🐾 Animal cell</button>

@@ -20,6 +20,8 @@ header{background:var(--navy);color:#fff;padding:40px 0 34px}
 header h1{margin:0 0 8px;font-size:2.1rem;line-height:1.15}
 header p{margin:0;font-size:1.05rem;opacity:.93;max-width:60ch}
 .uplink{margin:0 0 14px !important;font-size:.9rem !important}
+.backarrow{width:1.05em;height:1.05em;vertical-align:-.18em;margin-right:.3em;transition:transform .15s ease}
+.uplink a:hover .backarrow,.uplink a:focus-visible .backarrow{transform:translateX(-3px)}
 .uplink a{color:#ffd45e;text-decoration:none;font-weight:600}
 .uplink a:hover,.uplink a:focus{text-decoration:underline}
 nav{position:sticky;top:0;z-index:20;background:var(--navy-2);
@@ -123,7 +125,7 @@ figcaption{font-size:.86rem;color:var(--muted);margin-top:7px}
 </head>
 <body>
 <header><div class="wrap">
-<p class="uplink"><a href="../">&larr; Back to the Data Lab</a></p>
+<p class="uplink"><a href="../"><svg class="backarrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H7" /><path d="M13 6l-6 6 6 6" /></svg>Back to the Data Lab</a></p>
 <h1>Worked example: the skinny legends</h1>
 <p>One whole investigation, start to finish, on the AFL file. This is what a finished
 one looks like. It is not longer than yours needs to be.</p>

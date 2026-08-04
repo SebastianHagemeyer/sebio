@@ -546,6 +546,21 @@ body.catalog h2 {
   background: var(--color-brand-strong);
 }
 
+/* Thick back-arrow icon, the left-pointing twin of the hub's forward arrow.
+   Inherits the link colour via currentColor and slides on hover like it. */
+.backarrow {
+  width: 1.05em;
+  height: 1.05em;
+  vertical-align: -0.18em;
+  margin-right: 0.3em;
+  transition: transform 0.15s ease;
+}
+
+a:hover > .backarrow,
+a:focus-visible > .backarrow {
+  transform: translateX(-3px);
+}
+
 /* ---- Footer ------------------------------------------------ */
 .sitefoot {
   background: var(--color-brand);
