@@ -58,6 +58,22 @@ h3{font-size:1.06rem;margin:22px 0 6px}
 .btn:hover,.btn:focus{background:var(--navy-2)}
 .btn.ghost{background:#fff;color:var(--navy)}
 .btn.ghost:hover,.btn.ghost:focus{background:var(--blue)}
+/* Collapsible dataset details: each card starts compact and the View button
+   expands the heavy dl vertically. The grid 0fr/1fr trick animates the height
+   without hard-coding it. The wrapper is added by JS, so with no JS the details
+   just show as normal. */
+.view-toggle{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
+  margin:2px 0 0;background:var(--blue);color:var(--navy);border:1px solid var(--line);
+  padding:7px 13px;border-radius:7px;font-weight:650;font-size:.9rem;
+  cursor:pointer;font-family:inherit}
+.view-toggle:hover,.view-toggle:focus{background:#d7e2f5}
+.view-toggle .chev{width:16px;height:16px;transition:transform .25s ease}
+.card.open .view-toggle .chev{transform:rotate(180deg)}
+.card-more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
+.card.open .card-more{grid-template-rows:1fr}
+.card-more>.card-more-inner{overflow:hidden;min-height:0}
+@media (prefers-reduced-motion:reduce){.card-more{transition:none}.view-toggle .chev{transition:none}}
+@media print{.card-more{grid-template-rows:1fr}.view-toggle{display:none}}
 details{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
 summary{cursor:pointer;font-weight:650;font-size:.9rem;color:var(--navy)}
 .scroll{overflow-x:auto;margin-top:10px;-webkit-overflow-scrolling:touch}
@@ -279,6 +295,49 @@ document.addEventListener('click', function (e) {
   } else {
     window.prompt('Copy this link:', url);
   }
+});
+
+// Collapse each dataset card down to its title + row summary. Everything after
+// the summary (the details, the buttons, the data peek) moves into a wrapper
+// that the View button expands vertically. Done in JS so no-JS users still see
+// the full card.
+document.querySelectorAll('.card').forEach(function (card, i) {
+  var rows = card.querySelector('.rows');
+  if (!rows) return;
+
+  var outer = document.createElement('div');
+  outer.className = 'card-more';
+  outer.id = 'card-more-' + i;
+  var inner = document.createElement('div');
+  inner.className = 'card-more-inner';
+  outer.appendChild(inner);
+
+  // Move every sibling after the summary line into the collapsible wrapper.
+  var node = rows.nextSibling;
+  while (node) {
+    var next = node.nextSibling;
+    inner.appendChild(node);
+    node = next;
+  }
+
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'view-toggle';
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-controls', outer.id);
+  btn.innerHTML = '<span>View details</span>' +
+    '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="3" stroke-linecap="round" stroke-linejoin="round" ' +
+    'aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>';
+
+  card.appendChild(btn);
+  card.appendChild(outer);
+
+  btn.addEventListener('click', function () {
+    var open = card.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.querySelector('span').textContent = open ? 'Hide details' : 'View details';
+  });
 });
 </script>
 </body>
